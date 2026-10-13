@@ -1,0 +1,981 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+<head>
+  <meta charset="utf-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover"/>
+  <title>ALMA Academy | Quick Demo & Overview</title>
+  <meta name="description" content="Quick mobile overview of ALMA Academy - AI-powered adaptive programming platform with a friendly AI teacher."/>
+  
+  <!-- Signature Arch Favicon -->
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><path d='M4,30V14A12,12 0 0 1 28,14V30Z' fill='%23FFA11F'/><rect x='9' y='14' width='14' height='10' rx='5' fill='%2310292E'/><circle cx='13' cy='18' r='1.5' fill='%23FFF8EC'/><circle cx='19' cy='18' r='1.5' fill='%23FFF8EC'/></svg>"/>
+
+  <!-- Google Fonts: Baloo 2, Baloo Bhaijaan 2, Readex Pro, JetBrains Mono -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@700;800&family=Baloo+Bhaijaan+2:wght@700;800&family=Readex+Pro:wght@400;500;600&family=JetBrains+Mono:wght@500&display=swap" rel="stylesheet">
+
+  <style>
+    :root {
+      --mango: #FFA11F;
+      --ink: #10292E;
+      --pine: #1B3F45;
+      --lagoon-deep: #0B6B63;
+      --lagoon: #118A80;
+      --coral: #F25C78;
+      --sky: #7CCBF0;
+      --lemon: #FFD84A;
+      --cream: #FFF8EC;
+      --white: #FFFFFF;
+      --border: #D5DED8;
+      --slate: #5A6E70;
+
+      --font-display-en: 'Baloo 2', system-ui, sans-serif;
+      --font-display-ar: 'Baloo Bhaijaan 2', 'Baloo 2', system-ui, sans-serif;
+      --font-body: 'Readex Pro', system-ui, sans-serif;
+      --font-code: 'JetBrains Mono', ui-monospace, monospace;
+
+      --radius-card: 20px;
+      --radius-pill: 9999px;
+      --btn-height: 52px;
+      --max-width: 1140px;
+    }
+
+    *, *::before, *::after {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      -webkit-tap-highlight-color: transparent;
+    }
+
+    html {
+      scroll-behavior: smooth;
+      background-color: var(--cream);
+      color: var(--ink);
+      font-size: 16px;
+    }
+
+    body {
+      min-height: 100vh;
+      background-color: var(--cream);
+      color: var(--ink);
+      font-family: var(--font-body);
+      font-weight: 400;
+      font-size: 1rem;
+      line-height: 1.6;
+      overflow-x: hidden;
+    }
+
+    html[lang="en"] h1, html[lang="en"] h2, html[lang="en"] h3 {
+      font-family: var(--font-display-en);
+    }
+    html[lang="ar"] h1, html[lang="ar"] h2, html[lang="ar"] h3 {
+      font-family: var(--font-display-ar);
+      line-height: 1.35;
+    }
+
+    :focus-visible {
+      outline: 3px solid var(--mango);
+      outline-offset: 3px;
+    }
+
+    .container {
+      width: 100%;
+      max-width: var(--max-width);
+      margin-inline: auto;
+      padding-inline: 14px;
+    }
+
+    @media (min-width: 480px) {
+      .container {
+        padding-inline: 20px;
+      }
+    }
+
+    /* Buttons */
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      height: var(--btn-height);
+      min-height: var(--btn-height);
+      padding: 0 24px;
+      border-radius: var(--radius-pill);
+      font-family: var(--font-display-en);
+      font-weight: 700;
+      font-size: 1.0625rem;
+      cursor: pointer;
+      text-decoration: none;
+      border: none;
+      transition: transform 0.18s ease, background-color 0.18s ease;
+      white-space: nowrap;
+    }
+
+    html[lang="ar"] .btn {
+      font-family: var(--font-display-ar);
+    }
+
+    .btn-mango {
+      background-color: var(--mango);
+      color: var(--ink); /* Text on mango is always ink */
+    }
+    .btn-mango:hover {
+      background-color: #ff9900;
+      transform: translateY(-2px);
+    }
+
+    .btn-outlined-cream {
+      background-color: transparent;
+      color: var(--cream);
+      border: 2px solid var(--cream);
+    }
+    .btn-outlined-cream:hover {
+      background-color: rgba(255, 248, 236, 0.12);
+      transform: translateY(-2px);
+    }
+
+    .btn-sm {
+      height: 38px;
+      min-height: 38px;
+      padding: 0 12px;
+      font-size: 0.8125rem;
+    }
+
+    @media (min-width: 480px) {
+      .btn-sm {
+        height: 42px;
+        min-height: 42px;
+        padding: 0 18px;
+        font-size: 0.9375rem;
+      }
+    }
+
+    /* Label toggling for small phone viewports */
+    .short-label {
+      display: none;
+    }
+    @media (max-width: 390px) {
+      .full-label {
+        display: none !important;
+      }
+      .short-label {
+        display: inline !important;
+      }
+    }
+
+    .arch-icon-wrap {
+      width: 44px;
+      height: 54px;
+      border-radius: 22px 22px 8px 8px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+    }
+
+    /* Header */
+    .site-header {
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      background-color: var(--cream);
+      border-bottom: 1px solid var(--border);
+      padding-block: 8px;
+    }
+
+    .header-inner {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 6px;
+    }
+
+    .header-brand {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      text-decoration: none;
+      color: var(--ink);
+      flex-shrink: 0;
+    }
+
+    .brand-mark {
+      width: 24px;
+      height: 34px;
+      flex-shrink: 0;
+    }
+
+    .brand-title {
+      font-weight: 800;
+      font-size: 1.15rem;
+      color: var(--ink);
+      line-height: 1;
+    }
+    .brand-sub {
+      display: block;
+      font-size: 0.625rem;
+      font-weight: 500;
+      color: var(--slate);
+      letter-spacing: 0.04em;
+    }
+
+    .header-actions {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      flex-shrink: 0;
+    }
+
+    .lang-toggle {
+      display: inline-flex;
+      align-items: center;
+      background-color: var(--white);
+      border: 1.5px solid var(--border);
+      border-radius: var(--radius-pill);
+      padding: 2px;
+      gap: 1px;
+      font-size: 0.75rem;
+      font-weight: 600;
+      flex-shrink: 0;
+    }
+
+    .lang-btn {
+      border: none;
+      background: transparent;
+      padding: 5px 8px;
+      min-height: 32px;
+      min-width: 32px;
+      border-radius: var(--radius-pill);
+      color: var(--slate);
+      cursor: pointer;
+    }
+
+    .lang-btn.active {
+      background-color: var(--ink);
+      color: var(--cream);
+    }
+
+    /* QR Top Alert */
+    .qr-badge-banner {
+      background-color: var(--pine);
+      color: var(--cream);
+      padding: 8px 16px;
+      text-align: center;
+      font-size: 0.8125rem;
+      font-weight: 500;
+    }
+    .qr-badge-banner a {
+      color: var(--mango);
+      text-decoration: underline;
+      font-weight: 700;
+      margin-inline-start: 6px;
+    }
+
+    /* Hero */
+    .hero-section {
+      background-color: var(--ink);
+      color: var(--cream);
+      border-radius: 0 0 32px 32px;
+      padding-top: 22px;
+      padding-bottom: 34px;
+      overflow: hidden;
+    }
+
+    .hero-grid {
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+      align-items: center;
+      text-align: center;
+    }
+
+    @media (min-width: 860px) {
+      .hero-section {
+        padding-top: 56px;
+        padding-bottom: 64px;
+        border-radius: 0 0 48px 48px;
+      }
+      .hero-grid {
+        display: grid;
+        grid-template-columns: 1.15fr 0.85fr;
+        gap: 40px;
+        align-items: center;
+        text-align: start;
+      }
+    }
+
+    .hero-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background-color: var(--pine);
+      color: var(--lemon);
+      padding: 4px 14px;
+      border-radius: var(--radius-pill);
+      font-size: 0.8125rem;
+      font-weight: 500;
+      margin-bottom: 10px;
+      border: 1px solid rgba(255, 216, 74, 0.2);
+    }
+    .hero-badge::before {
+      content: '';
+      width: 7px;
+      height: 7px;
+      border-radius: 50%;
+      background-color: var(--lemon);
+    }
+
+    .hero-headline {
+      font-size: clamp(1.85rem, 6.2vw, 3.4rem);
+      font-weight: 800;
+      line-height: 1.12;
+      color: var(--cream);
+      margin-bottom: 12px;
+    }
+
+    .hero-headline .mango-word {
+      color: var(--mango);
+    }
+
+    .hero-sentence {
+      font-size: clamp(0.9375rem, 3.2vw, 1.125rem);
+      line-height: 1.5;
+      color: #E2ECE8;
+      margin-bottom: 22px;
+      max-width: 52ch;
+    }
+
+    .hero-cta-group {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      width: 100%;
+    }
+
+    @media (min-width: 480px) {
+      .hero-cta-group {
+        flex-direction: row;
+        width: auto;
+      }
+    }
+
+    .hero-stage {
+      display: flex;
+      justify-content: center;
+      align-items: flex-end;
+      width: 100%;
+      max-width: 320px;
+      position: relative;
+    }
+
+    @media (min-width: 860px) {
+      .hero-stage {
+        max-width: 380px;
+        justify-content: flex-end;
+      }
+    }
+
+    .arch-pedestal {
+      position: relative;
+      width: 220px;
+      height: 240px;
+      display: flex;
+      justify-content: center;
+      align-items: flex-end;
+    }
+    @media (min-width: 860px) {
+      .arch-pedestal {
+        width: 280px;
+        height: 300px;
+      }
+    }
+    .arch-pedestal::before {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      width: 100%;
+      height: 75%;
+      background-color: var(--mango);
+      border-radius: 140px 140px 18px 18px;
+      z-index: 1;
+    }
+
+    .hero-mascot-svg {
+      width: 190px;
+      height: auto;
+      position: relative;
+      z-index: 2;
+      margin-bottom: 12px;
+      animation: softBob 4s ease-in-out infinite;
+    }
+    @media (min-width: 860px) {
+      .hero-mascot-svg {
+        width: 240px;
+      }
+    }
+
+    @keyframes softBob {
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(-7px); }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      .hero-mascot-svg {
+        animation: none !important;
+      }
+    }
+
+    /* Section General */
+    .section {
+      padding-block: 54px;
+    }
+    @media (min-width: 768px) {
+      .section {
+        padding-block: 72px;
+      }
+    }
+
+    .section-header {
+      margin-bottom: 30px;
+      text-align: center;
+    }
+    .section-title {
+      font-size: clamp(1.65rem, 4.4vw, 2.5rem);
+      font-weight: 800;
+      color: var(--ink);
+      line-height: 1.15;
+      margin-bottom: 10px;
+    }
+
+    .card {
+      background-color: var(--white);
+      border: 1.5px solid var(--border);
+      border-radius: var(--radius-card);
+      padding: 24px;
+      transition: transform 0.2s ease;
+    }
+    .card:hover {
+      transform: translateY(-3px);
+    }
+
+    /* Features Grid */
+    .features-grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 16px;
+    }
+    @media (min-width: 600px) {
+      .features-grid {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 20px;
+      }
+    }
+
+    .feature-card {
+      display: flex;
+      flex-direction: column;
+      gap: 14px;
+    }
+    .feature-title {
+      font-size: 1.25rem;
+      font-weight: 700;
+      color: var(--ink);
+    }
+    .feature-desc {
+      font-size: 0.9375rem;
+      color: var(--slate);
+      line-height: 1.5;
+    }
+
+    /* Video Section */
+    .video-card-section {
+      background-color: var(--ink);
+      color: var(--cream);
+      border-radius: 28px;
+      padding: 34px 20px;
+      text-align: center;
+    }
+    @media (min-width: 768px) {
+      .video-card-section {
+        padding: 56px 44px;
+        border-radius: 36px;
+      }
+    }
+    .video-card-section .section-title {
+      color: var(--cream);
+      margin-bottom: 24px;
+    }
+
+    .video-player-container {
+      max-width: 740px;
+      margin-inline: auto;
+      aspect-ratio: 16 / 9;
+      background-color: var(--pine);
+      border-radius: 20px;
+      border: 2px solid rgba(213, 222, 216, 0.18);
+      position: relative;
+      overflow: hidden;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+    }
+
+    .video-element {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: none;
+    }
+
+    .video-player-container.is-playing .video-element {
+      display: block;
+    }
+
+    .video-player-container.is-playing .big-play-arch,
+    .video-player-container.is-playing .video-time-tag {
+      display: none;
+    }
+
+    .big-play-arch {
+      width: 76px;
+      height: 94px;
+      background-color: var(--mango);
+      border-radius: 38px 38px 12px 12px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow: 0 10px 24px rgba(0, 0, 0, 0.3);
+      z-index: 5;
+    }
+    .video-player-container:hover .big-play-arch {
+      transform: scale(1.08);
+      background-color: #ff9900;
+    }
+
+    .play-triangle {
+      width: 0;
+      height: 0;
+      border-style: solid;
+      border-width: 14px 0 14px 24px;
+      border-color: transparent transparent transparent var(--ink);
+      margin-inline-start: 4px;
+    }
+    html[lang="ar"] .play-triangle {
+      transform: scaleX(-1);
+    }
+
+    .video-time-tag {
+      position: absolute;
+      bottom: 14px;
+      inset-inline-end: 16px;
+      background-color: rgba(16, 41, 46, 0.85);
+      color: var(--cream);
+      padding: 4px 10px;
+      border-radius: 6px;
+      font-size: 0.8125rem;
+      font-weight: 600;
+      font-family: var(--font-code);
+      z-index: 6;
+    }
+
+    /* Final CTA */
+    .cta-card {
+      background-color: var(--ink);
+      color: var(--cream);
+      border-radius: 28px;
+      padding: 38px 20px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+    }
+    @media (min-width: 768px) {
+      .cta-card {
+        padding: 60px 40px;
+        border-radius: 36px;
+      }
+    }
+
+    .cta-celebrate-mascot {
+      width: 140px;
+      height: auto;
+      margin-bottom: 16px;
+    }
+    @media (min-width: 768px) {
+      .cta-celebrate-mascot {
+        width: 180px;
+      }
+    }
+
+    .cta-title {
+      font-size: clamp(1.85rem, 5vw, 2.75rem);
+      font-weight: 800;
+      color: var(--cream);
+      margin-bottom: 18px;
+      max-width: 22ch;
+    }
+
+    .cta-contact-text {
+      margin-top: 18px;
+      font-size: 0.9375rem;
+      color: #C5CEC8;
+    }
+    .cta-contact-text a {
+      color: var(--sky);
+      text-decoration: underline;
+    }
+
+    /* Footer */
+    .site-footer {
+      background-color: var(--ink);
+      color: #A9BCBA;
+      padding-block: 40px 30px;
+      border-top: 1px solid var(--pine);
+      margin-top: 40px;
+      font-size: 0.875rem;
+    }
+
+    .footer-inner {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 18px;
+      text-align: center;
+    }
+    @media (min-width: 680px) {
+      .footer-inner {
+        flex-direction: row;
+        justify-content: space-between;
+        text-align: start;
+      }
+    }
+
+    .footer-brand {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      color: var(--cream);
+      font-weight: 700;
+    }
+
+    html[dir="rtl"] {
+      text-align: right;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Mascot Vectors -->
+  <svg width="0" height="0" style="position:absolute; display:none;" aria-hidden="true">
+    <defs>
+      <g id="s-alma-mark">
+        <path d="M30,228V106A70,70 0 0 1 170,106V228Q170,246 152,246H48Q30,246 30,228Z" fill="#FFA11F"/>
+        <rect x="89" y="3" width="22" height="22" rx="7" fill="#118A80" transform="rotate(12 100 14)"/>
+        <rect x="50" y="72" width="100" height="86" rx="38" fill="#10292E"/>
+        <rect x="73" y="89" width="14" height="26" rx="7" fill="#FFF8EC"/>
+        <rect x="113" y="89" width="14" height="26" rx="7" fill="#FFF8EC"/>
+        <path d="M87,133Q100,144 113,133" fill="none" stroke="#FFF8EC" stroke-width="5" stroke-linecap="round"/>
+        <circle cx="64" cy="128" r="6.5" fill="#F25C78" opacity=".9"/>
+        <circle cx="136" cy="128" r="6.5" fill="#F25C78" opacity=".9"/>
+      </g>
+      <g id="s-alma-happy">
+        <rect x="56" y="238" width="36" height="13" rx="6.5" fill="#10292E"/>
+        <rect x="108" y="238" width="36" height="13" rx="6.5" fill="#10292E"/>
+        <path d="M30,228V106A70,70 0 0 1 170,106V228Q170,246 152,246H48Q30,246 30,228Z" fill="#FFA11F"/>
+        <g transform="rotate(128 28 144)"><rect x="21" y="140" width="14" height="44" rx="7" fill="#F08A00"/></g>
+        <g transform="rotate(-128 172 144)"><rect x="165" y="140" width="14" height="44" rx="7" fill="#F08A00"/></g>
+        <rect x="89" y="3" width="22" height="22" rx="7" fill="#FFD84A" transform="rotate(8 100 14)"/>
+        <rect x="50" y="72" width="100" height="86" rx="38" fill="#10292E"/>
+        <path d="M71,107Q80,90 89,107M111,107Q120,90 129,107" fill="none" stroke="#FFF8EC" stroke-width="6" stroke-linecap="round"/>
+        <path d="M81,127Q100,156 119,127Z" fill="#FFF8EC" stroke="#FFF8EC" stroke-width="4" stroke-linejoin="round"/>
+        <circle cx="64" cy="128" r="6.5" fill="#F25C78" opacity=".9"/>
+        <circle cx="136" cy="128" r="6.5" fill="#F25C78" opacity=".9"/>
+        <polygon points="24,26 26.7,33.3 34,36 26.7,38.7 24,46 21.3,38.7 14,36 21.3,33.3" fill="#FFD84A"/>
+        <polygon points="178,23 179.9,28.1 185,30 179.9,31.9 178,37 176.1,31.9 171,30 176.1,28.1" fill="#F25C78" transform="rotate(10 178 30)"/>
+      </g>
+      <g id="s-alma-celebrate">
+        <rect x="56" y="238" width="36" height="13" rx="6.5" fill="#10292E"/>
+        <rect x="108" y="238" width="36" height="13" rx="6.5" fill="#10292E"/>
+        <path d="M30,228V106A70,70 0 0 1 170,106V228Q170,246 152,246H48Q30,246 30,228Z" fill="#FFA11F"/>
+        <g transform="rotate(156 28 144)"><rect x="21" y="140" width="14" height="44" rx="7" fill="#F08A00"/></g>
+        <g transform="rotate(-156 172 144)"><rect x="165" y="140" width="14" height="44" rx="7" fill="#F08A00"/></g>
+        <rect x="89" y="3" width="22" height="22" rx="7" fill="#F25C78" transform="rotate(14 100 14)"/>
+        <rect x="50" y="72" width="100" height="86" rx="38" fill="#10292E"/>
+        <path d="M71,107Q80,90 89,107M111,107Q120,90 129,107" fill="none" stroke="#FFF8EC" stroke-width="6" stroke-linecap="round"/>
+        <path d="M81,127Q100,156 119,127Z" fill="#FFF8EC" stroke="#FFF8EC" stroke-width="4" stroke-linejoin="round"/>
+        <circle cx="64" cy="128" r="6.5" fill="#F25C78" opacity=".9"/>
+        <circle cx="136" cy="128" r="6.5" fill="#F25C78" opacity=".9"/>
+        <rect x="12" y="22" width="9" height="9" rx="2" fill="#7CCBF0" transform="rotate(20 16 26)"/>
+        <rect x="182" y="46" width="9" height="9" rx="2" fill="#118A80" transform="rotate(-18 186 50)"/>
+        <circle cx="6" cy="64" r="4.5" fill="#F25C78"/>
+        <circle cx="196" cy="12" r="4.5" fill="#FFD84A"/>
+        <polygon points="30,0 32.1,5.9 38,8 32.1,10.1 30,16 27.9,10.1 22,8 27.9,5.9" fill="#FFD84A" transform="rotate(12 30 8)"/>
+      </g>
+    </defs>
+  </svg>
+
+  <div class="qr-badge-banner">
+    <span data-i18n="qr_note">📱 Quick Scan View.</span>
+    <a href="index.html" data-i18n="view_full">View Full Graduation Project Story &rarr;</a>
+  </div>
+
+  <!-- Header -->
+  <header class="site-header" role="banner">
+    <div class="container header-inner">
+      <a href="index.html" class="header-brand">
+        <svg class="brand-mark" viewBox="22 0 156 250">
+          <use href="#s-alma-mark"/>
+        </svg>
+        <div>
+          <span class="brand-title" data-i18n="brand_name">ALMA</span>
+          <span class="brand-sub">ACADEMY</span>
+        </div>
+      </a>
+
+      <div class="header-actions">
+        <div class="lang-toggle" role="group">
+          <button type="button" id="langEnBtn" class="lang-btn active">EN</button>
+          <button type="button" id="langArBtn" class="lang-btn">عربي</button>
+        </div>
+        <a href="https://drive.google.com/file/d/1XyQKvFtpa_yaLJ_N5yooWhe2RETPwjLp/view?usp=sharing" target="_blank" rel="noopener noreferrer" class="btn btn-mango btn-sm" data-i18n-html="nav_demo_btn">
+          <span class="full-label">Try the demo</span><span class="short-label">Demo</span>
+        </a>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    <!-- 1. Hero -->
+    <section class="hero-section">
+      <div class="container hero-grid">
+        <div>
+          <div class="hero-badge">
+            <span data-i18n="hero_label">AI programming teacher</span>
+          </div>
+          <h1 class="hero-headline" data-i18n-html="hero_headline">
+            Learn to code with an AI teacher who adapts to <span class="mango-word">you</span>.
+          </h1>
+          <p class="hero-sentence" data-i18n="hero_sentence">
+            ALMA is a friendly teacher you can talk to, in Arabic or English. It explains each lesson your way, step by step, any time you want.
+          </p>
+          <div class="hero-cta-group">
+            <a href="https://drive.google.com/file/d/1XyQKvFtpa_yaLJ_N5yooWhe2RETPwjLp/view?usp=sharing" target="_blank" rel="noopener noreferrer" class="btn btn-mango" data-i18n="hero_primary_btn">
+              Try the demo
+            </a>
+            <a href="#video" class="btn btn-outlined-cream" data-i18n="hero_secondary_btn">
+              Watch the 60-second video
+            </a>
+          </div>
+        </div>
+
+        <div class="hero-stage" aria-hidden="true">
+          <div class="arch-pedestal">
+            <svg class="hero-mascot-svg" viewBox="-10 -14 232 270">
+              <use href="#s-alma-happy"/>
+            </svg>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 2. The Four Feature Cards -->
+    <section id="features" class="section">
+      <div class="container">
+        <div class="section-header">
+          <h2 class="section-title" data-i18n="features_heading">What you get</h2>
+        </div>
+        <div class="features-grid">
+          <div class="card feature-card">
+            <div class="arch-icon-wrap" style="background-color: var(--mango);">
+              <svg viewBox="0 0 32 32" width="28" height="28" fill="none" stroke="var(--ink)" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round">
+                <rect x="12" y="4" width="8" height="14" rx="4" fill="#FFA11F"/>
+                <path d="M8 15a8 8 0 0 0 16 0M16 23v5"/>
+              </svg>
+            </div>
+            <h3 class="feature-title" data-i18n="feat1_title">Talk to your teacher</h3>
+            <p class="feature-desc" data-i18n="feat1_desc">Ask out loud and get a clear answer, any time.</p>
+          </div>
+
+          <div class="card feature-card">
+            <div class="arch-icon-wrap" style="background-color: var(--sky);">
+              <svg viewBox="0 0 32 32" width="28" height="28" fill="none" stroke="var(--ink)" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round">
+                <circle cx="16" cy="16" r="11"/>
+                <path d="M12 12h8M12 16h8M12 20h5"/>
+              </svg>
+            </div>
+            <h3 class="feature-title" data-i18n="feat2_title">Lessons that fit you</h3>
+            <p class="feature-desc" data-i18n="feat2_desc">Your name, your level and the way you like to learn.</p>
+          </div>
+
+          <div class="card feature-card">
+            <div class="arch-icon-wrap" style="background-color: var(--lemon);">
+              <svg viewBox="0 0 32 32" width="28" height="28" fill="none" stroke="var(--ink)" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M16 4l3.5 8L28 13l-6.2 5.8 1.7 8.2L16 22.8 8.5 27l1.7-8.2L4 13l8.5-1z" fill="#FFD84A"/>
+              </svg>
+            </div>
+            <h3 class="feature-title" data-i18n="feat3_title">Play and compete</h3>
+            <p class="feature-desc" data-i18n="feat3_desc">Live 1v1 coding duels, ranks and leaderboards.</p>
+          </div>
+
+          <div class="card feature-card">
+            <div class="arch-icon-wrap" style="background-color: var(--coral);">
+              <svg viewBox="0 0 32 32" width="28" height="28" fill="none" stroke="var(--ink)" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M22 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/>
+              </svg>
+            </div>
+            <h3 class="feature-title" data-i18n="feat4_title">Parents and teachers in the loop</h3>
+            <p class="feature-desc" data-i18n="feat4_desc">Simple progress views, and lessons built from a teacher's prompt.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 3. Video -->
+    <section id="video" class="section" style="padding-top:0;">
+      <div class="container">
+        <div class="video-card-section">
+          <h2 class="section-title" data-i18n="video_heading">See ALMA in 60 seconds</h2>
+          <div class="video-player-container" id="quickVideoCard" role="button" tabindex="0" aria-label="Play 60-second video demo">
+            <video id="quickVideoPlayer" class="video-element" preload="none" playsinline controls>
+              <source src="ALMA%20video1.mp4" type="video/mp4"/>
+              Your browser does not support the video tag.
+            </video>
+            <div class="big-play-arch">
+              <div class="play-triangle"></div>
+            </div>
+            <div class="video-time-tag">01:00</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 4. Final CTA -->
+    <section class="section">
+      <div class="container">
+        <div class="cta-card">
+          <svg class="cta-celebrate-mascot" viewBox="-10 -14 232 270">
+            <use href="#s-alma-celebrate"/>
+          </svg>
+          <h2 class="cta-title" data-i18n="cta_heading">Your coding journey starts here.</h2>
+          <a href="https://drive.google.com/file/d/1XyQKvFtpa_yaLJ_N5yooWhe2RETPwjLp/view?usp=sharing" target="_blank" rel="noopener noreferrer" class="btn btn-mango" style="font-size:1.125rem; padding:0 36px;" data-i18n="cta_btn">
+            Try the demo
+          </a>
+          <p class="cta-contact-text">
+            <span data-i18n="cta_email_lead">Questions or feedback?</span>
+            <a href="mailto:mohamadtareq954@gmail.com">mohamadtareq954@gmail.com</a>
+          </p>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <div class="container footer-inner">
+      <div class="footer-brand">
+        <svg viewBox="22 0 156 250" width="18" height="28">
+          <use href="#s-alma-mark"/>
+        </svg>
+        <span data-i18n="footer_title">ALMA Academy · Graduation project</span>
+      </div>
+      <div>&copy; 2026 ALMA Academy.</div>
+    </div>
+  </footer>
+
+  <script>
+    const I18N = {
+      en: {
+        brand_name: "ALMA",
+        qr_note: "📱 Quick Scan View for Mobile Visitors.",
+        view_full: "View Full Graduation Project Story →",
+        nav_demo_btn: '<span class="full-label">Try the demo</span><span class="short-label">Demo</span>',
+        hero_label: "AI programming teacher",
+        hero_headline: 'Learn to code with an AI teacher who adapts to <span class="mango-word">you</span>.',
+        hero_sentence: "ALMA is a friendly teacher you can talk to, in Arabic or English. It explains each lesson your way, step by step, any time you want.",
+        hero_primary_btn: "Try the demo",
+        hero_secondary_btn: "Watch the 60-second video",
+        features_heading: "What you get",
+        feat1_title: "Talk to your teacher",
+        feat1_desc: "Ask out loud and get a clear answer, any time.",
+        feat2_title: "Lessons that fit you",
+        feat2_desc: "Your name, your level and the way you like to learn.",
+        feat3_title: "Play and compete",
+        feat3_desc: "Live 1v1 coding duels, ranks and leaderboards.",
+        feat4_title: "Parents and teachers in the loop",
+        feat4_desc: "Simple progress views, and lessons built from a teacher's prompt.",
+        video_heading: "See ALMA in 60 seconds",
+        cta_heading: "Your coding journey starts here.",
+        cta_btn: "Try the demo",
+        cta_email_lead: "Questions or feedback?",
+        footer_title: "ALMA Academy · Graduation project"
+      },
+      ar: {
+        brand_name: "ألما",
+        qr_note: "📱 العرض السريع لزوار الهاتف ومسح الباركود (QR).",
+        view_full: "عرض قصة مشروع التخرج كاملة ←",
+        nav_demo_btn: '<span class="full-label">جرّب النسخة التجريبية</span><span class="short-label">جرّب الآن</span>',
+        hero_label: "معلّم برمجة ذكي",
+        hero_headline: 'تعلّم البرمجة مع معلّم ذكي يتكيّف <span class="mango-word">معك</span>.',
+        hero_sentence: "ألما معلّم ودود تتحدث إليه بالعربية أو الإنجليزية. يشرح لك كل درس بطريقتك، خطوةً بخطوة، وفي أي وقت.",
+        hero_primary_btn: "جرّب النسخة التجريبية",
+        hero_secondary_btn: "شاهد الفيديو (60 ثانية)",
+        features_heading: "ماذا تحصل عليه",
+        feat1_title: "تحدّث مع معلّمك",
+        feat1_desc: "اسأل بصوتك واحصل على إجابة واضحة في أي وقت.",
+        feat2_title: "دروس تناسبك",
+        feat2_desc: "باسمك ومستواك وبالطريقة التي تحب أن تتعلم بها.",
+        feat3_title: "العب وتنافس",
+        feat3_desc: "مبارزات برمجة مباشرة، ورتب، ولوحة متصدرين.",
+        feat4_title: "أولياء الأمور والمعلمون معك",
+        feat4_desc: "متابعة بسيطة للتقدم، ودروس تُبنى من وصف المعلّم.",
+        video_heading: "شاهد ألما في 60 ثانية",
+        cta_heading: "رحلتك في البرمجة تبدأ من هنا.",
+        cta_btn: "جرّب النسخة التجريبية",
+        cta_email_lead: "أسئلة أو ملاحظات؟",
+        footer_title: "أكاديمية ألما · مشروع تخرج"
+      }
+    };
+
+    let currentLang = localStorage.getItem('alma_lang') || 'en';
+
+    function setLanguage(lang) {
+      currentLang = lang;
+      localStorage.setItem('alma_lang', lang);
+      document.documentElement.lang = lang;
+      document.documentElement.dir = lang === 'ar' ? 'rtl' : 'ltr';
+
+      document.querySelectorAll('[data-i18n]').forEach(el => {
+        const k = el.getAttribute('data-i18n');
+        if (I18N[lang][k]) el.textContent = I18N[lang][k];
+      });
+      document.querySelectorAll('[data-i18n-html]').forEach(el => {
+        const k = el.getAttribute('data-i18n-html');
+        if (I18N[lang][k]) el.innerHTML = I18N[lang][k];
+      });
+
+      document.getElementById('langEnBtn')?.classList.toggle('active', lang === 'en');
+      document.getElementById('langArBtn')?.classList.toggle('active', lang === 'ar');
+    }
+
+    document.addEventListener('DOMContentLoaded', () => {
+      setLanguage(currentLang);
+      document.getElementById('langEnBtn')?.addEventListener('click', () => setLanguage('en'));
+      document.getElementById('langArBtn')?.addEventListener('click', () => setLanguage('ar'));
+
+      const vCard = document.getElementById('quickVideoCard');
+      const vEl = document.getElementById('quickVideoPlayer');
+      if (vCard && vEl) {
+        vCard.addEventListener('click', (e) => {
+          if (e.target === vEl) return;
+          if (vEl.paused) {
+            vCard.classList.add('is-playing');
+            vEl.play();
+          } else {
+            vEl.pause();
+          }
+        });
+      }
+    });
+  </script>
+</body>
+</html>

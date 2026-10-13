@@ -1,0 +1,2498 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+<head>
+  <meta charset="utf-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover"/>
+  <title>ALMA Academy | Learn to code with an AI teacher</title>
+  <meta name="description" content="ALMA is a friendly AI programming teacher you can talk to, in Arabic or English. It explains each lesson your way, step by step, any time you want."/>
+  
+  <!-- Social Share / Open Graph -->
+  <meta property="og:type" content="website"/>
+  <meta property="og:title" content="ALMA Academy | Learn to code with an AI teacher"/>
+  <meta property="og:description" content="An AI-powered adaptive programming platform with a friendly AI teacher called ALMA. University graduation project."/>
+  <meta property="og:image" content="data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1200 630' width='1200' height='630'><rect width='1200' height='630' fill='%23FFF8EC'/><path d='M400,630V240A200,200 0 0 1 800,240V630Z' fill='%23FFA11F'/><rect x='480' y='320' width='240' height='200' rx='90' fill='%2310292E'/><rect x='535' y='360' width='34' height='62' rx='17' fill='%23FFF8EC'/><rect x='631' y='360' width='34' height='62' rx='17' fill='%23FFF8EC'/><path d='M570,465Q600,490 630,465' fill='none' stroke='%23FFF8EC' stroke-width='12' stroke-linecap='round'/><circle cx='514' cy='455' r='16' fill='%23F25C78'/><circle cx='686' cy='455' r='16' fill='%23F25C78'/><rect x='573' y='160' width='54' height='54' rx='17' fill='%23118A80' transform='rotate(12 600 187)'/></svg>"/>
+  <meta name="twitter:card" content="summary_large_image"/>
+
+  <!-- Signature Arch Favicon (Mango Arch) -->
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><path d='M4,30V14A12,12 0 0 1 28,14V30Z' fill='%23FFA11F'/><rect x='9' y='14' width='14' height='10' rx='5' fill='%2310292E'/><circle cx='13' cy='18' r='1.5' fill='%23FFF8EC'/><circle cx='19' cy='18' r='1.5' fill='%23FFF8EC'/></svg>"/>
+
+  <!-- Google Fonts: Baloo 2, Baloo Bhaijaan 2, Readex Pro, JetBrains Mono -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@700;800&family=Baloo+Bhaijaan+2:wght@700;800&family=Readex+Pro:wght@400;500;600&family=JetBrains+Mono:wght@500&display=swap" rel="stylesheet">
+
+  <style>
+    /* -------------------------------------------------------------
+       BRAND DESIGN TOKENS (Strictly ALMA Academy Brand Identity)
+       ------------------------------------------------------------- */
+    :root {
+      /* Colors */
+      --mango: #FFA11F;         /* Primary Action (text on mango is ALWAYS ink) */
+      --ink: #10292E;           /* Main text, dark sections, face window */
+      --pine: #1B3F45;          /* Slightly lighter dark / surface */
+      --lagoon-deep: #0B6B63;   /* Deep lagoon for text & links */
+      --lagoon: #118A80;        /* Lagoon for shapes & icons */
+      --coral: #F25C78;         /* Highlights, cheeks */
+      --sky: #7CCBF0;           /* Information */
+      --lemon: #FFD84A;         /* Stars, XP */
+      --cream: #FFF8EC;         /* Page background */
+      --white: #FFFFFF;         /* Cards background */
+      --border: #D5DED8;        /* Card & layout borders */
+      --slate: #5A6E70;         /* Secondary text */
+
+      /* Typography */
+      --font-display-en: 'Baloo 2', system-ui, sans-serif;
+      --font-display-ar: 'Baloo Bhaijaan 2', 'Baloo 2', system-ui, sans-serif;
+      --font-body: 'Readex Pro', system-ui, sans-serif;
+      --font-code: 'JetBrains Mono', ui-monospace, monospace;
+
+      /* Radii & Metrics */
+      --radius-card: 20px;
+      --radius-pill: 9999px;
+      --btn-height: 52px;
+      --max-width: 1140px;
+    }
+
+    /* Base Reset & Accessibility */
+    *, *::before, *::after {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      -webkit-tap-highlight-color: transparent;
+    }
+
+    html {
+      scroll-behavior: smooth;
+      background-color: var(--cream);
+      color: var(--ink);
+      font-size: 16px;
+    }
+
+    body {
+      min-height: 100vh;
+      background-color: var(--cream);
+      color: var(--ink);
+      font-family: var(--font-body);
+      font-weight: 400;
+      font-size: 1rem;
+      line-height: 1.6;
+      text-rendering: optimizeLegibility;
+      overflow-x: hidden;
+    }
+
+    /* Headings font family per language */
+    html[lang="en"] h1,
+    html[lang="en"] h2,
+    html[lang="en"] h3,
+    html[lang="en"] h4,
+    html[lang="en"] .font-display {
+      font-family: var(--font-display-en);
+    }
+
+    html[lang="ar"] h1,
+    html[lang="ar"] h2,
+    html[lang="ar"] h3,
+    html[lang="ar"] h4,
+    html[lang="ar"] .font-display {
+      font-family: var(--font-display-ar);
+      line-height: 1.35;
+    }
+
+    /* Accessible Focus Rings (always visible in mango) */
+    :focus-visible {
+      outline: 3px solid var(--mango);
+      outline-offset: 3px;
+    }
+
+    /* Tap targets min 48px */
+    button, a, input, select, textarea {
+      font-family: inherit;
+    }
+
+    a {
+      color: var(--lagoon-deep);
+      text-decoration: none;
+    }
+
+    /* Container */
+    .container {
+      width: 100%;
+      max-width: var(--max-width);
+      margin-inline: auto;
+      padding-inline: 14px;
+    }
+
+    @media (min-width: 480px) {
+      .container {
+        padding-inline: 20px;
+      }
+    }
+
+    @media (min-width: 768px) {
+      .container {
+        padding-inline: 28px;
+      }
+    }
+
+    /* -------------------------------------------------------------
+       BUTTONS & CHIPS
+       ------------------------------------------------------------- */
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      height: var(--btn-height);
+      min-height: var(--btn-height);
+      padding: 0 24px;
+      border-radius: var(--radius-pill);
+      font-family: var(--font-display-en);
+      font-weight: 700;
+      font-size: 1.0625rem;
+      cursor: pointer;
+      text-decoration: none;
+      border: none;
+      transition: transform 0.18s ease, box-shadow 0.18s ease, background-color 0.18s ease;
+      white-space: nowrap;
+    }
+
+    html[lang="ar"] .btn {
+      font-family: var(--font-display-ar);
+    }
+
+    /* Primary Button: MANGO. Text on mango is ALWAYS INK. NEVER WHITE. */
+    .btn-mango {
+      background-color: var(--mango);
+      color: var(--ink);
+    }
+    .btn-mango:hover {
+      background-color: #ff9900;
+      transform: translateY(-2px);
+      box-shadow: 0 6px 14px rgba(16, 41, 46, 0.15);
+    }
+    .btn-mango:active {
+      transform: translateY(0);
+    }
+
+    /* Secondary Button: Outlined Cream */
+    .btn-outlined-cream {
+      background-color: transparent;
+      color: var(--cream);
+      border: 2px solid var(--cream);
+    }
+    .btn-outlined-cream:hover {
+      background-color: rgba(255, 248, 236, 0.12);
+      transform: translateY(-2px);
+    }
+    .btn-outlined-cream:active {
+      transform: translateY(0);
+    }
+
+    /* Secondary Dark: Outlined Ink */
+    .btn-outlined-ink {
+      background-color: transparent;
+      color: var(--ink);
+      border: 2px solid var(--ink);
+    }
+    .btn-outlined-ink:hover {
+      background-color: rgba(16, 41, 46, 0.06);
+      transform: translateY(-2px);
+    }
+
+    .btn-sm {
+      height: 38px;
+      min-height: 38px;
+      padding: 0 12px;
+      font-size: 0.8125rem;
+    }
+
+    @media (min-width: 480px) {
+      .btn-sm {
+        height: 42px;
+        min-height: 42px;
+        padding: 0 18px;
+        font-size: 0.9375rem;
+      }
+    }
+
+    /* Label toggling for small phone viewports */
+    .short-label {
+      display: none;
+    }
+    @media (max-width: 390px) {
+      .full-label {
+        display: none !important;
+      }
+      .short-label {
+        display: inline !important;
+      }
+    }
+
+    /* -------------------------------------------------------------
+       SIGNATURE ARCH SHAPE UTILITY
+       ------------------------------------------------------------- */
+    .arch-shape {
+      border-radius: 24px 24px 6px 6px;
+    }
+    .arch-icon-wrap {
+      width: 44px;
+      height: 54px;
+      border-radius: 22px 22px 8px 8px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+    }
+
+    @media (min-width: 480px) {
+      .arch-icon-wrap {
+        width: 48px;
+        height: 58px;
+      }
+    }
+
+    /* -------------------------------------------------------------
+       HEADER (Sticky, Cream, Thin bottom border)
+       ------------------------------------------------------------- */
+    .site-header {
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      background-color: var(--cream);
+      border-bottom: 1px solid var(--border);
+      backdrop-filter: blur(8px);
+      padding-block: 8px;
+    }
+
+    .header-inner {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 6px;
+    }
+
+    .header-brand {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      text-decoration: none;
+      color: var(--ink);
+      flex-shrink: 0;
+    }
+
+    .brand-mark {
+      width: 24px;
+      height: 34px;
+      flex-shrink: 0;
+    }
+
+    .brand-title {
+      font-weight: 800;
+      font-size: 1.15rem;
+      letter-spacing: -0.01em;
+      color: var(--ink);
+      line-height: 1;
+    }
+    .brand-sub {
+      display: block;
+      font-size: 0.625rem;
+      font-family: var(--font-body);
+      font-weight: 500;
+      color: var(--slate);
+      letter-spacing: 0.04em;
+    }
+
+    .header-actions {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      flex-shrink: 0;
+    }
+
+    /* Language Toggle Switch (EN | عربي) */
+    .lang-toggle {
+      display: inline-flex;
+      align-items: center;
+      background-color: var(--white);
+      border: 1.5px solid var(--border);
+      border-radius: var(--radius-pill);
+      padding: 2px;
+      gap: 1px;
+      font-size: 0.75rem;
+      font-weight: 600;
+      flex-shrink: 0;
+    }
+
+    .lang-btn {
+      border: none;
+      background: transparent;
+      padding: 5px 8px;
+      min-height: 32px;
+      min-width: 32px;
+      border-radius: var(--radius-pill);
+      color: var(--slate);
+      cursor: pointer;
+      transition: background-color 0.15s, color 0.15s;
+    }
+
+    .lang-btn.active {
+      background-color: var(--ink);
+      color: var(--cream);
+    }
+
+    /* QR / View Mode Switcher Chip */
+    .view-mode-toggle {
+      border: 1.5px solid var(--border);
+      background-color: var(--white);
+      color: var(--ink);
+      border-radius: var(--radius-pill);
+      padding: 6px 12px;
+      font-size: 0.75rem;
+      font-weight: 600;
+      cursor: pointer;
+      display: none;
+    }
+
+    @media (min-width: 600px) {
+      .view-mode-toggle {
+        display: inline-flex;
+        align-items: center;
+        gap: 6px;
+      }
+    }
+
+    /* -------------------------------------------------------------
+       HERO (Dark ink background #10292E, rounded bottom corners)
+       CRITICAL FOR PHONES: Fits on first screen at 360x640 and 390x844!
+       ------------------------------------------------------------- */
+    .hero-section {
+      background-color: var(--ink);
+      color: var(--cream);
+      border-radius: 0 0 32px 32px;
+      padding-top: 22px;
+      padding-bottom: 34px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .hero-grid {
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+      align-items: center;
+      text-align: center;
+    }
+
+    @media (min-width: 860px) {
+      .hero-section {
+        padding-top: 56px;
+        padding-bottom: 64px;
+        border-radius: 0 0 48px 48px;
+      }
+      .hero-grid {
+        display: grid;
+        grid-template-columns: 1.15fr 0.85fr;
+        gap: 40px;
+        align-items: center;
+        text-align: start;
+      }
+    }
+
+    .hero-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background-color: var(--pine);
+      color: var(--lemon);
+      padding: 4px 14px;
+      border-radius: var(--radius-pill);
+      font-size: 0.8125rem;
+      font-weight: 500;
+      margin-bottom: 10px;
+      border: 1px solid rgba(255, 216, 74, 0.2);
+    }
+    .hero-badge::before {
+      content: '';
+      width: 7px;
+      height: 7px;
+      border-radius: 50%;
+      background-color: var(--lemon);
+    }
+
+    .hero-headline {
+      font-size: clamp(1.85rem, 6.2vw, 3.4rem);
+      font-weight: 800;
+      line-height: 1.12;
+      color: var(--cream);
+      margin-bottom: 12px;
+    }
+
+    .hero-headline .mango-word {
+      color: var(--mango);
+    }
+
+    .hero-sentence {
+      font-size: clamp(0.9375rem, 3.2vw, 1.125rem);
+      line-height: 1.5;
+      color: #E2ECE8;
+      margin-bottom: 22px;
+      max-width: 52ch;
+    }
+
+    .hero-cta-group {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      width: 100%;
+    }
+
+    @media (min-width: 480px) {
+      .hero-cta-group {
+        flex-direction: row;
+        width: auto;
+      }
+    }
+
+    /* Hero Mascot Arch Stage */
+    .hero-stage {
+      display: flex;
+      justify-content: center;
+      align-items: flex-end;
+      width: 100%;
+      max-width: 320px;
+      position: relative;
+      margin-top: 8px;
+    }
+
+    @media (min-width: 860px) {
+      .hero-stage {
+        max-width: 380px;
+        margin-top: 0;
+        justify-content: flex-end;
+      }
+    }
+
+    /* Mango Arch Base that ALMA stands on */
+    .arch-pedestal {
+      position: relative;
+      width: 220px;
+      height: 240px;
+      display: flex;
+      justify-content: center;
+      align-items: flex-end;
+    }
+
+    @media (min-width: 860px) {
+      .arch-pedestal {
+        width: 280px;
+        height: 300px;
+      }
+    }
+
+    .arch-pedestal::before {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      width: 100%;
+      height: 75%;
+      background-color: var(--mango);
+      border-radius: 140px 140px 18px 18px;
+      z-index: 1;
+    }
+
+    .hero-mascot-svg {
+      width: 190px;
+      height: auto;
+      position: relative;
+      z-index: 2;
+      margin-bottom: 12px;
+      animation: softBob 4s ease-in-out infinite;
+    }
+
+    @media (min-width: 860px) {
+      .hero-mascot-svg {
+        width: 240px;
+      }
+    }
+
+    @keyframes softBob {
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(-7px); }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      .hero-mascot-svg {
+        animation: none !important;
+      }
+    }
+
+    /* -------------------------------------------------------------
+       SECTION GENERAL STYLING
+       ------------------------------------------------------------- */
+    .section {
+      padding-block: 54px;
+    }
+
+    @media (min-width: 768px) {
+      .section {
+        padding-block: 76px;
+      }
+    }
+
+    .section-header {
+      margin-bottom: 32px;
+      text-align: center;
+    }
+
+    .section-title {
+      font-size: clamp(1.65rem, 4.4vw, 2.5rem);
+      font-weight: 800;
+      color: var(--ink);
+      line-height: 1.15;
+      margin-bottom: 10px;
+    }
+
+    .section-intro {
+      font-size: 1.0625rem;
+      color: var(--slate);
+      max-width: 58ch;
+      margin-inline: auto;
+    }
+
+    /* Cards */
+    .card {
+      background-color: var(--white);
+      border: 1.5px solid var(--border);
+      border-radius: var(--radius-card);
+      padding: 20px;
+      transition: transform 0.2s ease, box-shadow 0.2s ease;
+    }
+
+    @media (min-width: 600px) {
+      .card {
+        padding: 24px;
+      }
+    }
+
+    .card:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 10px 22px rgba(16, 41, 46, 0.06);
+    }
+
+    /* -------------------------------------------------------------
+       SECTION 3: THE PROBLEM (Cream background)
+       2x2 grid on phone, 4 across on desktop
+       ------------------------------------------------------------- */
+    .problem-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 12px;
+    }
+
+    @media (max-width: 480px) {
+      .problem-grid {
+        grid-template-columns: 1fr;
+        gap: 12px;
+      }
+    }
+
+    @media (min-width: 860px) {
+      .problem-grid {
+        grid-template-columns: repeat(4, 1fr);
+        gap: 18px;
+      }
+    }
+
+    .problem-card {
+      display: flex;
+      flex-direction: column;
+      gap: 14px;
+    }
+
+    .problem-icon-header {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .problem-name {
+      font-weight: 700;
+      font-size: 1.1875rem;
+      color: var(--ink);
+    }
+
+    .line-item {
+      display: flex;
+      align-items: flex-start;
+      gap: 10px;
+      font-size: 0.9375rem;
+      line-height: 1.45;
+    }
+
+    .dot-works {
+      width: 10px;
+      height: 10px;
+      border-radius: 50%;
+      background-color: var(--lagoon);
+      flex-shrink: 0;
+      margin-top: 6px;
+    }
+
+    .dot-hurts {
+      width: 10px;
+      height: 10px;
+      border-radius: 50%;
+      background-color: var(--coral);
+      flex-shrink: 0;
+      margin-top: 6px;
+    }
+
+    .works-text {
+      color: var(--ink);
+      font-weight: 500;
+    }
+
+    .hurts-text {
+      color: var(--slate);
+    }
+
+    /* -------------------------------------------------------------
+       SECTION 4: THE SOLUTION (Dark Ink Band, Mascot on side)
+       ------------------------------------------------------------- */
+    .solution-band {
+      background-color: var(--ink);
+      color: var(--cream);
+      border-radius: 32px;
+      padding: 38px 20px;
+      margin-inline: 12px;
+    }
+
+    @media (min-width: 768px) {
+      .solution-band {
+        padding: 60px 44px;
+        border-radius: 40px;
+        margin-inline: 0;
+      }
+    }
+
+    .solution-band .section-title {
+      color: var(--cream);
+      text-align: center;
+      margin-bottom: 34px;
+    }
+
+    .solution-layout {
+      display: flex;
+      flex-direction: column;
+      gap: 28px;
+      align-items: center;
+    }
+
+    @media (min-width: 920px) {
+      .solution-layout {
+        display: grid;
+        grid-template-columns: 1fr 280px;
+        gap: 36px;
+        align-items: center;
+      }
+    }
+
+    .solution-rows {
+      display: flex;
+      flex-direction: column;
+      gap: 14px;
+      width: 100%;
+    }
+
+    .solution-row-card {
+      background-color: var(--pine);
+      border: 1px solid rgba(213, 222, 216, 0.15);
+      border-radius: 18px;
+      padding: 16px 20px;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+
+    @media (min-width: 600px) {
+      .solution-row-card {
+        display: grid;
+        grid-template-columns: 140px 1fr 1fr;
+        align-items: center;
+        gap: 16px;
+      }
+    }
+
+    .solution-origin {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-size: 0.875rem;
+      font-weight: 600;
+      color: var(--lemon);
+    }
+
+    .solution-keeps {
+      font-size: 0.9375rem;
+      color: #E2ECE8;
+      display: flex;
+      align-items: flex-start;
+      gap: 8px;
+    }
+
+    .solution-fixes {
+      font-size: 0.9375rem;
+      color: var(--mango);
+      font-weight: 500;
+      display: flex;
+      align-items: flex-start;
+      gap: 8px;
+    }
+
+    .solution-mascot-col {
+      display: none;
+    }
+
+    @media (min-width: 920px) {
+      .solution-mascot-col {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        text-align: center;
+      }
+      .solution-mascot-svg {
+        width: 180px;
+        height: auto;
+      }
+    }
+
+    /* -------------------------------------------------------------
+       SECTION 5: HOW IT WORKS (Cream, 3 steps connected by arch path)
+       ------------------------------------------------------------- */
+    .steps-path {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 22px;
+      position: relative;
+    }
+
+    @media (min-width: 768px) {
+      .steps-path {
+        grid-template-columns: repeat(3, 1fr);
+        gap: 24px;
+      }
+    }
+
+    .step-card {
+      background-color: var(--white);
+      border: 1.5px solid var(--border);
+      border-radius: var(--radius-card);
+      padding: 24px 20px;
+      display: flex;
+      flex-direction: column;
+      gap: 14px;
+      position: relative;
+    }
+
+    .step-node-badge {
+      width: 48px;
+      height: 60px;
+      border-radius: 24px 24px 8px 8px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-family: var(--font-display-en);
+      font-weight: 800;
+      font-size: 1.5rem;
+      color: var(--ink);
+      flex-shrink: 0;
+    }
+
+    html[lang="ar"] .step-node-badge {
+      font-family: var(--font-display-ar);
+    }
+
+    .node-lagoon {
+      background-color: var(--lagoon);
+      color: var(--white);
+    }
+
+    .node-mango {
+      background-color: var(--mango);
+      color: var(--ink);
+    }
+
+    .step-title {
+      font-size: 1.25rem;
+      font-weight: 700;
+      color: var(--ink);
+    }
+
+    .step-desc {
+      font-size: 0.9375rem;
+      color: var(--slate);
+      line-height: 1.5;
+    }
+
+    /* Interactive Adaptive Crest Demonstration */
+    .crest-interactive-widget {
+      margin-top: 36px;
+      background-color: var(--white);
+      border: 1.5px solid var(--border);
+      border-radius: var(--radius-card);
+      padding: 24px;
+      display: flex;
+      flex-direction: column;
+      gap: 18px;
+      align-items: center;
+      text-align: center;
+    }
+
+    @media (min-width: 768px) {
+      .crest-interactive-widget {
+        flex-direction: row;
+        text-align: start;
+        padding: 30px 36px;
+        gap: 32px;
+      }
+    }
+
+    .crest-mascot-preview {
+      width: 110px;
+      height: auto;
+      flex-shrink: 0;
+    }
+
+    .crest-controls {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      flex: 1;
+    }
+
+    .crest-chips-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+
+    .crest-mode-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 6px 14px;
+      border-radius: var(--radius-pill);
+      border: 1.5px solid var(--border);
+      background-color: var(--cream);
+      font-size: 0.875rem;
+      font-weight: 500;
+      color: var(--ink);
+      cursor: pointer;
+      transition: border-color 0.15s, background-color 0.15s;
+    }
+
+    .crest-mode-btn.active {
+      border-color: var(--ink);
+      background-color: var(--ink);
+      color: var(--cream);
+    }
+
+    .crest-dot {
+      width: 10px;
+      height: 10px;
+      border-radius: 50%;
+      flex-shrink: 0;
+    }
+
+    /* -------------------------------------------------------------
+       SECTION 6: FEATURES (Cream, 2x2 White cards with arch icons)
+       ------------------------------------------------------------- */
+    .features-grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 16px;
+    }
+
+    @media (min-width: 600px) {
+      .features-grid {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 20px;
+      }
+    }
+
+    .feature-card {
+      display: flex;
+      flex-direction: column;
+      gap: 14px;
+      padding: 24px;
+    }
+
+    .feature-title {
+      font-size: 1.25rem;
+      font-weight: 700;
+      color: var(--ink);
+    }
+
+    .feature-desc {
+      font-size: 0.9375rem;
+      color: var(--slate);
+      line-height: 1.5;
+    }
+
+    /* -------------------------------------------------------------
+       SECTION 7: VIDEO (Dark Ink Card, Rounded)
+       ------------------------------------------------------------- */
+    .video-card-section {
+      background-color: var(--ink);
+      color: var(--cream);
+      border-radius: 28px;
+      padding: 34px 20px;
+      text-align: center;
+    }
+
+    @media (min-width: 768px) {
+      .video-card-section {
+        padding: 56px 44px;
+        border-radius: 36px;
+      }
+    }
+
+    .video-card-section .section-title {
+      color: var(--cream);
+      margin-bottom: 24px;
+    }
+
+    .video-player-container {
+      max-width: 740px;
+      margin-inline: auto;
+      aspect-ratio: 16 / 9;
+      background-color: var(--pine);
+      border-radius: 20px;
+      border: 2px solid rgba(213, 222, 216, 0.18);
+      position: relative;
+      overflow: hidden;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+    }
+
+    .video-element {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: none;
+    }
+
+    .video-player-container.is-playing .video-element {
+      display: block;
+    }
+
+    .video-player-container.is-playing .video-poster-art,
+    .video-player-container.is-playing .big-play-arch,
+    .video-player-container.is-playing .video-time-tag {
+      display: none;
+    }
+
+    .video-poster-art {
+      position: absolute;
+      inset: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: radial-gradient(circle at center, #1B3F45 0%, #10292E 100%);
+    }
+
+    .big-play-arch {
+      width: 76px;
+      height: 94px;
+      background-color: var(--mango);
+      border-radius: 38px 38px 12px 12px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow: 0 10px 24px rgba(0, 0, 0, 0.3);
+      transition: transform 0.2s ease, background-color 0.2s ease;
+      z-index: 5;
+    }
+
+    .video-player-container:hover .big-play-arch {
+      transform: scale(1.08);
+      background-color: #ff9900;
+    }
+
+    .play-triangle {
+      width: 0;
+      height: 0;
+      border-style: solid;
+      border-width: 14px 0 14px 24px;
+      border-color: transparent transparent transparent var(--ink);
+      margin-inline-start: 4px;
+    }
+
+    html[lang="ar"] .play-triangle {
+      transform: scaleX(-1);
+    }
+
+    .video-time-tag {
+      position: absolute;
+      bottom: 14px;
+      inset-inline-end: 16px;
+      background-color: rgba(16, 41, 46, 0.85);
+      color: var(--cream);
+      padding: 4px 10px;
+      border-radius: 6px;
+      font-size: 0.8125rem;
+      font-weight: 600;
+      font-family: var(--font-code);
+      z-index: 6;
+    }
+
+    /* -------------------------------------------------------------
+       SECTION 8: WHO IT IS FOR (Mango Band)
+       Text on mango is ALWAYS INK. NEVER WHITE.
+       ------------------------------------------------------------- */
+    .who-section {
+      background-color: var(--mango);
+      color: var(--ink);
+      border-radius: 28px;
+      padding: 40px 20px;
+      text-align: center;
+      margin-block: 20px;
+    }
+
+    @media (min-width: 768px) {
+      .who-section {
+        padding: 56px 36px;
+        border-radius: 36px;
+      }
+    }
+
+    .who-section .section-title {
+      color: var(--ink);
+      margin-bottom: 22px;
+    }
+
+    .who-chips-row {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 10px;
+      margin-bottom: 20px;
+    }
+
+    .who-chip {
+      background-color: var(--white);
+      color: var(--ink);
+      padding: 8px 18px;
+      border-radius: var(--radius-pill);
+      font-weight: 600;
+      font-size: 0.9375rem;
+      box-shadow: 0 2px 6px rgba(16, 41, 46, 0.08);
+    }
+
+    .who-subtitle {
+      font-size: 1.0625rem;
+      font-weight: 600;
+      color: var(--ink);
+    }
+
+    /* -------------------------------------------------------------
+       SECTION 9: THE TEAM (Cream background)
+       7 Arch-shaped avatar placeholders with initials
+       ------------------------------------------------------------- */
+    .team-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 14px;
+      margin-top: 28px;
+    }
+
+    @media (min-width: 540px) {
+      .team-grid {
+        grid-template-columns: repeat(3, 1fr);
+      }
+    }
+
+    @media (min-width: 860px) {
+      .team-grid {
+        grid-template-columns: repeat(7, 1fr);
+        gap: 14px;
+      }
+    }
+
+    .team-member-card {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+      background-color: var(--white);
+      border: 1.5px solid var(--border);
+      border-radius: var(--radius-card);
+      padding: 18px 10px;
+      gap: 8px;
+    }
+
+    .avatar-arch {
+      width: 60px;
+      height: 74px;
+      border-radius: 30px 30px 10px 10px;
+      background-color: var(--pine);
+      color: var(--cream);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-family: var(--font-display-en);
+      font-weight: 700;
+      font-size: 1.125rem;
+      margin-bottom: 4px;
+    }
+
+    html[lang="ar"] .avatar-arch {
+      font-family: var(--font-display-ar);
+    }
+
+    .member-name {
+      font-weight: 700;
+      font-size: 0.9375rem;
+      color: var(--ink);
+      line-height: 1.2;
+    }
+
+    .member-role {
+      font-size: 0.75rem;
+      color: var(--slate);
+      line-height: 1.3;
+    }
+
+    .university-box {
+      margin-top: 28px;
+      padding: 16px 20px;
+      background-color: var(--white);
+      border: 1.5px solid var(--border);
+      border-radius: var(--radius-card);
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+      text-align: center;
+      font-size: 0.9375rem;
+      color: var(--ink);
+    }
+
+    @media (min-width: 600px) {
+      .university-box {
+        flex-direction: row;
+        justify-content: space-around;
+        text-align: start;
+      }
+    }
+
+    /* -------------------------------------------------------------
+       SECTION 10: FINAL CALL TO ACTION (Dark Ink Card with Mascot Celebrating)
+       ------------------------------------------------------------- */
+    .cta-card {
+      background-color: var(--ink);
+      color: var(--cream);
+      border-radius: 28px;
+      padding: 38px 20px;
+      position: relative;
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+    }
+
+    @media (min-width: 768px) {
+      .cta-card {
+        padding: 60px 40px;
+        border-radius: 36px;
+      }
+    }
+
+    .cta-celebrate-mascot {
+      width: 140px;
+      height: auto;
+      margin-bottom: 16px;
+    }
+
+    @media (min-width: 768px) {
+      .cta-celebrate-mascot {
+        width: 180px;
+      }
+    }
+
+    .cta-title {
+      font-size: clamp(1.85rem, 5vw, 2.75rem);
+      font-weight: 800;
+      color: var(--cream);
+      margin-bottom: 18px;
+      max-width: 22ch;
+    }
+
+    .cta-contact-text {
+      margin-top: 18px;
+      font-size: 0.9375rem;
+      color: #C5CEC8;
+    }
+    .cta-contact-text a {
+      color: var(--sky);
+      text-decoration: underline;
+    }
+
+    /* Simple Feedback Form */
+    .feedback-form-box {
+      width: 100%;
+      max-width: 440px;
+      margin-top: 28px;
+      background-color: var(--pine);
+      border: 1px solid rgba(213, 222, 216, 0.2);
+      border-radius: 20px;
+      padding: 22px;
+      text-align: start;
+    }
+
+    .form-group {
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+      margin-bottom: 14px;
+    }
+
+    .form-label {
+      font-size: 0.8125rem;
+      color: #E2ECE8;
+      font-weight: 500;
+    }
+
+    .form-input, .form-textarea {
+      width: 100%;
+      background-color: var(--ink);
+      border: 1.5px solid rgba(213, 222, 216, 0.3);
+      border-radius: 12px;
+      padding: 10px 14px;
+      color: var(--cream);
+      font-size: 0.9375rem;
+      font-family: inherit;
+    }
+
+    .form-input:focus, .form-textarea:focus {
+      border-color: var(--mango);
+      outline: none;
+    }
+
+    .form-textarea {
+      resize: vertical;
+      min-height: 80px;
+    }
+
+    .form-feedback-success {
+      display: none;
+      background-color: rgba(46, 158, 91, 0.2);
+      border: 1px solid #2E9E5B;
+      color: #6CE39A;
+      padding: 12px;
+      border-radius: 12px;
+      font-size: 0.875rem;
+      text-align: center;
+      margin-top: 10px;
+    }
+
+    /* -------------------------------------------------------------
+       SECTION 11: FOOTER (Ink Background)
+       ------------------------------------------------------------- */
+    .site-footer {
+      background-color: var(--ink);
+      color: #A9BCBA;
+      padding-block: 40px 30px;
+      border-top: 1px solid var(--pine);
+      margin-top: 40px;
+      font-size: 0.875rem;
+    }
+
+    .footer-inner {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 18px;
+      text-align: center;
+    }
+
+    @media (min-width: 680px) {
+      .footer-inner {
+        flex-direction: row;
+        justify-content: space-between;
+        text-align: start;
+      }
+    }
+
+    .footer-brand {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      color: var(--cream);
+      font-weight: 700;
+    }
+
+    .footer-copy {
+      color: #839A9A;
+      font-size: 0.8125rem;
+    }
+
+    /* -------------------------------------------------------------
+       QR / QUICK VIEW TOGGLE STYLES
+       ------------------------------------------------------------- */
+    body.qr-mode .full-only-section {
+      display: none !important;
+    }
+
+    .qr-banner-alert {
+      display: none;
+      background-color: var(--pine);
+      color: var(--cream);
+      padding: 8px 16px;
+      text-align: center;
+      font-size: 0.8125rem;
+      font-weight: 500;
+    }
+
+    body.qr-mode .qr-banner-alert {
+      display: block;
+    }
+
+    /* RTL Mirroring Support */
+    html[dir="rtl"] {
+      text-align: right;
+    }
+    html[dir="rtl"] .code-block,
+    html[dir="rtl"] .ltr-preserve {
+      direction: ltr !important;
+      text-align: left !important;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Inline SVG Symbols Master (No external icon font required) -->
+  <svg width="0" height="0" style="position:absolute; display:none;" aria-hidden="true">
+    <defs>
+      <!-- ALMA Logo Symbol -->
+      <g id="s-alma-mark">
+        <path d="M30,228V106A70,70 0 0 1 170,106V228Q170,246 152,246H48Q30,246 30,228Z" fill="#FFA11F"/>
+        <rect x="89" y="3" width="22" height="22" rx="7" fill="#118A80" transform="rotate(12 100 14)"/>
+        <rect x="50" y="72" width="100" height="86" rx="38" fill="#10292E"/>
+        <rect x="73" y="89" width="14" height="26" rx="7" fill="#FFF8EC"/>
+        <rect x="113" y="89" width="14" height="26" rx="7" fill="#FFF8EC"/>
+        <path d="M87,133Q100,144 113,133" fill="none" stroke="#FFF8EC" stroke-width="5" stroke-linecap="round"/>
+        <circle cx="64" cy="128" r="6.5" fill="#F25C78" opacity=".9"/>
+        <circle cx="136" cy="128" r="6.5" fill="#F25C78" opacity=".9"/>
+      </g>
+
+      <!-- ALMA Mascot: Happy (Arms up, wide eyes, stars) -->
+      <g id="s-alma-happy">
+        <rect x="56" y="238" width="36" height="13" rx="6.5" fill="#10292E"/>
+        <rect x="108" y="238" width="36" height="13" rx="6.5" fill="#10292E"/>
+        <path d="M30,228V106A70,70 0 0 1 170,106V228Q170,246 152,246H48Q30,246 30,228Z" fill="#FFA11F"/>
+        <g transform="rotate(128 28 144)"><rect x="21" y="140" width="14" height="44" rx="7" fill="#F08A00"/></g>
+        <g transform="rotate(-128 172 144)"><rect x="165" y="140" width="14" height="44" rx="7" fill="#F08A00"/></g>
+        <rect x="89" y="3" width="22" height="22" rx="7" fill="#FFD84A" transform="rotate(8 100 14)"/>
+        <rect x="50" y="72" width="100" height="86" rx="38" fill="#10292E"/>
+        <path d="M71,107Q80,90 89,107M111,107Q120,90 129,107" fill="none" stroke="#FFF8EC" stroke-width="6" stroke-linecap="round"/>
+        <path d="M81,127Q100,156 119,127Z" fill="#FFF8EC" stroke="#FFF8EC" stroke-width="4" stroke-linejoin="round"/>
+        <circle cx="64" cy="128" r="6.5" fill="#F25C78" opacity=".9"/>
+        <circle cx="136" cy="128" r="6.5" fill="#F25C78" opacity=".9"/>
+        <polygon points="24,26 26.7,33.3 34,36 26.7,38.7 24,46 21.3,38.7 14,36 21.3,33.3" fill="#FFD84A"/>
+        <polygon points="178,23 179.9,28.1 185,30 179.9,31.9 178,37 176.1,31.9 171,30 176.1,28.1" fill="#F25C78" transform="rotate(10 178 30)"/>
+      </g>
+
+      <!-- ALMA Mascot: Celebrate -->
+      <g id="s-alma-celebrate">
+        <rect x="56" y="238" width="36" height="13" rx="6.5" fill="#10292E"/>
+        <rect x="108" y="238" width="36" height="13" rx="6.5" fill="#10292E"/>
+        <path d="M30,228V106A70,70 0 0 1 170,106V228Q170,246 152,246H48Q30,246 30,228Z" fill="#FFA11F"/>
+        <g transform="rotate(156 28 144)"><rect x="21" y="140" width="14" height="44" rx="7" fill="#F08A00"/></g>
+        <g transform="rotate(-156 172 144)"><rect x="165" y="140" width="14" height="44" rx="7" fill="#F08A00"/></g>
+        <rect x="89" y="3" width="22" height="22" rx="7" fill="#F25C78" transform="rotate(14 100 14)"/>
+        <rect x="50" y="72" width="100" height="86" rx="38" fill="#10292E"/>
+        <path d="M71,107Q80,90 89,107M111,107Q120,90 129,107" fill="none" stroke="#FFF8EC" stroke-width="6" stroke-linecap="round"/>
+        <path d="M81,127Q100,156 119,127Z" fill="#FFF8EC" stroke="#FFF8EC" stroke-width="4" stroke-linejoin="round"/>
+        <circle cx="64" cy="128" r="6.5" fill="#F25C78" opacity=".9"/>
+        <circle cx="136" cy="128" r="6.5" fill="#F25C78" opacity=".9"/>
+        <rect x="12" y="22" width="9" height="9" rx="2" fill="#7CCBF0" transform="rotate(20 16 26)"/>
+        <rect x="182" y="46" width="9" height="9" rx="2" fill="#118A80" transform="rotate(-18 186 50)"/>
+        <circle cx="6" cy="64" r="4.5" fill="#F25C78"/>
+        <circle cx="196" cy="12" r="4.5" fill="#FFD84A"/>
+        <polygon points="30,0 32.1,5.9 38,8 32.1,10.1 30,16 27.9,10.1 22,8 27.9,5.9" fill="#FFD84A" transform="rotate(12 30 8)"/>
+      </g>
+
+      <!-- ALMA Mascot: Explain (speaking pose) -->
+      <g id="s-alma-explain">
+        <rect x="56" y="238" width="36" height="13" rx="6.5" fill="#10292E"/>
+        <rect x="108" y="238" width="36" height="13" rx="6.5" fill="#10292E"/>
+        <path d="M30,228V106A70,70 0 0 1 170,106V228Q170,246 152,246H48Q30,246 30,228Z" fill="#FFA11F"/>
+        <g transform="rotate(14 28 144)"><rect x="21" y="140" width="14" height="44" rx="7" fill="#F08A00"/></g>
+        <g transform="rotate(-98 172 144)"><rect x="165" y="140" width="14" height="44" rx="7" fill="#F08A00"/></g>
+        <rect x="89" y="3" width="22" height="22" rx="7" fill="#118A80" transform="rotate(12 100 14)"/>
+        <rect x="50" y="72" width="100" height="86" rx="38" fill="#10292E"/>
+        <rect x="73" y="89" width="14" height="26" rx="7" fill="#FFF8EC"/>
+        <rect x="113" y="89" width="14" height="26" rx="7" fill="#FFF8EC"/>
+        <ellipse cx="100" cy="135" rx="8" ry="7" fill="#FFF8EC"/>
+        <circle cx="64" cy="128" r="6.5" fill="#F25C78" opacity=".9"/>
+        <circle cx="136" cy="128" r="6.5" fill="#F25C78" opacity=".9"/>
+        <g transform="translate(118 -8)">
+          <path d="M0,10Q0,0 10,0H62Q72,0 72,10V40Q72,50 62,50H22L8,62L12,50H10Q0,50 0,40Z" fill="#FFFFFF" stroke="#10292E" stroke-width="3" stroke-linejoin="round"/>
+          <rect x="12" y="30" width="14" height="10" rx="3" fill="#118A80"/>
+          <rect x="29" y="22" width="14" height="18" rx="3" fill="#FFA11F"/>
+          <rect x="46" y="12" width="14" height="28" rx="3" fill="#F25C78"/>
+        </g>
+      </g>
+    </defs>
+  </svg>
+
+  <!-- Quick QR Alert Banner (Visible when QR/Quick Mode is on) -->
+  <div class="qr-banner-alert">
+    <span data-i18n="qr_banner_text">⚡ Quick Scan View for Mobile Visitors.</span>
+    <button type="button" id="toggleFullViewBtn" style="background:transparent; border:none; color:var(--mango); text-decoration:underline; cursor:pointer; font-weight:700; margin-inline-start:6px;" data-i18n="qr_banner_switch">Switch to Full Story</button>
+  </div>
+
+  <!-- 1. HEADER (sticky, cream, thin bottom border) -->
+  <header class="site-header" role="banner">
+    <div class="container header-inner">
+      
+      <!-- Brand Logo on Start Side -->
+      <a href="#hero" class="header-brand" aria-label="ALMA Academy Home">
+        <svg class="brand-mark" viewBox="22 0 156 250" aria-hidden="true">
+          <use href="#s-alma-mark"/>
+        </svg>
+        <div>
+          <span class="brand-title" data-i18n="brand_name">ALMA</span>
+          <span class="brand-sub" data-i18n="brand_sub">ACADEMY</span>
+        </div>
+      </a>
+
+      <!-- Other side: Mode switch, Language toggle & Mango "Try the demo" button -->
+      <div class="header-actions">
+        <!-- Optional Quick QR / Full View Toggle -->
+        <button type="button" id="viewModeToggle" class="view-mode-toggle" aria-label="Toggle Quick QR View">
+          <span id="viewModeText" data-i18n="view_mode_btn">Quick View</span>
+        </button>
+
+        <!-- Language toggle (EN | عربي) -->
+        <div class="lang-toggle" role="group" aria-label="Language Selector">
+          <button type="button" id="langEnBtn" class="lang-btn active" aria-pressed="true">EN</button>
+          <button type="button" id="langArBtn" class="lang-btn" aria-pressed="false">عربي</button>
+        </div>
+
+        <!-- Small Mango Pill Button -->
+        <a href="https://drive.google.com/file/d/1XyQKvFtpa_yaLJ_N5yooWhe2RETPwjLp/view?usp=sharing" target="_blank" rel="noopener noreferrer" class="btn btn-mango btn-sm" data-i18n-html="nav_demo_btn">
+          <span class="full-label">Try the demo</span><span class="short-label">Demo</span>
+        </a>
+      </div>
+
+    </div>
+  </header>
+
+  <main id="main-content">
+
+    <!-- 2. HERO (dark ink background, rounded bottom corners) -->
+    <!-- CRITICAL: Fits on the first phone screen (360x640 and 390x844) with primary button visible! -->
+    <section id="hero" class="hero-section" aria-label="Introduction">
+      <div class="container hero-grid">
+        
+        <!-- Left / Top on Phone -->
+        <div class="hero-text-col">
+          <div class="hero-badge">
+            <span data-i18n="hero_label">AI programming teacher</span>
+          </div>
+
+          <h1 class="hero-headline" data-i18n-html="hero_headline">
+            Learn to code with an AI teacher who adapts to <span class="mango-word">you</span>.
+          </h1>
+
+          <p class="hero-sentence" data-i18n="hero_sentence">
+            ALMA is a friendly teacher you can talk to, in Arabic or English. It explains each lesson your way, step by step, any time you want.
+          </p>
+
+          <div class="hero-cta-group">
+            <!-- Primary Button (Mango #FFA11F, text is Ink #10292E) -->
+            <a href="https://drive.google.com/file/d/1XyQKvFtpa_yaLJ_N5yooWhe2RETPwjLp/view?usp=sharing" target="_blank" rel="noopener noreferrer" class="btn btn-mango" data-i18n="hero_primary_btn">
+              Try the demo
+            </a>
+            <!-- Secondary Button (Outlined cream) -->
+            <a href="#video" class="btn btn-outlined-cream" data-i18n="hero_secondary_btn">
+              Watch the 60-second video
+            </a>
+          </div>
+        </div>
+
+        <!-- Right / Below on Phone: Mascot on Mango Arch -->
+        <div class="hero-stage" aria-hidden="true">
+          <div class="arch-pedestal">
+            <svg class="hero-mascot-svg" viewBox="-10 -14 232 270" role="img" aria-label="ALMA mascot waving happily">
+              <use href="#s-alma-happy"/>
+            </svg>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- 3. THE PROBLEM (cream background) [Full view only] -->
+    <section id="problem" class="section full-only-section" aria-labelledby="problem-heading">
+      <div class="container">
+        
+        <div class="section-header">
+          <h2 id="problem-heading" class="section-title" data-i18n="problem_heading">
+            Four ways to learn. Each one gives something up.
+          </h2>
+          <p class="section-intro" data-i18n="problem_intro">
+            Imagine a student in Egypt who wants to learn to code.
+          </p>
+        </div>
+
+        <!-- Four white cards (2x2 on phone, 4 in a row on desktop) -->
+        <div class="problem-grid">
+          
+          <!-- Card 1: School (mango arch) -->
+          <div class="card problem-card">
+            <div class="problem-icon-header">
+              <div class="arch-icon-wrap" style="background-color: var(--mango);">
+                <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="var(--ink)" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                  <path d="M3 21h18M3 10h18M5 6l7-3 7 3M4 10v11M20 10v11M8 14v4M12 14v4M16 14v4"/>
+                </svg>
+              </div>
+              <h3 class="problem-name" data-i18n="prob_school_title">School</h3>
+            </div>
+            <div class="line-item">
+              <span class="dot-works" aria-hidden="true"></span>
+              <span class="works-text" data-i18n="prob_school_works">A real teacher you can ask</span>
+            </div>
+            <div class="line-item">
+              <span class="dot-hurts" aria-hidden="true"></span>
+              <span class="hurts-text" data-i18n="prob_school_hurts">Outdated and too theoretical</span>
+            </div>
+          </div>
+
+          <!-- Card 2: Private lessons (coral arch) -->
+          <div class="card problem-card">
+            <div class="problem-icon-header">
+              <div class="arch-icon-wrap" style="background-color: var(--coral);">
+                <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="var(--ink)" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                  <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/>
+                </svg>
+              </div>
+              <h3 class="problem-name" data-i18n="prob_private_title">Private lessons</h3>
+            </div>
+            <div class="line-item">
+              <span class="dot-works" aria-hidden="true"></span>
+              <span class="works-text" data-i18n="prob_private_works">Good teachers, parents follow progress</span>
+            </div>
+            <div class="line-item">
+              <span class="dot-hurts" aria-hidden="true"></span>
+              <span class="hurts-text" data-i18n="prob_private_hurts">Expensive, tiring, crowded groups</span>
+            </div>
+          </div>
+
+          <!-- Card 3: Online lessons (sky arch) -->
+          <div class="card problem-card">
+            <div class="problem-icon-header">
+              <div class="arch-icon-wrap" style="background-color: var(--sky);">
+                <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="var(--ink)" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                  <rect x="2" y="3" width="20" height="14" rx="2"/><path d="M8 21h8M12 17v4"/>
+                </svg>
+              </div>
+              <h3 class="problem-name" data-i18n="prob_online_title">Online lessons</h3>
+            </div>
+            <div class="line-item">
+              <span class="dot-works" aria-hidden="true"></span>
+              <span class="works-text" data-i18n="prob_online_works">Cheaper, no travel</span>
+            </div>
+            <div class="line-item">
+              <span class="dot-hurts" aria-hidden="true"></span>
+              <span class="hurts-text" data-i18n="prob_online_hurts">Mostly recorded, hard to ask questions</span>
+            </div>
+          </div>
+
+          <!-- Card 4: Self-study (lemon arch) -->
+          <div class="card problem-card">
+            <div class="problem-icon-header">
+              <div class="arch-icon-wrap" style="background-color: var(--lemon);">
+                <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="var(--ink)" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                  <path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/>
+                </svg>
+              </div>
+              <h3 class="problem-name" data-i18n="prob_self_title">Self-study</h3>
+            </div>
+            <div class="line-item">
+              <span class="dot-works" aria-hidden="true"></span>
+              <span class="works-text" data-i18n="prob_self_works">Any time, your own way</span>
+            </div>
+            <div class="line-item">
+              <span class="dot-hurts" aria-hidden="true"></span>
+              <span class="hurts-text" data-i18n="prob_self_hurts">No mentor, tiring and easy to quit</span>
+            </div>
+          </div>
+
+        </div>
+
+      </div>
+    </section>
+
+    <!-- 4. THE SOLUTION (dark ink band, mascot on the side) [Full view only] -->
+    <section id="solution" class="section full-only-section" style="padding-top:0;" aria-labelledby="solution-heading">
+      <div class="container">
+        
+        <div class="solution-band">
+          <h2 id="solution-heading" class="section-title" data-i18n="solution_heading">
+            Meet ALMA: all the strengths, none of the trade-offs.
+          </h2>
+
+          <div class="solution-layout">
+            
+            <!-- Comparison Rows -->
+            <div class="solution-rows">
+              
+              <!-- Row 1: School -->
+              <div class="solution-row-card">
+                <div class="solution-origin">
+                  <span class="arch-icon-wrap" style="width:30px; height:36px; border-radius:12px 12px 4px 4px; background-color:var(--mango);"></span>
+                  <span data-i18n="sol_row1_origin">From school</span>
+                </div>
+                <div class="solution-keeps">
+                  <span style="color:var(--lagoon); font-weight:700;">✓</span>
+                  <span data-i18n="sol_row1_keeps">A teacher you can ask, by voice, any time</span>
+                </div>
+                <div class="solution-fixes">
+                  <span style="color:var(--mango); font-weight:700;">★</span>
+                  <span data-i18n="sol_row1_fixes">Hands-on puzzles and games, not just theory</span>
+                </div>
+              </div>
+
+              <!-- Row 2: Private lessons -->
+              <div class="solution-row-card">
+                <div class="solution-origin">
+                  <span class="arch-icon-wrap" style="width:30px; height:36px; border-radius:12px 12px 4px 4px; background-color:var(--coral);"></span>
+                  <span data-i18n="sol_row2_origin">From private lessons</span>
+                </div>
+                <div class="solution-keeps">
+                  <span style="color:var(--lagoon); font-weight:700;">✓</span>
+                  <span data-i18n="sol_row2_keeps">Clear explanations and parents who follow progress</span>
+                </div>
+                <div class="solution-fixes">
+                  <span style="color:var(--mango); font-weight:700;">★</span>
+                  <span data-i18n="sol_row2_fixes">One-to-one attention: no crowd, no commute</span>
+                </div>
+              </div>
+
+              <!-- Row 3: Online lessons -->
+              <div class="solution-row-card">
+                <div class="solution-origin">
+                  <span class="arch-icon-wrap" style="width:30px; height:36px; border-radius:12px 12px 4px 4px; background-color:var(--sky);"></span>
+                  <span data-i18n="sol_row3_origin">From online lessons</span>
+                </div>
+                <div class="solution-keeps">
+                  <span style="color:var(--lagoon); font-weight:700;">✓</span>
+                  <span data-i18n="sol_row3_keeps">Affordable and from home, free to start</span>
+                </div>
+                <div class="solution-fixes">
+                  <span style="color:var(--mango); font-weight:700;">★</span>
+                  <span data-i18n="sol_row3_fixes">A live conversation instead of recorded videos</span>
+                </div>
+              </div>
+
+              <!-- Row 4: Self-study -->
+              <div class="solution-row-card">
+                <div class="solution-origin">
+                  <span class="arch-icon-wrap" style="width:30px; height:36px; border-radius:12px 12px 4px 4px; background-color:var(--lemon);"></span>
+                  <span data-i18n="sol_row4_origin">From self-study</span>
+                </div>
+                <div class="solution-keeps">
+                  <span style="color:var(--lagoon); font-weight:700;">✓</span>
+                  <span data-i18n="sol_row4_keeps">Learn any time, the way you like</span>
+                </div>
+                <div class="solution-fixes">
+                  <span style="color:var(--mango); font-weight:700;">★</span>
+                  <span data-i18n="sol_row4_fixes">Guidance, hints and duels, so you are never alone</span>
+                </div>
+              </div>
+
+            </div>
+
+            <!-- Mascot on the side -->
+            <div class="solution-mascot-col" aria-hidden="true">
+              <svg class="solution-mascot-svg" viewBox="-10 -14 232 270">
+                <use href="#s-alma-explain"/>
+              </svg>
+            </div>
+
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- 5. HOW IT WORKS (cream) [Full view only] -->
+    <section id="how-it-works" class="section full-only-section" aria-labelledby="how-heading">
+      <div class="container">
+        
+        <div class="section-header">
+          <h2 id="how-heading" class="section-title" data-i18n="how_heading">How ALMA teaches you</h2>
+        </div>
+
+        <!-- Three steps connected by arch-shaped nodes (first two lagoon, third mango) -->
+        <div class="steps-path">
+          
+          <!-- Step 1 (Lagoon node) -->
+          <div class="step-card">
+            <div class="step-node-badge node-lagoon">1</div>
+            <h3 class="step-title" data-i18n="step1_title">Tell ALMA about you</h3>
+            <p class="step-desc" data-i18n="step1_desc">
+              A few quick questions: your age, your level and how you like to learn.
+            </p>
+          </div>
+
+          <!-- Step 2 (Lagoon node) -->
+          <div class="step-card">
+            <div class="step-node-badge node-lagoon">2</div>
+            <h3 class="step-title" data-i18n="step2_title">Learn your way</h3>
+            <p class="step-desc" data-i18n="step2_desc">
+              ALMA uses your name and explains each lesson in the way that suits you, in Arabic or English.
+            </p>
+          </div>
+
+          <!-- Step 3 (Mango node) -->
+          <div class="step-card">
+            <div class="step-node-badge node-mango">3</div>
+            <h3 class="step-title" data-i18n="step3_title">Practice and play</h3>
+            <p class="step-desc" data-i18n="step3_desc">
+              Solve puzzles, get hints when you are stuck, and challenge friends.
+            </p>
+          </div>
+
+        </div>
+
+        <!-- Interactive Adaptive Crest Feature (Brand demonstration) -->
+        <div class="crest-interactive-widget">
+          <svg class="crest-mascot-preview" viewBox="-10 -14 232 270" aria-hidden="true">
+            <rect x="56" y="238" width="36" height="13" rx="6.5" fill="#10292E"/>
+            <rect x="108" y="238" width="36" height="13" rx="6.5" fill="#10292E"/>
+            <path d="M30,228V106A70,70 0 0 1 170,106V228Q170,246 152,246H48Q30,246 30,228Z" fill="#FFA11F"/>
+            <g transform="rotate(4 28 144)"><rect x="21" y="140" width="14" height="44" rx="7" fill="#F08A00"/></g>
+            <g transform="rotate(-4 172 144)"><rect x="165" y="140" width="14" height="44" rx="7" fill="#F08A00"/></g>
+            <!-- Dynamic Crest -->
+            <rect id="adaptiveCrest" x="89" y="3" width="22" height="22" rx="7" fill="#118A80" transform="rotate(12 100 14)"/>
+            <rect x="50" y="72" width="100" height="86" rx="38" fill="#10292E"/>
+            <rect x="73" y="89" width="14" height="26" rx="7" fill="#FFF8EC"/>
+            <rect x="113" y="89" width="14" height="26" rx="7" fill="#FFF8EC"/>
+            <path d="M87,133Q100,144 113,133" fill="none" stroke="#FFF8EC" stroke-width="5" stroke-linecap="round"/>
+            <circle cx="64" cy="128" r="6.5" fill="#F25C78" opacity=".9"/>
+            <circle cx="136" cy="128" r="6.5" fill="#F25C78" opacity=".9"/>
+          </svg>
+
+          <div class="crest-controls">
+            <h4 style="font-size:1.125rem; font-weight:700;" data-i18n="crest_heading">The crest shows how ALMA is teaching you</h4>
+            <p style="font-size:0.9375rem; color:var(--slate);" data-i18n="crest_sub">Tap a learning mode to see how ALMA adapts its explanations:</p>
+            <div class="crest-chips-row">
+              <button type="button" class="crest-mode-btn" data-color="#7CCBF0" data-note-key="crest_visual">
+                <span class="crest-dot" style="background-color:#7CCBF0;"></span>
+                <span data-i18n="crest_btn_visual">Visual</span>
+              </button>
+              <button type="button" class="crest-mode-btn" data-color="#F25C78" data-note-key="crest_hands_on">
+                <span class="crest-dot" style="background-color:#F25C78;"></span>
+                <span data-i18n="crest_btn_handson">Hands-on</span>
+              </button>
+              <button type="button" class="crest-mode-btn active" data-color="#118A80" data-note-key="crest_step">
+                <span class="crest-dot" style="background-color:#118A80;"></span>
+                <span data-i18n="crest_btn_step">Step by step</span>
+              </button>
+              <button type="button" class="crest-mode-btn" data-color="#FFD84A" data-note-key="crest_trial">
+                <span class="crest-dot" style="background-color:#FFD84A;"></span>
+                <span data-i18n="crest_btn_trial">Trial and error</span>
+              </button>
+            </div>
+            <p id="crestDescription" style="font-size:0.9375rem; font-weight:500; color:var(--ink); margin-top:4px;" data-i18n="crest_step">
+              Step by step: short, ordered instructions with a checkmark on each one.
+            </p>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- 6. FEATURES (cream, 2x2 white cards with arch icons) [Present in both Full and Quick QR] -->
+    <section id="features" class="section" aria-labelledby="features-heading">
+      <div class="container">
+        
+        <div class="section-header">
+          <h2 id="features-heading" class="section-title" data-i18n="features_heading">What you get</h2>
+        </div>
+
+        <div class="features-grid">
+          
+          <!-- Feature 1: Talk to your teacher -->
+          <div class="card feature-card">
+            <div class="arch-icon-wrap" style="background-color: var(--mango);">
+              <svg viewBox="0 0 32 32" width="28" height="28" fill="none" stroke="var(--ink)" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round">
+                <rect x="12" y="4" width="8" height="14" rx="4" fill="#FFA11F"/>
+                <path d="M8 15a8 8 0 0 0 16 0M16 23v5"/>
+              </svg>
+            </div>
+            <h3 class="feature-title" data-i18n="feat1_title">Talk to your teacher</h3>
+            <p class="feature-desc" data-i18n="feat1_desc">Ask out loud and get a clear answer, any time.</p>
+          </div>
+
+          <!-- Feature 2: Lessons that fit you -->
+          <div class="card feature-card">
+            <div class="arch-icon-wrap" style="background-color: var(--sky);">
+              <svg viewBox="0 0 32 32" width="28" height="28" fill="none" stroke="var(--ink)" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round">
+                <circle cx="16" cy="16" r="11"/>
+                <path d="M12 12h8M12 16h8M12 20h5"/>
+              </svg>
+            </div>
+            <h3 class="feature-title" data-i18n="feat2_title">Lessons that fit you</h3>
+            <p class="feature-desc" data-i18n="feat2_desc">Your name, your level and the way you like to learn.</p>
+          </div>
+
+          <!-- Feature 3: Play and compete -->
+          <div class="card feature-card">
+            <div class="arch-icon-wrap" style="background-color: var(--lemon);">
+              <svg viewBox="0 0 32 32" width="28" height="28" fill="none" stroke="var(--ink)" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M16 4l3.5 8L28 13l-6.2 5.8 1.7 8.2L16 22.8 8.5 27l1.7-8.2L4 13l8.5-1z" fill="#FFD84A"/>
+              </svg>
+            </div>
+            <h3 class="feature-title" data-i18n="feat3_title">Play and compete</h3>
+            <p class="feature-desc" data-i18n="feat3_desc">Live 1v1 coding duels, ranks and leaderboards.</p>
+          </div>
+
+          <!-- Feature 4: Parents and teachers in the loop -->
+          <div class="card feature-card">
+            <div class="arch-icon-wrap" style="background-color: var(--coral);">
+              <svg viewBox="0 0 32 32" width="28" height="28" fill="none" stroke="var(--ink)" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M22 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/>
+              </svg>
+            </div>
+            <h3 class="feature-title" data-i18n="feat4_title">Parents and teachers in the loop</h3>
+            <p class="feature-desc" data-i18n="feat4_desc">Simple progress views, and lessons built from a teacher's prompt.</p>
+          </div>
+
+        </div>
+
+      </div>
+    </section>
+
+    <!-- 7. VIDEO (dark ink card, rounded) [Present in both Full and Quick QR] -->
+    <section id="video" class="section" style="padding-top:0;" aria-labelledby="video-heading">
+      <div class="container">
+        
+        <div class="video-card-section">
+          <h2 id="video-heading" class="section-title" data-i18n="video_heading">See ALMA in 60 seconds</h2>
+
+          <!-- Embedded Player with Lazy-Loaded Video and Big Mango Play Button -->
+          <div class="video-player-container" id="videoCardPlay" role="button" tabindex="0" aria-label="Play 60-second video demo">
+            <video id="almaVideoPlayer" class="video-element" preload="none" playsinline controls>
+              <source src="ALMA%20video1.mp4" type="video/mp4"/>
+              Your browser does not support the video tag.
+            </video>
+
+            <div class="video-poster-art">
+              <!-- Background mascot silhouette in poster -->
+              <svg viewBox="-10 -14 232 270" width="200" height="220" style="opacity:0.2;" aria-hidden="true">
+                <use href="#s-alma-happy"/>
+              </svg>
+            </div>
+
+            <!-- Big Mango Play Button inside an Arch -->
+            <div class="big-play-arch">
+              <div class="play-triangle"></div>
+            </div>
+
+            <div class="video-time-tag">01:00</div>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- 8. WHO IT IS FOR (mango band) [Full view only] -->
+    <!-- Text on mango is ALWAYS INK. NEVER WHITE. -->
+    <section id="who" class="section full-only-section" style="padding-top:0;" aria-labelledby="who-heading">
+      <div class="container">
+        
+        <div class="who-section">
+          <h2 id="who-heading" class="section-title" data-i18n="who_heading">
+            For learners, parents, schools and teachers
+          </h2>
+
+          <div class="who-chips-row">
+            <span class="who-chip" data-i18n="chip_learners">Learners of any age</span>
+            <span class="who-chip" data-i18n="chip_parents">Parents</span>
+            <span class="who-chip" data-i18n="chip_schools">Schools</span>
+            <span class="who-chip" data-i18n="chip_teachers">Teachers</span>
+          </div>
+
+          <p class="who-subtitle" data-i18n="who_sub">
+            Free to start on mobile and web.
+          </p>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- 9. THE TEAM (cream) [Full view only] -->
+    <section id="team" class="section full-only-section" aria-labelledby="team-heading">
+      <div class="container">
+        
+        <div class="section-header">
+          <h2 id="team-heading" class="section-title" data-i18n="team_heading">Built by a student team</h2>
+          <p class="section-intro" data-i18n="team_sentence">
+            ALMA Academy is a graduation project by a team of seven students working on AI, design, apps and cloud.
+          </p>
+        </div>
+
+        <!-- 7 Arch-shaped avatar placeholders with names (no roles) -->
+        <div class="team-grid">
+          
+          <div class="team-member-card">
+            <div class="avatar-arch">MT</div>
+            <div class="member-name" data-i18n="member_1">Mohamed Tareq</div>
+          </div>
+
+          <div class="team-member-card">
+            <div class="avatar-arch">ME</div>
+            <div class="member-name" data-i18n="member_2">Mohamed Elfouly</div>
+          </div>
+
+          <div class="team-member-card">
+            <div class="avatar-arch">MA</div>
+            <div class="member-name" data-i18n="member_3">Mohamed Abo Auof</div>
+          </div>
+
+          <div class="team-member-card">
+            <div class="avatar-arch">MS</div>
+            <div class="member-name" data-i18n="member_4">Mohamed Saeed</div>
+          </div>
+
+          <div class="team-member-card">
+            <div class="avatar-arch">MF</div>
+            <div class="member-name" data-i18n="member_5">Mohamed Fared</div>
+          </div>
+
+          <div class="team-member-card">
+            <div class="avatar-arch">MF</div>
+            <div class="member-name" data-i18n="member_6">Mohamad Farouk</div>
+          </div>
+
+          <div class="team-member-card">
+            <div class="avatar-arch">MI</div>
+            <div class="member-name" data-i18n="member_7">Mohamad Ibrahim</div>
+          </div>
+
+        </div>
+
+        <!-- University & Supervisor info box -->
+        <div class="university-box">
+          <div>
+            <strong data-i18n="uni_label">University:</strong>
+            <span data-i18n="uni_val">[UNIVERSITY NAME: October 6 University]</span>
+          </div>
+          <div>
+            <strong data-i18n="supervisor_label">Academic Supervisor:</strong>
+            <span data-i18n="supervisor_val">[SUPERVISOR NAME]</span>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- 10. FINAL CALL TO ACTION (dark ink card with mascot celebrating) [Both Full and Quick QR] -->
+    <section id="cta" class="section" aria-labelledby="cta-heading">
+      <div class="container">
+        
+        <div class="cta-card">
+          <!-- Mascot Celebrating -->
+          <svg class="cta-celebrate-mascot" viewBox="-10 -14 232 270" role="img" aria-label="ALMA mascot celebrating victory">
+            <use href="#s-alma-celebrate"/>
+          </svg>
+
+          <h2 id="cta-heading" class="cta-title" data-i18n="cta_heading">
+            Your coding journey starts here.
+          </h2>
+
+          <!-- Primary Mango Button -->
+          <a href="https://drive.google.com/file/d/1XyQKvFtpa_yaLJ_N5yooWhe2RETPwjLp/view?usp=sharing" target="_blank" rel="noopener noreferrer" class="btn btn-mango" style="font-size:1.125rem; padding:0 36px;" data-i18n="cta_btn">
+            Try the demo
+          </a>
+
+          <p class="cta-contact-text">
+            <span data-i18n="cta_email_lead">Questions or feedback?</span>
+            <a href="mailto:mohamadtareq954@gmail.com">mohamadtareq954@gmail.com</a>
+          </p>
+
+          <!-- Simple Optional Feedback Form -->
+          <div class="feedback-form-box">
+            <form id="feedbackForm" onsubmit="handleFeedbackSubmit(event)">
+              <div class="form-group">
+                <label for="fbName" class="form-label" data-i18n="form_name">Name (optional)</label>
+                <input type="text" id="fbName" class="form-input" data-i18n-ph="form_name_ph" placeholder="Your name"/>
+              </div>
+              <div class="form-group">
+                <label for="fbEmail" class="form-label" data-i18n="form_email">Email</label>
+                <input type="email" id="fbEmail" class="form-input" required placeholder="you@example.com"/>
+              </div>
+              <div class="form-group">
+                <label for="fbMessage" class="form-label" data-i18n="form_msg">Message</label>
+                <textarea id="fbMessage" class="form-textarea" required data-i18n-ph="form_msg_ph" placeholder="Share your feedback or questions..."></textarea>
+              </div>
+              <button type="submit" class="btn btn-mango" style="width:100%; height:46px; min-height:46px;" data-i18n="form_send">
+                Send
+              </button>
+              <div id="fbSuccess" class="form-feedback-success" data-i18n="form_success">
+                Thank you! Your feedback has been sent to the team.
+              </div>
+            </form>
+          </div>
+
+        </div>
+
+      </div>
+    </section>
+
+  </main>
+
+  <!-- 11. FOOTER (ink) -->
+  <footer class="site-footer" role="contentinfo">
+    <div class="container footer-inner">
+      
+      <!-- Small logo & graduation project note -->
+      <div class="footer-brand">
+        <svg viewBox="22 0 156 250" width="18" height="28" aria-hidden="true">
+          <use href="#s-alma-mark"/>
+        </svg>
+        <span data-i18n="footer_title">ALMA Academy · Graduation project</span>
+      </div>
+
+      <!-- Language toggle again -->
+      <div class="lang-toggle" role="group" aria-label="Language Selector Footer">
+        <button type="button" id="footerLangEnBtn" class="lang-btn active" aria-pressed="true">EN</button>
+        <button type="button" id="footerLangArBtn" class="lang-btn" aria-pressed="false">عربي</button>
+      </div>
+
+      <!-- Copyright line with current year (2026) -->
+      <div class="footer-copy">
+        &copy; 2026 ALMA Academy. <span data-i18n="footer_rights">All rights reserved.</span>
+      </div>
+
+    </div>
+  </footer>
+
+  <!-- -------------------------------------------------------------
+       CENTRALIZED BILINGUAL COPY DICTIONARY & INTERACTIVITY SCRIPT
+       All texts for both languages are stored here in ONE easy-to-edit place!
+       ------------------------------------------------------------- -->
+  <script>
+    const I18N = {
+      en: {
+        page_title: "ALMA Academy | Learn to code with an AI teacher",
+        brand_name: "ALMA",
+        brand_sub: "ACADEMY",
+        view_mode_btn: "Quick View",
+        view_mode_full: "Full Page",
+        nav_demo_btn: '<span class="full-label">Try the demo</span><span class="short-label">Demo</span>',
+        qr_banner_text: "⚡ Quick Scan View for Mobile Visitors.",
+        qr_banner_switch: "Switch to Full Story",
+
+        // Hero
+        hero_label: "AI programming teacher",
+        hero_headline: 'Learn to code with an AI teacher who adapts to <span class="mango-word">you</span>.',
+        hero_sentence: "ALMA is a friendly teacher you can talk to, in Arabic or English. It explains each lesson your way, step by step, any time you want.",
+        hero_primary_btn: "Try the demo",
+        hero_secondary_btn: "Watch the 60-second video",
+
+        // The Problem
+        problem_heading: "Four ways to learn. Each one gives something up.",
+        problem_intro: "Imagine a student in Egypt who wants to learn to code.",
+        prob_school_title: "School",
+        prob_school_works: "A real teacher you can ask",
+        prob_school_hurts: "Outdated and too theoretical",
+        prob_private_title: "Private lessons",
+        prob_private_works: "Good teachers, parents follow progress",
+        prob_private_hurts: "Expensive, tiring, crowded groups",
+        prob_online_title: "Online lessons",
+        prob_online_works: "Cheaper, no travel",
+        prob_online_hurts: "Mostly recorded, hard to ask questions",
+        prob_self_title: "Self-study",
+        prob_self_works: "Any time, your own way",
+        prob_self_hurts: "No mentor, tiring and easy to quit",
+
+        // The Solution
+        solution_heading: "Meet ALMA: all the strengths, none of the trade-offs.",
+        sol_row1_origin: "From school",
+        sol_row1_keeps: "A teacher you can ask, by voice, any time",
+        sol_row1_fixes: "Hands-on puzzles and games, not just theory",
+        sol_row2_origin: "From private lessons",
+        sol_row2_keeps: "Clear explanations and parents who follow progress",
+        sol_row2_fixes: "One-to-one attention: no crowd, no commute",
+        sol_row3_origin: "From online lessons",
+        sol_row3_keeps: "Affordable and from home, free to start",
+        sol_row3_fixes: "A live conversation instead of recorded videos",
+        sol_row4_origin: "From self-study",
+        sol_row4_keeps: "Learn any time, the way you like",
+        sol_row4_fixes: "Guidance, hints and duels, so you are never alone",
+
+        // How it Works
+        how_heading: "How ALMA teaches you",
+        step1_title: "Tell ALMA about you",
+        step1_desc: "A few quick questions: your age, your level and how you like to learn.",
+        step2_title: "Learn your way",
+        step2_desc: "ALMA uses your name and explains each lesson in the way that suits you, in Arabic or English.",
+        step3_title: "Practice and play",
+        step3_desc: "Solve puzzles, get hints when you are stuck, and challenge friends.",
+
+        // Adaptive Crest Widget
+        crest_heading: "The crest shows how ALMA is teaching you",
+        crest_sub: "Tap a learning mode to see how ALMA adapts its explanations:",
+        crest_btn_visual: "Visual",
+        crest_btn_handson: "Hands-on",
+        crest_btn_step: "Step by step",
+        crest_btn_trial: "Trial and error",
+        crest_visual: "Visual: diagrams, block structures, and step animations come first, with clear captions.",
+        crest_hands_on: "Hands-on: ALMA presents an interactive puzzle immediately and explains concepts right after.",
+        crest_step: "Step by step: short, ordered instructions with a clear checkmark on each milestone.",
+        crest_trial: "Trial and error: ALMA lets you experiment freely in code and gently nudges only when you get stuck.",
+
+        // Features
+        features_heading: "What you get",
+        feat1_title: "Talk to your teacher",
+        feat1_desc: "Ask out loud and get a clear answer, any time.",
+        feat2_title: "Lessons that fit you",
+        feat2_desc: "Your name, your level and the way you like to learn.",
+        feat3_title: "Play and compete",
+        feat3_desc: "Live 1v1 coding duels, ranks and leaderboards.",
+        feat4_title: "Parents and teachers in the loop",
+        feat4_desc: "Simple progress views, and lessons built from a teacher's prompt.",
+
+        // Video
+        video_heading: "See ALMA in 60 seconds",
+
+        // Who it is for
+        who_heading: "For learners, parents, schools and teachers",
+        chip_learners: "Learners of any age",
+        chip_parents: "Parents",
+        chip_schools: "Schools",
+        chip_teachers: "Teachers",
+        who_sub: "Free to start on mobile and web.",
+
+        // Team
+        team_heading: "Built by a student team",
+        team_sentence: "ALMA Academy is a graduation project by a team of seven students working on AI, design, apps and cloud.",
+        member_1: "Mohamed Tareq",
+        member_2: "Mohamed Elfouly",
+        member_3: "Mohamed Abo Auof",
+        member_4: "Mohamed Saeed",
+        member_5: "Mohamed Fared",
+        member_6: "Mohamad Farouk",
+        member_7: "Mohamad Ibrahim",
+        uni_label: "University:",
+        uni_val: "[UNIVERSITY NAME: October 6 University]",
+        supervisor_label: "Academic Supervisor:",
+        supervisor_val: "[SUPERVISOR NAME]",
+
+        // Final CTA & Feedback
+        cta_heading: "Your coding journey starts here.",
+        cta_btn: "Try the demo",
+        cta_email_lead: "Questions or feedback?",
+        form_name: "Name (optional)",
+        form_name_ph: "Your name",
+        form_email: "Email",
+        form_msg: "Message",
+        form_msg_ph: "Share your feedback or questions...",
+        form_send: "Send",
+        form_success: "Thank you! Your feedback has been sent to the team.",
+
+        // Footer
+        footer_title: "ALMA Academy · Graduation project",
+        footer_rights: "All rights reserved."
+      },
+
+      ar: {
+        page_title: "أكاديمية ألما | تعلّم البرمجة مع معلّم ذكي",
+        brand_name: "ألما",
+        brand_sub: "الأكاديمية",
+        view_mode_btn: "عرض سريع",
+        view_mode_full: "الصفحة كاملة",
+        nav_demo_btn: '<span class="full-label">جرّب النسخة التجريبية</span><span class="short-label">جرّب الآن</span>',
+        qr_banner_text: "⚡ العرض السريع لزوار الهاتف ومسح الباركود (QR).",
+        qr_banner_switch: "التبديل إلى الصفحة الكاملة",
+
+        // Hero
+        hero_label: "معلّم برمجة ذكي",
+        hero_headline: 'تعلّم البرمجة مع معلّم ذكي يتكيّف <span class="mango-word">معك</span>.',
+        hero_sentence: "ألما معلّم ودود تتحدث إليه بالعربية أو الإنجليزية. يشرح لك كل درس بطريقتك، خطوةً بخطوة، وفي أي وقت.",
+        hero_primary_btn: "جرّب النسخة التجريبية",
+        hero_secondary_btn: "شاهد الفيديو (60 ثانية)",
+
+        // The Problem
+        problem_heading: "أربع طرق للتعلّم، وكل واحدة تتنازل عن شيء.",
+        problem_intro: "تخيّل طالبًا في مصر يريد أن يتعلم البرمجة.",
+        prob_school_title: "المدرسة",
+        prob_school_works: "معلّم حقيقي تسأله",
+        prob_school_hurts: "طرق قديمة ونظرية أكثر من اللازم",
+        prob_private_title: "الدروس الخصوصية",
+        prob_private_works: "معلمون جيدون وأولياء أمور يتابعون",
+        prob_private_hurts: "غالية ومتعبة وأعداد كبيرة",
+        prob_online_title: "الدروس عبر الإنترنت",
+        prob_online_works: "أرخص وبلا تنقّل",
+        prob_online_hurts: "مسجّلة غالبًا ويصعب السؤال",
+        prob_self_title: "الدراسة الذاتية",
+        prob_self_works: "في أي وقت وبطريقتك",
+        prob_self_hurts: "بلا مرشد ومتعبة وسهل أن تتوقف",
+
+        // The Solution
+        solution_heading: "قابل ألما: كل المزايا بلا العيوب.",
+        sol_row1_origin: "من المدرسة",
+        sol_row1_keeps: "معلّم تسأله بصوتك في أي وقت",
+        sol_row1_fixes: "ألغاز وألعاب تطبيقية وليست نظريات فقط",
+        sol_row2_origin: "من الدروس الخصوصية",
+        sol_row2_keeps: "شرح واضح وأولياء أمور يتابعون التقدم",
+        sol_row2_fixes: "اهتمام فردي بلا زحام ولا مواصلات",
+        sol_row3_origin: "من الدروس عبر الإنترنت",
+        sol_row3_keeps: "بسعر مناسب ومن البيت، ومجاني للبدء",
+        sol_row3_fixes: "محادثة مباشرة بدل فيديوهات مسجّلة",
+        sol_row4_origin: "من الدراسة الذاتية",
+        sol_row4_keeps: "تعلّم في أي وقت وبالطريقة التي تحبها",
+        sol_row4_fixes: "إرشاد وتلميحات ومبارزات فلا تكون وحدك",
+
+        // How it Works
+        how_heading: "كيف تعلّمك ألما",
+        step1_title: "عرّف ألما بنفسك",
+        step1_desc: "أسئلة سريعة عن عمرك ومستواك وطريقتك المفضلة في التعلم.",
+        step2_title: "تعلّم بطريقتك",
+        step2_desc: "تناديك ألما باسمك وتشرح كل درس بالطريقة التي تناسبك، بالعربية أو الإنجليزية.",
+        step3_title: "تدرّب والعب",
+        step3_desc: "حلّ الألغاز، وخذ تلميحات عندما تتعثر، وتحدَّ أصدقاءك.",
+
+        // Adaptive Crest Widget
+        crest_heading: "التاج يعكس كيف تدرّسك ألما",
+        crest_sub: "اضغط على نمط التعلم لترى كيف تكيّف ألما طريقة الشرح:",
+        crest_btn_visual: "بصري",
+        crest_btn_handson: "عملي تطبيقي",
+        crest_btn_step: "خطوة بخطوة",
+        crest_btn_trial: "التجربة والخطأ",
+        crest_visual: "بصري: الرسوم البيانية وهياكل الأكواد والحركات تأتي أولاً مع شروحات موجزة.",
+        crest_hands_on: "تطبيقي: تعطيك ألما لغزاً فورياً وتتركك تجربه، ثم تشرح القاعدة بعده.",
+        crest_step: "خطوة بخطوة: تعليمات قصيرة ومرتبة مع علامة إنجاز عند كل مرحلة.",
+        crest_trial: "التجربة والخطأ: تتركك ألما تكتشف الحل بنفسك بحرية ولا تتدخل إلا عند التعثر.",
+
+        // Features
+        features_heading: "ماذا تحصل عليه",
+        feat1_title: "تحدّث مع معلّمك",
+        feat1_desc: "اسأل بصوتك واحصل على إجابة واضحة في أي وقت.",
+        feat2_title: "دروس تناسبك",
+        feat2_desc: "باسمك ومستواك وبالطريقة التي تحب أن تتعلم بها.",
+        feat3_title: "العب وتنافس",
+        feat3_desc: "مبارزات برمجة مباشرة، ورتب، ولوحة متصدرين.",
+        feat4_title: "أولياء الأمور والمعلمون معك",
+        feat4_desc: "متابعة بسيطة للتقدم، ودروس تُبنى من وصف المعلّم.",
+
+        // Video
+        video_heading: "شاهد ألما في 60 ثانية",
+
+        // Who it is for
+        who_heading: "للمتعلمين وأولياء الأمور والمدارس والمعلمين",
+        chip_learners: "متعلمون من كل الأعمار",
+        chip_parents: "أولياء الأمور",
+        chip_schools: "المدارس",
+        chip_teachers: "المعلمون",
+        who_sub: "تبدأ مجانًا على الموبايل والويب.",
+
+        // Team
+        team_heading: "صنعه فريق من الطلاب",
+        team_sentence: "أكاديمية ألما مشروع تخرج لفريق من سبعة طلاب يعملون على الذكاء الاصطناعي والتصميم والتطبيقات والسحابة.",
+        member_1: "محمد طارق",
+        member_2: "محمد الفولي",
+        member_3: "محمد أبو عوف",
+        member_4: "محمد سعيد",
+        member_5: "محمد فريد",
+        member_6: "محمد فاروق",
+        member_7: "محمد إبراهيم",
+        uni_label: "الجامعة:",
+        uni_val: "[اسم الجامعة: جامعة 6 أكتوبر]",
+        supervisor_label: "المشرف الأكاديمي:",
+        supervisor_val: "[اسم المشرف الأكاديمي]",
+
+        // Final CTA & Feedback
+        cta_heading: "رحلتك في البرمجة تبدأ من هنا.",
+        cta_btn: "جرّب النسخة التجريبية",
+        cta_email_lead: "أسئلة أو ملاحظات؟",
+        form_name: "الاسم (اختياري)",
+        form_name_ph: "اسمك الكريم",
+        form_email: "البريد الإلكتروني",
+        form_msg: "الرسالة",
+        form_msg_ph: "شاركنا ملاحظاتك أو أسئلتك...",
+        form_send: "إرسال",
+        form_success: "شكرًا لك! تم إرسال ملاحظاتك إلى فريق المشروع بنجاح.",
+
+        // Footer
+        footer_title: "أكاديمية ألما · مشروع تخرج",
+        footer_rights: "جميع الحقوق محفوظة."
+      }
+    };
+
+    // State
+    let currentLang = localStorage.getItem('alma_lang') || 'en';
+    let isQrMode = new URLSearchParams(window.location.search).get('mode') === 'quick' || false;
+
+    // Apply Language
+    function setLanguage(lang) {
+      if (!I18N[lang]) lang = 'en';
+      currentLang = lang;
+      localStorage.setItem('alma_lang', lang);
+
+      // Root HTML Attributes
+      const root = document.documentElement;
+      root.lang = lang;
+      root.dir = lang === 'ar' ? 'rtl' : 'ltr';
+
+      // Update Page Title
+      document.title = I18N[lang].page_title;
+
+      // Update textContent for elements with data-i18n
+      document.querySelectorAll('[data-i18n]').forEach(el => {
+        const key = el.getAttribute('data-i18n');
+        if (I18N[lang][key] !== undefined) {
+          el.textContent = I18N[lang][key];
+        }
+      });
+
+      // Update innerHTML for elements with data-i18n-html
+      document.querySelectorAll('[data-i18n-html]').forEach(el => {
+        const key = el.getAttribute('data-i18n-html');
+        if (I18N[lang][key] !== undefined) {
+          el.innerHTML = I18N[lang][key];
+        }
+      });
+
+      // Update placeholders for elements with data-i18n-ph
+      document.querySelectorAll('[data-i18n-ph]').forEach(el => {
+        const key = el.getAttribute('data-i18n-ph');
+        if (I18N[lang][key] !== undefined) {
+          el.setAttribute('placeholder', I18N[lang][key]);
+        }
+      });
+
+      // Update Active Button states in both toggles
+      const enBtns = [document.getElementById('langEnBtn'), document.getElementById('footerLangEnBtn')];
+      const arBtns = [document.getElementById('langArBtn'), document.getElementById('footerLangArBtn')];
+
+      enBtns.forEach(btn => {
+        if (!btn) return;
+        btn.classList.toggle('active', lang === 'en');
+        btn.setAttribute('aria-pressed', lang === 'en');
+      });
+
+      arBtns.forEach(btn => {
+        if (!btn) return;
+        btn.classList.toggle('active', lang === 'ar');
+        btn.setAttribute('aria-pressed', lang === 'ar');
+      });
+
+      // Update active crest description
+      const activeCrestBtn = document.querySelector('.crest-mode-btn.active');
+      if (activeCrestBtn) {
+        const noteKey = activeCrestBtn.getAttribute('data-note-key');
+        const descEl = document.getElementById('crestDescription');
+        if (descEl && I18N[lang][noteKey]) {
+          descEl.textContent = I18N[lang][noteKey];
+        }
+      }
+    }
+
+    // Toggle Quick QR Mode
+    function setQrMode(enable) {
+      isQrMode = enable;
+      document.body.classList.toggle('qr-mode', isQrMode);
+      const textEl = document.getElementById('viewModeText');
+      if (textEl) {
+        textEl.textContent = isQrMode 
+          ? I18N[currentLang].view_mode_full 
+          : I18N[currentLang].view_mode_btn;
+      }
+    }
+
+    // Initialize Event Listeners
+    document.addEventListener('DOMContentLoaded', () => {
+      // Initialize Language
+      setLanguage(currentLang);
+
+      // Language buttons
+      document.getElementById('langEnBtn')?.addEventListener('click', () => setLanguage('en'));
+      document.getElementById('langArBtn')?.addEventListener('click', () => setLanguage('ar'));
+      document.getElementById('footerLangEnBtn')?.addEventListener('click', () => setLanguage('en'));
+      document.getElementById('footerLangArBtn')?.addEventListener('click', () => setLanguage('ar'));
+
+      // View mode toggles
+      document.getElementById('viewModeToggle')?.addEventListener('click', () => {
+        setQrMode(!isQrMode);
+      });
+      document.getElementById('toggleFullViewBtn')?.addEventListener('click', () => {
+        setQrMode(false);
+      });
+
+      // Adaptive crest demonstration buttons
+      const crestEl = document.getElementById('adaptiveCrest');
+      const descEl = document.getElementById('crestDescription');
+      document.querySelectorAll('.crest-mode-btn').forEach(btn => {
+        btn.addEventListener('click', () => {
+          document.querySelectorAll('.crest-mode-btn').forEach(b => b.classList.remove('active'));
+          btn.classList.add('active');
+          const color = btn.getAttribute('data-color');
+          const noteKey = btn.getAttribute('data-note-key');
+          if (crestEl) crestEl.setAttribute('fill', color);
+          if (descEl && I18N[currentLang][noteKey]) {
+            descEl.textContent = I18N[currentLang][noteKey];
+          }
+        });
+      });
+
+      // Video play interaction (Plays local video with lazy load)
+      const videoCard = document.getElementById('videoCardPlay');
+      const videoElement = document.getElementById('almaVideoPlayer');
+      if (videoCard && videoElement) {
+        videoCard.addEventListener('click', (e) => {
+          // If clicked inside video controls once playing, don't re-trigger
+          if (e.target === videoElement) return;
+          if (videoElement.paused) {
+            videoCard.classList.add('is-playing');
+            videoElement.play();
+          } else {
+            videoElement.pause();
+          }
+        });
+        videoCard.addEventListener('keydown', (e) => {
+          if (e.key === 'Enter' || e.key === ' ') {
+            e.preventDefault();
+            videoCard.click();
+          }
+        });
+      }
+    });
+
+    // Feedback Form Submission Handler
+    function handleFeedbackSubmit(e) {
+      e.preventDefault();
+      const successBanner = document.getElementById('fbSuccess');
+      if (successBanner) {
+        successBanner.style.display = 'block';
+      }
+      const form = document.getElementById('feedbackForm');
+      if (form) {
+        form.reset();
+      }
+      setTimeout(() => {
+        if (successBanner) successBanner.style.display = 'none';
+      }, 5000);
+    }
+  </script>
+</body>
+</html>

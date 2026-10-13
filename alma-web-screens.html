@@ -1,0 +1,377 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8"/>
+<title>ALMA Academy Web</title>
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { background: #E7EEE9; font-family: 'Readex Pro', system-ui, sans-serif; padding: 48px; color: #10292E; }
+  .board { display: flex; flex-wrap: wrap; gap: 48px; align-items: flex-start; }
+  .screen {
+    width: 1440px; height: 900px; background: #FFF8EC; position: relative;
+    overflow: hidden; flex-shrink: 0; display: flex; flex-direction: column;
+  }
+  .screen-label {
+    position: absolute; top: -28px; left: 0;
+    font: 500 13px system-ui; color: #5A6E70;
+  }
+  .alma { display: block; overflow: visible; }
+  h1, h2, h3, .display, .btn {
+    font-family: 'Baloo 2', system-ui, sans-serif;
+  }
+  .btn {
+    display: inline-flex; align-items: center; justify-content: center;
+    height: 52px; padding: 0 28px; border-radius: 999px;
+    font-weight: 700; font-size: 18px; text-decoration: none; border: none; cursor: pointer;
+  }
+  .btn-primary { background: #FFA11F; color: #10292E; }
+  .btn-secondary { background: transparent; color: #10292E; box-shadow: inset 0 0 0 2px #10292E; }
+  .btn-ghost { background: transparent; color: #EEF3EF; box-shadow: inset 0 0 0 2px #EEF3EF; }
+  .card {
+    background: #fff; border: 1.5px solid #D5DED8; border-radius: 20px; padding: 20px;
+  }
+  .pill {
+    display: inline-flex; align-items: center; border-radius: 999px;
+    padding: 6px 14px; font: 600 14px 'Readex Pro', system-ui, sans-serif;
+  }
+  .node {
+    width: 44px; height: 54px; border-radius: 22px 22px 10px 10px;
+    display: flex; align-items: center; justify-content: center;
+    font: 700 18px 'Baloo 2', system-ui; color: #fff;
+  }
+  .bar-chrome {
+    height: 40px; background: #E3EBE6; display: flex; align-items: center; gap: 8px;
+    padding: 0 14px; flex-shrink: 0;
+  }
+  .bar-chrome i { width: 10px; height: 10px; border-radius: 50%; background: #C4D0C9; }
+  .bar-chrome .url {
+    flex: 1; background: #fff; border-radius: 999px; height: 26px;
+    display: flex; align-items: center; gap: 8px; padding: 0 14px;
+    font: 500 13px 'Readex Pro', system-ui; color: #5A6E70; margin: 0 12px;
+  }
+</style>
+</head>
+<body>
+<!-- Inline reference mascot SVGs from ALMA Academy Brand Identity.html -->
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <defs>
+    <g id="alma-happy">
+      <rect x="56" y="238" width="36" height="13" rx="6.5" fill="#10292E"/>
+      <rect x="108" y="238" width="36" height="13" rx="6.5" fill="#10292E"/>
+      <path d="M30,228V106A70,70 0 0 1 170,106V228Q170,246 152,246H48Q30,246 30,228Z" fill="#FFA11F"/>
+      <g transform="rotate(128 28 144)"><rect x="21" y="140" width="14" height="44" rx="7" fill="#F08A00"/></g>
+      <g transform="rotate(-128 172 144)"><rect x="165" y="140" width="14" height="44" rx="7" fill="#F08A00"/></g>
+      <rect x="89" y="3" width="22" height="22" rx="7" fill="#FFD84A" transform="rotate(8 100 14)"/>
+      <rect x="50" y="72" width="100" height="86" rx="38" fill="#10292E"/>
+      <path d="M71,107Q80,90 89,107M111,107Q120,90 129,107" fill="none" stroke="#FFF8EC" stroke-width="6" stroke-linecap="round"/>
+      <path d="M81,127Q100,156 119,127Z" fill="#FFF8EC" stroke="#FFF8EC" stroke-width="4" stroke-linejoin="round"/>
+      <circle cx="64" cy="128" r="6.5" fill="#F25C78" opacity=".9"/>
+      <circle cx="136" cy="128" r="6.5" fill="#F25C78" opacity=".9"/>
+      <polygon points="24,26 26.7,33.3 34,36 26.7,38.7 24,46 21.3,38.7 14,36 21.3,33.3" fill="#FFD84A"/>
+      <polygon points="178,23 179.9,28.1 185,30 179.9,31.9 178,37 176.1,31.9 171,30 176.1,28.1" fill="#F25C78" transform="rotate(10 178 30)"/>
+    </g>
+    <g id="alma-idle">
+      <rect x="56" y="238" width="36" height="13" rx="6.5" fill="#10292E"/>
+      <rect x="108" y="238" width="36" height="13" rx="6.5" fill="#10292E"/>
+      <path d="M30,228V106A70,70 0 0 1 170,106V228Q170,246 152,246H48Q30,246 30,228Z" fill="#FFA11F"/>
+      <g transform="rotate(4 28 144)"><rect x="21" y="140" width="14" height="44" rx="7" fill="#F08A00"/></g>
+      <g transform="rotate(-4 172 144)"><rect x="165" y="140" width="14" height="44" rx="7" fill="#F08A00"/></g>
+      <rect x="89" y="3" width="22" height="22" rx="7" fill="#118A80" transform="rotate(12 100 14)"/>
+      <rect x="50" y="72" width="100" height="86" rx="38" fill="#10292E"/>
+      <rect x="73" y="89" width="14" height="26" rx="7" fill="#FFF8EC"/>
+      <rect x="113" y="89" width="14" height="26" rx="7" fill="#FFF8EC"/>
+      <path d="M87,133Q100,144 113,133" fill="none" stroke="#FFF8EC" stroke-width="5" stroke-linecap="round"/>
+      <circle cx="64" cy="128" r="6.5" fill="#F25C78" opacity=".9"/>
+      <circle cx="136" cy="128" r="6.5" fill="#F25C78" opacity=".9"/>
+    </g>
+    <g id="alma-explain">
+      <rect x="56" y="238" width="36" height="13" rx="6.5" fill="#10292E"/>
+      <rect x="108" y="238" width="36" height="13" rx="6.5" fill="#10292E"/>
+      <path d="M30,228V106A70,70 0 0 1 170,106V228Q170,246 152,246H48Q30,246 30,228Z" fill="#FFA11F"/>
+      <g transform="rotate(14 28 144)"><rect x="21" y="140" width="14" height="44" rx="7" fill="#F08A00"/></g>
+      <g transform="rotate(-98 172 144)"><rect x="165" y="140" width="14" height="44" rx="7" fill="#F08A00"/></g>
+      <rect x="89" y="3" width="22" height="22" rx="7" fill="#118A80" transform="rotate(12 100 14)"/>
+      <rect x="50" y="72" width="100" height="86" rx="38" fill="#10292E"/>
+      <rect x="73" y="89" width="14" height="26" rx="7" fill="#FFF8EC"/>
+      <rect x="113" y="89" width="14" height="26" rx="7" fill="#FFF8EC"/>
+      <ellipse cx="100" cy="135" rx="8" ry="7" fill="#FFF8EC"/>
+      <circle cx="64" cy="128" r="6.5" fill="#F25C78" opacity=".9"/>
+      <circle cx="136" cy="128" r="6.5" fill="#F25C78" opacity=".9"/>
+      <g transform="translate(118 -8)">
+        <path d="M0,10Q0,0 10,0H62Q72,0 72,10V40Q72,50 62,50H22L8,62L12,50H10Q0,50 0,40Z" fill="#FFFFFF" stroke="#10292E" stroke-width="3" stroke-linejoin="round"/>
+        <rect x="12" y="30" width="14" height="10" rx="3" fill="#118A80"/>
+        <rect x="29" y="22" width="14" height="18" rx="3" fill="#FFA11F"/>
+        <rect x="46" y="12" width="14" height="28" rx="3" fill="#F25C78"/>
+      </g>
+    </g>
+    <g id="alma-mark">
+      <path d="M30,228V106A70,70 0 0 1 170,106V228Q170,246 152,246H48Q30,246 30,228Z" fill="#FFA11F"/>
+      <rect x="89" y="3" width="22" height="22" rx="7" fill="#118A80" transform="rotate(12 100 14)"/>
+      <rect x="50" y="72" width="100" height="86" rx="38" fill="#10292E"/>
+      <rect x="73" y="89" width="14" height="26" rx="7" fill="#FFF8EC"/>
+      <rect x="113" y="89" width="14" height="26" rx="7" fill="#FFF8EC"/>
+      <path d="M87,133Q100,144 113,133" fill="none" stroke="#FFF8EC" stroke-width="5" stroke-linecap="round"/>
+      <circle cx="64" cy="128" r="6.5" fill="#F25C78" opacity=".9"/>
+      <circle cx="136" cy="128" r="6.5" fill="#F25C78" opacity=".9"/>
+    </g>
+  </defs>
+</svg>
+
+<div class="board">
+
+<!-- ========== LANDING ========== -->
+<div class="screen" data-name="Web · Landing">
+  <span class="screen-label">Web · Landing</span>
+  <div class="bar-chrome"><i></i><i></i><i></i><div class="url"><svg class="alma" viewBox="22 0 156 250" width="10" height="16"><use href="#alma-mark"/></svg>alma.academy</div></div>
+  <nav style="display:flex;align-items:center;gap:28px;padding:18px 48px;background:#FFF8EC;">
+    <div style="display:flex;align-items:center;gap:10px;">
+      <svg class="alma" viewBox="22 0 156 250" width="28" height="44"><use href="#alma-mark"/></svg>
+      <span class="display" style="font:800 22px 'Baloo 2',system-ui;">ALMA</span>
+    </div>
+    <div style="margin-left:auto;display:flex;gap:28px;font:500 16px 'Readex Pro',system-ui;color:#5A6E70;">
+      <span>Courses</span><span>For schools</span><span>Pricing</span><span>English · العربية</span>
+    </div>
+    <span class="btn btn-primary" style="height:44px;font-size:16px;">Start free</span>
+  </nav>
+  <div style="flex:1;display:grid;grid-template-columns:1.1fr 0.9fr;gap:40px;padding:24px 48px 0;align-items:center;min-height:0;">
+    <div>
+      <span class="pill" style="background:#10292E;color:#FFD84A;">Adaptive coding for ages 10 and up</span>
+      <h1 class="display" style="font-size:56px;font-weight:800;line-height:1.05;margin:18px 0 16px;max-width:560px;">Your coding journey starts here.</h1>
+      <p style="font:400 18px/1.5 'Readex Pro',system-ui;color:#5A6E70;max-width:480px;">Short puzzles, a friendly guide who talks with you, and lessons that change shape to match how you learn. In Arabic or English.</p>
+      <div style="display:flex;gap:12px;margin-top:28px;">
+        <span class="btn btn-primary">Start free</span>
+        <span class="btn btn-secondary">Try a lesson</span>
+      </div>
+    </div>
+    <div style="background:#10292E;border-radius:36px;height:480px;position:relative;display:flex;align-items:center;justify-content:center;overflow:hidden;">
+      <div style="position:absolute;left:-40px;right:-40px;bottom:-80px;height:200px;background:#0B6B63;border-radius:50% 50% 0 0;"></div>
+      <svg class="alma" viewBox="-10 -14 232 270" width="220" height="280" style="position:relative;z-index:1;"><use href="#alma-happy"/></svg>
+      <div style="position:absolute;left:24px;top:28px;background:#fff;border-radius:12px;padding:8px 14px;font:700 14px 'Baloo 2',system-ui;background:#FFD84A;color:#10292E;">repeat 3</div>
+      <div style="position:absolute;right:24px;bottom:36px;background:#fff;border-radius:14px;padding:10px 14px;font:600 14px 'Readex Pro',system-ui;display:flex;gap:8px;align-items:center;">
+        <span style="width:10px;height:10px;border-radius:3px;background:#7CCBF0;"></span>Visual mode on
+      </div>
+    </div>
+  </div>
+  <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:16px;padding:20px 48px 32px;">
+    <div class="card"><b class="display" style="font-size:20px;font-weight:700;">Adapts to you</b><p style="color:#5A6E70;margin-top:6px;font-size:15px;">Visual, hands-on or step by step.</p></div>
+    <div class="card"><b class="display" style="font-size:20px;font-weight:700;">Talk to ALMA</b><p style="color:#5A6E70;margin-top:6px;font-size:15px;">Ask out loud or type, any time.</p></div>
+    <div class="card"><b class="display" style="font-size:20px;font-weight:700;">Play to learn</b><p style="color:#5A6E70;margin-top:6px;font-size:15px;">Puzzles, badges and daily goals.</p></div>
+  </div>
+</div>
+
+<!-- ========== DASHBOARD ========== -->
+<div class="screen" data-name="Web · Student dashboard">
+  <span class="screen-label">Web · Student dashboard</span>
+  <div style="flex:1;display:flex;min-height:0;">
+    <aside style="width:220px;background:#10292E;color:#EEF3EF;padding:28px 16px;display:flex;flex-direction:column;gap:6px;flex-shrink:0;">
+      <div style="display:flex;align-items:center;gap:10px;margin-bottom:24px;font:800 20px 'Baloo 2',system-ui;">
+        <svg class="alma" viewBox="22 0 156 250" width="22" height="36"><use href="#alma-mark"/></svg>ALMA
+      </div>
+      <div style="display:flex;align-items:center;gap:10px;padding:12px 14px;border-radius:12px;background:#1B3F45;font:500 15px 'Readex Pro',system-ui;">Home</div>
+      <div style="display:flex;align-items:center;gap:10px;padding:12px 14px;border-radius:12px;color:#B9CDCB;font:500 15px 'Readex Pro',system-ui;">My path</div>
+      <div style="display:flex;align-items:center;gap:10px;padding:12px 14px;border-radius:12px;color:#B9CDCB;font:500 15px 'Readex Pro',system-ui;">Practice</div>
+      <div style="display:flex;align-items:center;gap:10px;padding:12px 14px;border-radius:12px;color:#B9CDCB;font:500 15px 'Readex Pro',system-ui;">Talk to ALMA</div>
+      <div style="display:flex;align-items:center;gap:10px;padding:12px 14px;border-radius:12px;color:#B9CDCB;font:500 15px 'Readex Pro',system-ui;">Achievements</div>
+    </aside>
+    <main style="flex:1;padding:32px 36px;display:grid;grid-template-columns:1.5fr 1fr;grid-template-rows:auto auto 1fr;gap:20px;background:#FFF8EC;min-width:0;">
+      <div style="grid-column:1/-1;display:flex;align-items:center;justify-content:space-between;">
+        <div>
+          <h1 class="display" style="font-size:36px;font-weight:800;">Good evening, Layla</h1>
+          <p style="color:#5A6E70;margin-top:4px;">Three steps left in Loops.</p>
+        </div>
+        <span class="pill" style="background:#FFD84A;font:700 15px 'Baloo 2',system-ui;">12-day streak</span>
+      </div>
+      <div class="card">
+        <b class="display" style="font-size:20px;font-weight:700;">Today's path</b>
+        <div style="display:flex;align-items:flex-end;gap:14px;margin:20px 0;">
+          <div class="node" style="background:#118A80;">✓</div>
+          <div class="node" style="background:#118A80;">✓</div>
+          <div class="node" style="background:#FFA11F;width:54px;height:66px;border-radius:27px 27px 12px 12px;color:#10292E;">3</div>
+          <div class="node" style="background:#D5DED8;color:#5A6E70;">4</div>
+          <div class="node" style="background:#D5DED8;color:#5A6E70;">5</div>
+        </div>
+        <div style="display:flex;gap:12px;">
+          <span class="btn btn-primary" style="height:44px;">Continue</span>
+          <span class="btn btn-secondary" style="height:44px;">Review</span>
+        </div>
+      </div>
+      <div class="card" style="display:flex;align-items:center;gap:16px;">
+        <div style="width:72px;height:72px;border-radius:50%;background:conic-gradient(#118A80 0 75%,#D5DED8 0);display:flex;align-items:center;justify-content:center;position:relative;">
+          <div style="width:52px;height:52px;border-radius:50%;background:#fff;display:flex;align-items:center;justify-content:center;font:800 16px 'Baloo 2',system-ui;">3/4</div>
+        </div>
+        <div><b class="display" style="font-size:18px;">Daily goal</b><br><span style="color:#5A6E70;">One more lesson</span></div>
+      </div>
+      <div class="card">
+        <b class="display" style="font-size:20px;font-weight:700;">Skills this week</b>
+        <div style="margin-top:16px;">
+          <div style="margin-bottom:12px;">Loops<div style="height:10px;background:#E3EBE6;border-radius:999px;overflow:hidden;margin-top:6px;"><div style="width:72%;height:100%;background:#FFA11F;"></div></div></div>
+          <div>Variables<div style="height:10px;background:#E3EBE6;border-radius:999px;overflow:hidden;margin-top:6px;"><div style="width:94%;height:100%;background:#118A80;"></div></div></div>
+        </div>
+      </div>
+      <div class="card" style="background:#10292E;color:#EEF3EF;border:none;display:flex;gap:16px;align-items:center;">
+        <svg class="alma" viewBox="-10 -14 232 270" width="90" height="115" style="flex:none;"><use href="#alma-explain"/></svg>
+        <p style="font:500 16px/1.45 'Readex Pro',system-ui;">You learn fastest with pictures. I will show a diagram first.</p>
+      </div>
+    </main>
+  </div>
+</div>
+
+<!-- ========== CODING EXERCISE ========== -->
+<div class="screen" data-name="Web · Coding exercise" style="background:#fff;">
+  <span class="screen-label">Web · Coding exercise</span>
+  <div style="display:flex;align-items:center;gap:16px;padding:18px 32px;background:#FFF8EC;">
+    <span style="font:700 22px 'Baloo 2',system-ui;">×</span>
+    <div style="flex:1;height:12px;border-radius:999px;background:#E3EBE6;overflow:hidden;"><div style="width:60%;height:100%;background:#118A80;"></div></div>
+    <span class="pill" style="background:#FFD84A;font:700 14px 'Baloo 2',system-ui;">+15 XP</span>
+  </div>
+  <div style="flex:1;display:grid;grid-template-columns:1fr 1.15fr;gap:28px;padding:28px 32px;min-height:0;">
+    <div>
+      <h1 class="display" style="font-size:36px;font-weight:800;margin-bottom:8px;">Help ALMA reach the door</h1>
+      <p style="color:#5A6E70;margin-bottom:24px;">Build a program that walks three steps.</p>
+      <div style="display:grid;gap:10px;font:700 16px 'Baloo 2',system-ui;">
+        <div style="background:#7CCBF0;padding:10px 18px;border-radius:12px;width:fit-content;">when start</div>
+        <div style="background:#FFD84A;padding:10px 18px;border-radius:12px;width:fit-content;margin-left:20px;">repeat 3 times</div>
+        <div style="background:#FFA11F;padding:10px 18px;border-radius:12px;width:fit-content;margin-left:40px;">step forward</div>
+        <div style="border:2px dashed #118A80;color:#0B6B63;padding:10px 18px;border-radius:12px;width:fit-content;margin-left:20px;">drop a block here</div>
+      </div>
+    </div>
+    <div style="background:#10292E;border-radius:24px;position:relative;padding:28px;display:flex;align-items:center;">
+      <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:12px;width:100%;">
+        <div style="aspect-ratio:1;border-radius:14px;background:#1B3F45;"></div>
+        <div style="aspect-ratio:1;border-radius:14px;background:#1B3F45;"></div>
+        <div style="aspect-ratio:1;border-radius:14px;background:#1B3F45;"></div>
+        <div style="aspect-ratio:1;border-radius:14px;background:#118A80;display:flex;align-items:center;justify-content:center;">
+          <svg width="40" height="50" viewBox="0 0 34 42"><path d="M2,42V17A15,15 0 0 1 32,17V42Z" fill="#FFA11F"/></svg>
+        </div>
+      </div>
+      <svg class="alma" viewBox="-10 -14 232 270" width="100" height="128" style="position:absolute;left:36px;top:50%;transform:translateY(-50%);"><use href="#alma-idle"/></svg>
+    </div>
+  </div>
+  <div style="display:flex;align-items:center;gap:16px;padding:20px 32px;background:#FFF8EC;">
+    <span class="btn btn-secondary" style="height:44px;">Hint</span>
+    <div style="flex:1;display:flex;gap:12px;align-items:center;color:#5A6E70;">
+      <svg class="alma" viewBox="-10 -14 232 270" width="48" height="62"><use href="#alma-idle"/></svg>
+      Which block repeats things?
+    </div>
+    <span class="btn btn-primary" style="height:44px;">Run</span>
+  </div>
+</div>
+
+<!-- ========== TALK TO ALMA ========== -->
+<div class="screen" data-name="Web · Talk to ALMA" style="background:#0A1B1F;color:#EEF3EF;">
+  <span class="screen-label">Web · Talk to ALMA</span>
+  <div style="display:flex;justify-content:space-between;padding:24px 40px;">
+    <span class="pill" style="background:#1B3F45;color:#EEF3EF;">Live with ALMA</span>
+    <span class="pill" style="background:#7CCBF0;color:#10292E;">Visual mode</span>
+  </div>
+  <div style="flex:1;display:flex;align-items:center;justify-content:center;position:relative;">
+    <div style="position:absolute;width:360px;height:360px;border-radius:50%;background:radial-gradient(circle,#1B3F45,transparent 70%);"></div>
+    <svg class="alma" viewBox="-10 -14 232 270" width="240" height="300" style="position:relative;"><use href="#alma-explain"/></svg>
+  </div>
+  <div style="display:flex;justify-content:center;gap:6px;align-items:flex-end;height:40px;margin-bottom:12px;">
+    <i style="display:block;width:8px;height:14px;border-radius:999px;background:#FFA11F;"></i>
+    <i style="display:block;width:8px;height:26px;border-radius:999px;background:#FFA11F;"></i>
+    <i style="display:block;width:8px;height:36px;border-radius:999px;background:#FFA11F;"></i>
+    <i style="display:block;width:8px;height:20px;border-radius:999px;background:#FFA11F;"></i>
+    <i style="display:block;width:8px;height:30px;border-radius:999px;background:#FFA11F;"></i>
+    <i style="display:block;width:8px;height:12px;border-radius:999px;background:#FFA11F;"></i>
+  </div>
+  <div style="margin:0 40px 16px;background:#10292E;border-radius:18px;padding:18px 22px;">
+    <p style="font:500 17px/1.45 'Readex Pro',system-ui;">Let's solve this together! First, what do you want the loop to repeat?</p>
+    <p style="font:500 17px/1.45 'Readex Pro',system-ui;color:#9DB4B4;text-align:right;margin-top:6px;direction:rtl;">يلا نحلها مع بعض! إيه اللي عايز تكرره؟</p>
+  </div>
+  <div style="display:flex;justify-content:center;align-items:center;gap:20px;padding:8px 0 32px;">
+    <span class="btn btn-ghost" style="height:44px;">Type instead</span>
+    <span style="width:60px;height:60px;border-radius:50%;background:#FFA11F;display:flex;align-items:center;justify-content:center;">
+      <svg width="28" height="28" viewBox="0 0 32 32" fill="none" stroke="#10292E" stroke-width="2.8" stroke-linecap="round"><rect x="12" y="4" width="8" height="14" rx="4"/><path d="M8,15A8,8 0 0 0 24,15M16,23V28"/></svg>
+    </span>
+    <span class="btn btn-ghost" style="height:44px;">Show a diagram</span>
+  </div>
+</div>
+
+<!-- ========== PROGRESS ========== -->
+<div class="screen" data-name="Web · Progress">
+  <span class="screen-label">Web · Progress & achievements</span>
+  <div style="padding:40px 48px 0;">
+    <h1 class="display" style="font-size:40px;font-weight:800;">Layla's journey</h1>
+  </div>
+  <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:16px;padding:24px 48px;">
+    <div class="card"><b class="display" style="font-size:36px;font-weight:800;">1,840</b><br><span style="color:#5A6E70;">XP earned</span></div>
+    <div class="card"><b class="display" style="font-size:36px;font-weight:800;">12</b><br><span style="color:#5A6E70;">day streak</span></div>
+    <div class="card"><b class="display" style="font-size:36px;font-weight:800;">27</b><br><span style="color:#5A6E70;">lessons done</span></div>
+  </div>
+  <div style="display:grid;grid-template-columns:1.1fr 1fr;gap:20px;padding:0 48px 40px;flex:1;">
+    <div class="card">
+      <b class="display" style="font-size:20px;font-weight:700;">Skills</b>
+      <div style="margin-top:16px;display:grid;gap:14px;">
+        <div>Loops<div style="height:10px;background:#E3EBE6;border-radius:999px;overflow:hidden;margin-top:6px;"><div style="width:72%;height:100%;background:#FFA11F;"></div></div></div>
+        <div>Variables<div style="height:10px;background:#E3EBE6;border-radius:999px;overflow:hidden;margin-top:6px;"><div style="width:94%;height:100%;background:#118A80;"></div></div></div>
+        <div>Conditions<div style="height:10px;background:#E3EBE6;border-radius:999px;overflow:hidden;margin-top:6px;"><div style="width:38%;height:100%;background:#7CCBF0;"></div></div></div>
+      </div>
+    </div>
+    <div class="card">
+      <b class="display" style="font-size:20px;font-weight:700;">Badges</b>
+      <div style="display:flex;gap:14px;margin:16px 0 20px;">
+        <svg viewBox="0 0 64 78" width="64"><path d="M6,74V30A26,26 0 0 1 58,30V74Z" fill="#FFA11F"/><path d="M32,20L36,30L47,31L39,38L41,49L32,43L23,49L25,38L17,31L28,30Z" fill="#10292E"/></svg>
+        <svg viewBox="0 0 64 78" width="64"><path d="M6,74V30A26,26 0 0 1 58,30V74Z" fill="#F25C78"/><path d="M18,52H26V44H34V36H42V28H48" fill="none" stroke="#10292E" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        <svg viewBox="0 0 64 78" width="64"><path d="M6,74V30A26,26 0 0 1 58,30V74Z" fill="#118A80"/><rect x="18" y="34" width="14" height="14" rx="4" fill="#fff"/><rect x="30" y="24" width="14" height="14" rx="4" fill="#FFD84A"/></svg>
+        <svg viewBox="0 0 64 78" width="64"><path d="M6,74V30A26,26 0 0 1 58,30V74Z" fill="#D5DED8"/></svg>
+      </div>
+      <div style="background:#10292E;color:#EEF3EF;border-radius:16px;padding:14px 16px;display:flex;gap:14px;align-items:center;">
+        <svg class="alma" viewBox="-10 -14 232 270" width="56" height="72" style="flex:none;"><use href="#alma-happy"/></svg>
+        <span style="font:500 15px 'Readex Pro',system-ui;">Conditions is your next unlock.</span>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ========== WEB LOGIN ========== -->
+<div class="screen" data-name="Web · Log in">
+  <span class="screen-label">Web · Log in</span>
+  <div style="flex:1;display:grid;grid-template-columns:1fr 1fr;min-height:0;">
+    <div style="background:#10292E;display:flex;flex-direction:column;align-items:center;justify-content:center;position:relative;overflow:hidden;padding:48px;">
+      <div style="position:absolute;left:-60px;right:-60px;bottom:-100px;height:280px;background:#0B6B63;border-radius:50% 50% 0 0;"></div>
+      <svg class="alma" viewBox="-10 -14 232 270" width="260" height="330" style="position:relative;z-index:1;"><use href="#alma-happy"/></svg>
+      <p class="display" style="position:relative;z-index:1;color:#FFF8EC;font:800 28px 'Baloo 2',system-ui;margin-top:16px;text-align:center;">Welcome back</p>
+    </div>
+    <div style="display:flex;flex-direction:column;justify-content:center;padding:64px 80px;background:#FFF8EC;">
+      <div style="display:flex;align-items:center;gap:10px;margin-bottom:32px;">
+        <svg class="alma" viewBox="22 0 156 250" width="24" height="38"><use href="#alma-mark"/></svg>
+        <span class="display" style="font:800 22px 'Baloo 2',system-ui;">ALMA Academy</span>
+      </div>
+      <h1 class="display" style="font-size:36px;font-weight:800;margin-bottom:8px;">Log in</h1>
+      <p style="color:#5A6E70;margin-bottom:28px;">Keep your streak going.</p>
+      <label style="font:500 14px 'Readex Pro',system-ui;display:block;margin-bottom:8px;">Email</label>
+      <div style="height:52px;background:#fff;border:1.5px solid #D5DED8;border-radius:16px;display:flex;align-items:center;padding:0 16px;margin-bottom:16px;font-size:16px;">layla@school.edu</div>
+      <label style="font:500 14px 'Readex Pro',system-ui;display:block;margin-bottom:8px;">Password</label>
+      <div style="height:52px;background:#fff;border:1.5px solid #D5DED8;border-radius:16px;display:flex;align-items:center;padding:0 16px;margin-bottom:8px;font-size:16px;justify-content:space-between;">••••••••••••</div>
+      <div style="text-align:right;margin-bottom:24px;"><a href="#" style="color:#0B6B63;font:500 15px 'Readex Pro',system-ui;text-decoration:none;">Forgot password?</a></div>
+      <span class="btn btn-primary" style="width:100%;margin-bottom:16px;">Log in</span>
+      <span class="btn btn-secondary" style="width:100%;">Continue with Google</span>
+      <p style="margin-top:28px;text-align:center;color:#5A6E70;">New to ALMA? <a href="#" style="color:#0B6B63;font-weight:500;text-decoration:none;">Create an account</a></p>
+    </div>
+  </div>
+</div>
+
+<!-- ========== FIXED MOBILE SPLASH (mascot reference) ========== -->
+<div class="screen" data-name="Mobile · Splash (fixed mascot)" style="width:390px;height:844px;">
+  <span class="screen-label">Mobile · Splash · fixed mascot</span>
+  <div style="height:54px;padding:14px 24px 0;display:flex;justify-content:space-between;font:500 14px 'Readex Pro',system-ui;">
+    <span>9:41</span><span>●●●</span>
+  </div>
+  <div style="flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;position:relative;padding:0 24px;">
+    <div style="position:absolute;bottom:0;left:0;right:0;height:220px;background:#FFA11F;opacity:0.35;border-radius:200px 200px 0 0;"></div>
+    <svg class="alma" viewBox="-10 -14 232 270" width="200" height="255" style="position:relative;z-index:1;"><use href="#alma-happy"/></svg>
+    <h1 class="display" style="font-size:36px;font-weight:800;margin-top:20px;position:relative;z-index:1;">ALMA Academy</h1>
+    <p style="color:#5A6E70;margin-top:8px;position:relative;z-index:1;">Your coding journey starts here.</p>
+    <div style="position:absolute;bottom:48px;display:flex;gap:8px;z-index:1;">
+      <i style="width:8px;height:8px;border-radius:50%;background:#FFA11F;display:block;"></i>
+      <i style="width:8px;height:8px;border-radius:50%;background:#FFA11F;opacity:0.45;display:block;"></i>
+      <i style="width:8px;height:8px;border-radius:50%;background:#FFA11F;opacity:0.25;display:block;"></i>
+    </div>
+  </div>
+</div>
+
+</div>
+</body>
+</html>

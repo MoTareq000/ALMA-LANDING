@@ -1,0 +1,782 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<title>ALMA Academy Mobile Screens</title>
+<style>
+  @font-face { font-family: 'Baloo2Local'; font-weight: 700; src: local('Baloo 2 Bold'), local('Baloo2-Bold'); }
+  @font-face { font-family: 'Baloo2Local'; font-weight: 800; src: local('Baloo 2 ExtraBold'), local('Baloo2-ExtraBold'); }
+  @font-face { font-family: 'ReadexLocal'; font-weight: 400; src: local('Readex Pro'), local('ReadexPro-Regular'); }
+  @font-face { font-family: 'ReadexLocal'; font-weight: 500; src: local('Readex Pro Medium'), local('ReadexPro-Medium'); }
+  @font-face { font-family: 'JBMonoLocal'; font-weight: 500; src: local('JetBrains Mono'), local('JetBrainsMono-Regular'); }
+
+  :root {
+    --mango: #FFA11F;
+    --ink: #10292E;
+    --lagoon-d: #0B6B63;
+    --lagoon: #118A80;
+    --coral: #F25C78;
+    --sky: #7CCBF0;
+    --lemon: #FFD84A;
+    --cream: #FFF8EC;
+    --white: #FFFFFF;
+    --border: #D5DED8;
+    --slate: #5A6E70;
+    --success: #2E9E5B;
+    --warning: #E8A100;
+    --error: #C73A3A;
+    --grey: #C5CEC8;
+    --f-d: 'Baloo2Local', 'Baloo 2', system-ui, sans-serif;
+    --f-b: 'ReadexLocal', 'Readex Pro', system-ui, sans-serif;
+    --f-m: 'JBMonoLocal', 'JetBrains Mono', ui-monospace, monospace;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body {
+    background: #E7EEE9;
+    font-family: var(--f-b);
+    font-weight: 400;
+    font-size: 16px;
+    color: var(--ink);
+    padding: 40px;
+  }
+  .board {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 40px;
+    align-items: flex-start;
+  }
+  .screen {
+    width: 390px;
+    height: 844px;
+    background: var(--cream);
+    border-radius: 0;
+    position: relative;
+    overflow: hidden;
+    flex-shrink: 0;
+    display: flex;
+    flex-direction: column;
+  }
+  .screen-label {
+    position: absolute;
+    top: -28px;
+    left: 0;
+    font: 500 12px var(--f-b);
+    color: var(--slate);
+  }
+  .status {
+    height: 54px;
+    padding: 14px 24px 0;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font: 500 14px var(--f-b);
+    color: var(--ink);
+    flex-shrink: 0;
+  }
+  .status .time { font-weight: 500; }
+  .status .icons { display: flex; gap: 6px; align-items: center; }
+  .status .icons i {
+    display: block; background: var(--ink); border-radius: 2px;
+  }
+  h1, h2, .heading {
+    font-family: var(--f-d);
+    font-weight: 800;
+    color: var(--ink);
+    line-height: 1.15;
+  }
+  .body { font: 400 16px/1.45 var(--f-b); color: var(--slate); }
+  .link { color: var(--lagoon-d); font: 500 16px var(--f-b); text-decoration: none; }
+  .PrimaryButton {
+    height: 52px;
+    border-radius: 999px;
+    background: var(--mango);
+    color: var(--ink);
+    font: 700 18px var(--f-d);
+    display: flex; align-items: center; justify-content: center; gap: 8px;
+    border: none; width: 100%;
+  }
+  .PrimaryButton.disabled { opacity: 0.4; }
+  .SecondaryButton {
+    height: 52px;
+    border-radius: 999px;
+    background: var(--white);
+    color: var(--ink);
+    font: 700 18px var(--f-d);
+    display: flex; align-items: center; justify-content: center; gap: 8px;
+    border: 2px solid var(--ink); width: 100%;
+  }
+  .OutlinedPill {
+    height: 52px;
+    border-radius: 999px;
+    background: transparent;
+    color: var(--ink);
+    font: 700 17px var(--f-d);
+    display: flex; align-items: center; justify-content: center; gap: 10px;
+    border: 1.5px solid var(--border); width: 100%;
+  }
+  .TextField { display: flex; flex-direction: column; gap: 8px; width: 100%; }
+  .TextField label { font: 500 14px var(--f-b); color: var(--ink); }
+  .TextField .field {
+    height: 52px; background: var(--white); border: 1.5px solid var(--border);
+    border-radius: 16px; padding: 0 16px; display: flex; align-items: center;
+    font: 400 16px var(--f-b); color: var(--ink); justify-content: space-between;
+  }
+  .TextField .field.focused { border-color: var(--mango); border-width: 2px; }
+  .TextField .field.error { border-color: var(--error); }
+  .TextField .err {
+    display: flex; align-items: center; gap: 6px;
+    color: var(--error); font: 400 14px var(--f-b);
+  }
+  .ChoiceChip {
+    height: 48px; padding: 0 18px; border-radius: 999px;
+    border: 1.5px solid var(--border); background: var(--white);
+    font: 500 15px var(--f-b); color: var(--ink);
+    display: inline-flex; align-items: center; justify-content: center;
+  }
+  .ChoiceChip.selected {
+    background: var(--mango); border: 2px solid var(--ink);
+  }
+  .ArchNode {
+    width: 44px; height: 54px;
+    border-radius: 22px 22px 10px 10px;
+    display: flex; align-items: center; justify-content: center;
+    font: 700 16px var(--f-d); color: var(--white);
+  }
+  .ArchNode.done { background: var(--lagoon); }
+  .ArchNode.current { background: var(--mango); width: 52px; height: 64px; border-radius: 26px 26px 12px 12px; color: var(--ink); }
+  .ArchNode.locked { background: var(--grey); color: var(--slate); }
+  .ArchNode.todo { background: var(--border); }
+  .StatTile {
+    flex: 1; background: var(--white); border: 1.5px solid var(--border);
+    border-radius: 20px; padding: 14px 12px; text-align: center;
+  }
+  .StatTile .val { font: 800 20px var(--f-d); color: var(--ink); }
+  .StatTile .lbl { font: 400 12px var(--f-b); color: var(--slate); margin-top: 2px; }
+  .BottomNav {
+    height: 84px; background: var(--white); border-top: 1px solid var(--border);
+    display: flex; padding: 8px 8px 20px; flex-shrink: 0; margin-top: auto;
+  }
+  .BottomNav .tab {
+    flex: 1; display: flex; flex-direction: column; align-items: center; gap: 4px;
+    font: 500 11px var(--f-b); color: var(--slate); position: relative; padding-top: 8px;
+  }
+  .BottomNav .tab.selected { color: var(--ink); font-weight: 500; }
+  .BottomNav .tab .ico {
+    width: 28px; height: 28px; display: flex; align-items: center; justify-content: center;
+    position: relative; z-index: 1;
+  }
+  .BottomNav .tab.selected .arch-ind {
+    position: absolute; top: 2px; width: 40px; height: 40px;
+    background: var(--mango); border-radius: 20px 20px 8px 8px; z-index: 0;
+  }
+  .divider-or {
+    display: flex; align-items: center; gap: 12px; width: 100%;
+    color: var(--slate); font: 400 14px var(--f-b);
+  }
+  .divider-or::before, .divider-or::after {
+    content: ''; flex: 1; height: 1px; background: var(--border);
+  }
+  .pad { padding: 0 24px; }
+  .content { flex: 1; display: flex; flex-direction: column; overflow: hidden; }
+  .back {
+    width: 48px; height: 48px; display: flex; align-items: center; justify-content: center;
+  }
+  .skip { position: absolute; top: 58px; right: 24px; z-index: 2; }
+  .dots { display: flex; gap: 8px; align-items: center; justify-content: center; }
+  .dots span { width: 8px; height: 8px; border-radius: 50%; background: var(--border); }
+  .dots span.on { width: 24px; border-radius: 999px; background: var(--mango); }
+  .card {
+    background: var(--white); border: 1.5px solid var(--border);
+    border-radius: 20px; padding: 16px;
+  }
+  .progress-pills { display: flex; gap: 6px; }
+  .progress-pills i {
+    height: 6px; flex: 1; border-radius: 999px; background: var(--border);
+  }
+  .progress-pills i.on { background: var(--mango); }
+  /* ALMA mascot helpers */
+  .alma-body {
+    position: relative; width: 140px; height: 180px;
+  }
+  .alma-body .arch {
+    position: absolute; left: 20px; top: 18px; width: 100px; height: 140px;
+    background: var(--mango); border-radius: 50px 50px 18px 18px;
+  }
+  .alma-body .hat {
+    position: absolute; left: 58px; top: 0; width: 22px; height: 22px;
+    background: var(--lagoon); border-radius: 7px; transform: rotate(12deg);
+  }
+  .alma-body .face {
+    position: absolute; left: 35px; top: 48px; width: 70px; height: 58px;
+    background: var(--ink); border-radius: 28px;
+  }
+  .alma-body .eye {
+    position: absolute; width: 10px; height: 18px; background: var(--cream);
+    border-radius: 999px; top: 58px;
+  }
+  .alma-body .eye.l { left: 52px; }
+  .alma-body .eye.r { left: 78px; }
+  .alma-body .smile {
+    position: absolute; left: 55px; top: 82px; width: 30px; height: 10px;
+    border-bottom: 3px solid var(--cream); border-radius: 0 0 16px 16px;
+  }
+  .alma-body .cheek {
+    position: absolute; width: 10px; height: 10px; background: var(--coral);
+    border-radius: 50%; top: 78px; opacity: 0.9;
+  }
+  .alma-body .cheek.l { left: 38px; }
+  .alma-body .cheek.r { left: 92px; }
+  .alma-body .arm {
+    position: absolute; width: 14px; height: 40px; background: #F08A00;
+    border-radius: 999px; top: 90px;
+  }
+  .alma-body .arm.l { left: 8px; transform: rotate(20deg); }
+  .alma-body .arm.r { right: 8px; transform: rotate(-20deg); }
+  .alma-body.wave .arm.r {
+    right: -4px; top: 40px; transform: rotate(-130deg); height: 44px;
+  }
+  .alma-body .foot {
+    position: absolute; bottom: 8px; width: 28px; height: 10px;
+    background: var(--ink); border-radius: 999px;
+  }
+  .alma-body .foot.l { left: 40px; }
+  .alma-body .foot.r { right: 40px; }
+  .alma-face-sm {
+    width: 40px; height: 48px; position: relative; flex-shrink: 0;
+  }
+  .alma-face-sm .a {
+    width: 36px; height: 44px; background: var(--mango);
+    border-radius: 18px 18px 8px 8px; position: absolute; left: 2px; top: 4px;
+  }
+  .alma-face-sm .h {
+    width: 10px; height: 10px; background: var(--lagoon); border-radius: 3px;
+    position: absolute; left: 15px; top: 0; transform: rotate(12deg);
+  }
+  .alma-face-sm .f {
+    width: 24px; height: 20px; background: var(--ink); border-radius: 10px;
+    position: absolute; left: 8px; top: 16px;
+  }
+  .alma-face-sm .e {
+    width: 4px; height: 7px; background: var(--cream); border-radius: 999px;
+    position: absolute; top: 20px;
+  }
+  .alma-face-sm .e.l { left: 13px; }
+  .alma-face-sm .e.r { left: 23px; }
+  .icon-line {
+    width: 24px; height: 24px; border: 2.5px solid var(--ink);
+    border-radius: 6px; position: relative;
+  }
+  .icon-line::after {
+    content: ''; position: absolute; width: 8px; height: 8px;
+    background: var(--mango); border-radius: 2px; right: -2px; top: -2px;
+  }
+</style>
+</head>
+<body>
+<div class="board">
+
+<!-- ========== SCREEN 1: SPLASH ========== -->
+<div class="screen" data-name="01 Splash">
+  <span class="screen-label">01 · Splash</span>
+  <div class="status"><span class="time">9:41</span><span class="icons"><i style="width:16px;height:10px"></i><i style="width:14px;height:10px;border-radius:2px"></i><i style="width:22px;height:10px;border-radius:3px"></i></span></div>
+  <div class="content" style="align-items:center;justify-content:center;position:relative;">
+    <div style="position:absolute;bottom:0;left:0;right:0;height:220px;background:var(--mango);border-radius:200px 200px 0 0;opacity:0.35;"></div>
+    <div class="alma-body wave" style="margin-bottom:24px;z-index:1;">
+      <div class="hat"></div><div class="arch"></div><div class="face"></div>
+      <div class="eye l"></div><div class="eye r"></div><div class="smile"></div>
+      <div class="cheek l"></div><div class="cheek r"></div>
+      <div class="arm l"></div><div class="arm r"></div>
+      <div class="foot l"></div><div class="foot r"></div>
+    </div>
+    <h1 style="font-size:36px;z-index:1;text-align:center;">ALMA Academy</h1>
+    <p class="body" style="margin-top:8px;z-index:1;text-align:center;">Your coding journey starts here.</p>
+    <div style="position:absolute;bottom:48px;display:flex;gap:8px;">
+      <i style="width:8px;height:8px;border-radius:50%;background:var(--mango);opacity:1;display:block;"></i>
+      <i style="width:8px;height:8px;border-radius:50%;background:var(--mango);opacity:0.45;display:block;"></i>
+      <i style="width:8px;height:8px;border-radius:50%;background:var(--mango);opacity:0.25;display:block;"></i>
+    </div>
+  </div>
+</div>
+
+<!-- ========== SCREEN 2: ONBOARDING ========== -->
+<div class="screen" data-name="02 Onboarding · Learn at your pace">
+  <span class="screen-label">02 · Onboarding 1/3</span>
+  <div class="status"><span class="time">9:41</span><span class="icons"><i style="width:16px;height:10px"></i><i style="width:14px;height:10px"></i><i style="width:22px;height:10px"></i></span></div>
+  <a class="skip link" href="#">Skip</a>
+  <div class="content pad" style="padding-top:16px;">
+    <div style="flex:1;display:flex;align-items:center;justify-content:center;gap:16px;background:var(--white);border-radius:20px;border:1.5px solid var(--border);margin-bottom:24px;min-height:320px;">
+      <div class="alma-body" style="width:100px;height:130px;transform:scale(0.75);">
+        <div class="hat"></div><div class="arch"></div><div class="face"></div>
+        <div class="eye l"></div><div class="eye r"></div><div class="smile"></div>
+        <div class="cheek l"></div><div class="cheek r"></div>
+        <div class="arm l"></div><div class="arm r"></div>
+        <div class="foot l"></div><div class="foot r"></div>
+      </div>
+      <div style="display:flex;gap:8px;align-items:flex-end;">
+        <div class="ArchNode done">✓</div>
+        <div class="ArchNode done">✓</div>
+        <div class="ArchNode current">3</div>
+        <div class="ArchNode locked">4</div>
+        <div class="ArchNode locked">5</div>
+      </div>
+    </div>
+    <h1 style="font-size:28px;margin-bottom:8px;">Learn at your pace</h1>
+    <p class="body" style="margin-bottom:24px;">Lessons adapt as you go, so you never feel stuck or bored.</p>
+    <div class="dots" style="margin-bottom:20px;"><span class="on"></span><span></span><span></span></div>
+    <div class="PrimaryButton" style="margin-bottom:24px;">Next</div>
+    <p class="body" style="font-size:13px;text-align:center;color:var(--slate);opacity:0.7;">Slide 2: Talk to your AI teacher · Slide 3: Play and compete → Get started</p>
+  </div>
+</div>
+
+<!-- ========== SCREEN 3: WELCOME ========== -->
+<div class="screen" data-name="03 Welcome">
+  <span class="screen-label">03 · Welcome</span>
+  <div class="status"><span class="time">9:41</span><span class="icons"><i style="width:16px;height:10px"></i><i style="width:14px;height:10px"></i><i style="width:22px;height:10px"></i></span></div>
+  <div class="content pad" style="align-items:center;padding-top:24px;">
+    <div class="alma-body" style="transform:scale(0.85);margin-bottom:8px;">
+      <div class="hat"></div><div class="arch"></div><div class="face"></div>
+      <div class="eye l"></div><div class="eye r"></div><div class="smile"></div>
+      <div class="cheek l"></div><div class="cheek r"></div>
+      <div class="arm l"></div><div class="arm r"></div>
+      <div class="foot l"></div><div class="foot r"></div>
+    </div>
+    <h1 style="font-size:30px;margin-bottom:8px;text-align:center;">Welcome to ALMA</h1>
+    <p class="body" style="text-align:center;margin-bottom:32px;max-width:300px;">Learn to code with an AI teacher who adapts to you.</p>
+    <div class="PrimaryButton" style="margin-bottom:12px;">Create an account</div>
+    <div class="SecondaryButton" style="margin-bottom:20px;">Log in</div>
+    <div class="divider-or" style="margin-bottom:20px;">or</div>
+    <div class="OutlinedPill" style="margin-bottom:auto;">
+      <span style="width:20px;height:20px;border:2px solid var(--lagoon);border-radius:4px;display:inline-block;"></span>
+      I have a class code
+    </div>
+    <p style="font:400 12px/1.4 var(--f-b);color:var(--slate);text-align:center;padding:20px 8px 32px;">
+      By continuing you agree to our <a class="link" href="#" style="font-size:12px;">Terms</a> and <a class="link" href="#" style="font-size:12px;">Privacy Policy</a>
+    </p>
+  </div>
+</div>
+
+<!-- ========== SCREEN 4: LOG IN ========== -->
+<div class="screen" data-name="04 Log in">
+  <span class="screen-label">04 · Log in</span>
+  <div class="status"><span class="time">9:41</span><span class="icons"><i style="width:16px;height:10px"></i><i style="width:14px;height:10px"></i><i style="width:22px;height:10px"></i></span></div>
+  <div class="content pad">
+    <div class="back">←</div>
+    <div style="display:flex;justify-content:center;margin:4px 0 16px;">
+      <div class="alma-face-sm"><div class="h"></div><div class="a"></div><div class="f"></div><div class="e l"></div><div class="e r"></div></div>
+    </div>
+    <h1 style="font-size:28px;margin-bottom:6px;text-align:center;">Welcome back</h1>
+    <p class="body" style="text-align:center;margin-bottom:28px;">Log in to keep your streak going.</p>
+    <div class="TextField" style="margin-bottom:16px;">
+      <label>Email</label>
+      <div class="field">layla@school.edu</div>
+    </div>
+    <div class="TextField" style="margin-bottom:8px;">
+      <label>Password</label>
+      <div class="field">•••••••••••• <span style="font-size:18px;">👁</span></div>
+    </div>
+    <div style="text-align:right;margin-bottom:24px;"><a class="link" href="#">Forgot password?</a></div>
+    <div class="PrimaryButton" style="margin-bottom:20px;">Log in</div>
+    <div class="divider-or" style="margin-bottom:20px;">or</div>
+    <div class="SecondaryButton" style="margin-bottom:12px;">
+      <span style="width:20px;height:20px;border-radius:50%;background:conic-gradient(#EA4335 0 25%,#FBBC05 0 50%,#34A853 0 75%,#4285F4 0);display:inline-block;"></span>
+      Continue with Google
+    </div>
+    <div class="OutlinedPill" style="margin-bottom:auto;">Log in with class code</div>
+    <p style="text-align:center;padding:20px 0 32px;font:400 15px var(--f-b);color:var(--slate);">
+      New to ALMA? <a class="link" href="#">Create an account</a>
+    </p>
+  </div>
+</div>
+
+<!-- ========== SCREEN 4b: LOG IN ERROR ========== -->
+<div class="screen" data-name="04b Log in · Error">
+  <span class="screen-label">04b · Log in error</span>
+  <div class="status"><span class="time">9:41</span><span class="icons"><i style="width:16px;height:10px"></i><i style="width:14px;height:10px"></i><i style="width:22px;height:10px"></i></span></div>
+  <div class="content pad">
+    <div class="back">←</div>
+    <div style="display:flex;justify-content:center;margin:4px 0 16px;">
+      <div class="alma-face-sm"><div class="h"></div><div class="a"></div><div class="f"></div><div class="e l"></div><div class="e r"></div></div>
+    </div>
+    <h1 style="font-size:28px;margin-bottom:6px;text-align:center;">Welcome back</h1>
+    <p class="body" style="text-align:center;margin-bottom:28px;">Log in to keep your streak going.</p>
+    <div class="TextField" style="margin-bottom:16px;">
+      <label>Email</label>
+      <div class="field error">layla@school</div>
+      <div class="err"><span style="width:14px;height:14px;border:2px solid var(--error);border-radius:50%;display:inline-flex;align-items:center;justify-content:center;font-size:10px;font-weight:700;">!</span> Please enter a valid email</div>
+    </div>
+    <div class="TextField" style="margin-bottom:8px;">
+      <label>Password</label>
+      <div class="field">•••••••••••• <span style="font-size:18px;">👁</span></div>
+    </div>
+    <div style="text-align:right;margin-bottom:24px;"><a class="link" href="#">Forgot password?</a></div>
+    <div class="PrimaryButton">Log in</div>
+  </div>
+</div>
+
+<!-- ========== SCREEN 5: CREATE ACCOUNT ========== -->
+<div class="screen" data-name="05 Create account">
+  <span class="screen-label">05 · Create account</span>
+  <div class="status"><span class="time">9:41</span><span class="icons"><i style="width:16px;height:10px"></i><i style="width:14px;height:10px"></i><i style="width:22px;height:10px"></i></span></div>
+  <div class="content pad">
+    <div style="display:flex;align-items:center;gap:12px;margin-bottom:8px;">
+      <div class="back">←</div>
+      <div style="flex:1;">
+        <p style="font:500 12px var(--f-b);color:var(--slate);margin-bottom:6px;">Step 1 of 3</p>
+        <div class="progress-pills"><i class="on"></i><i></i><i></i></div>
+      </div>
+    </div>
+    <h1 style="font-size:28px;margin:16px 0 24px;">Create your account</h1>
+    <div class="TextField" style="margin-bottom:16px;">
+      <label>Full name</label>
+      <div class="field">Layla Hassan</div>
+    </div>
+    <div class="TextField" style="margin-bottom:16px;">
+      <label>Email</label>
+      <div class="field focused">layla@school.edu</div>
+    </div>
+    <div class="TextField" style="margin-bottom:8px;">
+      <label>Password</label>
+      <div class="field">••••••••</div>
+    </div>
+    <div style="display:flex;gap:4px;margin-bottom:6px;">
+      <i style="height:4px;flex:1;border-radius:999px;background:var(--lemon);display:block;"></i>
+      <i style="height:4px;flex:1;border-radius:999px;background:var(--lagoon);display:block;"></i>
+      <i style="height:4px;flex:1;border-radius:999px;background:var(--border);display:block;"></i>
+      <i style="height:4px;flex:1;border-radius:999px;background:var(--border);display:block;"></i>
+    </div>
+    <p class="body" style="font-size:14px;margin-bottom:28px;">At least 8 characters</p>
+    <div class="PrimaryButton" style="margin-bottom:20px;">Continue</div>
+    <div class="divider-or" style="margin-bottom:20px;">or</div>
+    <div class="SecondaryButton" style="margin-bottom:auto;">Continue with Google</div>
+    <p style="text-align:center;padding:20px 0 32px;font:400 15px var(--f-b);color:var(--slate);">
+      Already have an account? <a class="link" href="#">Log in</a>
+    </p>
+  </div>
+</div>
+
+<!-- ========== SCREEN 6: WHO IS THIS FOR ========== -->
+<div class="screen" data-name="06 Who will be learning">
+  <span class="screen-label">06 · Who is this for</span>
+  <div class="status"><span class="time">9:41</span><span class="icons"><i style="width:16px;height:10px"></i><i style="width:14px;height:10px"></i><i style="width:22px;height:10px"></i></span></div>
+  <div class="content pad">
+    <div style="display:flex;align-items:center;gap:12px;margin-bottom:8px;">
+      <div class="back">←</div>
+      <div style="flex:1;">
+        <p style="font:500 12px var(--f-b);color:var(--slate);margin-bottom:6px;">Step 2 of 3</p>
+        <div class="progress-pills"><i class="on"></i><i class="on"></i><i></i></div>
+      </div>
+    </div>
+    <h1 style="font-size:28px;margin:16px 0 20px;">Who will be learning?</h1>
+    <div class="card" style="margin-bottom:12px;display:flex;gap:14px;align-items:center;border:2px solid var(--mango);position:relative;">
+      <div style="width:52px;height:60px;background:var(--mango);border-radius:26px 26px 12px 12px;display:flex;align-items:center;justify-content:center;font:800 22px var(--f-d);">Me</div>
+      <div style="flex:1;">
+        <div style="font:700 18px var(--f-d);">Me</div>
+        <div class="body" style="font-size:14px;">I'm learning to code.</div>
+      </div>
+      <div style="width:24px;height:24px;background:var(--mango);border-radius:50%;display:flex;align-items:center;justify-content:center;font:700 14px var(--f-d);color:var(--ink);">✓</div>
+    </div>
+    <div class="card" style="margin-bottom:12px;display:flex;gap:14px;align-items:center;">
+      <div style="width:52px;height:60px;background:#E8F4F2;border-radius:26px 26px 12px 12px;display:flex;align-items:center;justify-content:center;">
+        <div style="width:20px;height:28px;background:var(--lagoon);border-radius:10px 10px 4px 4px;"></div>
+      </div>
+      <div style="flex:1;">
+        <div style="font:700 18px var(--f-d);">My child</div>
+        <div class="body" style="font-size:14px;">I'm a parent and want to add my child.</div>
+      </div>
+    </div>
+    <div class="card" style="margin-bottom:20px;display:flex;gap:14px;align-items:center;">
+      <div style="width:52px;height:60px;background:#E8F4F2;border-radius:26px 26px 12px 12px;display:flex;align-items:center;justify-content:center;">
+        <div style="width:24px;height:18px;border:2.5px solid var(--lagoon);border-radius:4px;"></div>
+      </div>
+      <div style="flex:1;">
+        <div style="font:700 18px var(--f-d);">My class</div>
+        <div class="body" style="font-size:14px;">I'm a teacher and want to create lessons.</div>
+      </div>
+    </div>
+    <a class="link" href="#" style="margin-bottom:auto;display:block;text-align:center;">I have a class code from my teacher</a>
+    <div class="PrimaryButton" style="margin:24px 0 32px;">Continue</div>
+  </div>
+</div>
+
+<!-- ========== SCREEN 7: CLASS CODE ========== -->
+<div class="screen" data-name="07 Class code">
+  <span class="screen-label">07 · Class code</span>
+  <div class="status"><span class="time">9:41</span><span class="icons"><i style="width:16px;height:10px"></i><i style="width:14px;height:10px"></i><i style="width:22px;height:10px"></i></span></div>
+  <div class="content pad">
+    <div class="back">←</div>
+    <div style="display:flex;justify-content:center;margin:8px 0 20px;">
+      <div style="position:relative;">
+        <div class="alma-body" style="transform:scale(0.7);">
+          <div class="hat"></div><div class="arch"></div><div class="face"></div>
+          <div class="eye l"></div><div class="eye r"></div><div class="smile"></div>
+          <div class="cheek l"></div><div class="cheek r"></div>
+          <div class="arm l"></div><div class="arm r"></div>
+          <div class="foot l"></div><div class="foot r"></div>
+        </div>
+        <div style="position:absolute;right:10px;top:70px;width:48px;height:28px;background:var(--lemon);border-radius:6px;border:2px solid var(--ink);font:700 11px var(--f-d);display:flex;align-items:center;justify-content:center;transform:rotate(-8deg);">CODE</div>
+      </div>
+    </div>
+    <h1 style="font-size:28px;margin-bottom:8px;text-align:center;">Join your class</h1>
+    <p class="body" style="text-align:center;margin-bottom:28px;">Enter the code your teacher gave you.</p>
+    <div style="display:flex;gap:8px;justify-content:center;margin-bottom:32px;">
+      <div style="width:48px;height:56px;background:var(--white);border:2px solid var(--mango);border-radius:12px;display:flex;align-items:center;justify-content:center;font:700 22px var(--f-d);">A</div>
+      <div style="width:48px;height:56px;background:var(--white);border:1.5px solid var(--border);border-radius:12px;"></div>
+      <div style="width:48px;height:56px;background:var(--white);border:1.5px solid var(--border);border-radius:12px;"></div>
+      <div style="width:48px;height:56px;background:var(--white);border:1.5px solid var(--border);border-radius:12px;"></div>
+      <div style="width:48px;height:56px;background:var(--white);border:1.5px solid var(--border);border-radius:12px;"></div>
+      <div style="width:48px;height:56px;background:var(--white);border:1.5px solid var(--border);border-radius:12px;"></div>
+    </div>
+    <div class="PrimaryButton disabled" style="margin-bottom:16px;">Join class</div>
+    <a class="link" href="#" style="text-align:center;display:block;">Don't have a code? Create a personal account</a>
+  </div>
+</div>
+
+<!-- ========== SCREEN 8: TELL ALMA ========== -->
+<div class="screen" data-name="08 Tell ALMA about you">
+  <span class="screen-label">08 · Adaptive onboarding</span>
+  <div class="status"><span class="time">9:41</span><span class="icons"><i style="width:16px;height:10px"></i><i style="width:14px;height:10px"></i><i style="width:22px;height:10px"></i></span></div>
+  <div class="content pad" style="overflow-y:auto;padding-bottom:24px;">
+    <div style="display:flex;align-items:center;gap:12px;margin-bottom:8px;">
+      <div class="back">←</div>
+      <div style="flex:1;">
+        <p style="font:500 12px var(--f-b);color:var(--slate);margin-bottom:6px;">Step 3 of 3</p>
+        <div class="progress-pills"><i class="on"></i><i class="on"></i><i class="on"></i></div>
+      </div>
+    </div>
+    <div style="display:flex;gap:12px;align-items:flex-start;margin:12px 0 20px;">
+      <div class="alma-face-sm"><div class="h"></div><div class="a"></div><div class="f"></div><div class="e l"></div><div class="e r"></div></div>
+      <div style="background:var(--white);border:1.5px solid var(--border);border-radius:16px 16px 16px 4px;padding:12px 14px;flex:1;">
+        <p style="font:500 15px/1.35 var(--f-b);color:var(--ink);">A few questions so I can teach you your way.</p>
+      </div>
+    </div>
+    <p style="font:700 16px var(--f-d);margin-bottom:10px;">How old are you?</p>
+    <div style="display:flex;flex-wrap:wrap;gap:8px;margin-bottom:12px;">
+      <div class="ChoiceChip selected">Under 10</div>
+      <div class="ChoiceChip">10 to 12</div>
+      <div class="ChoiceChip">13 to 15</div>
+      <div class="ChoiceChip">16 to 18</div>
+      <div class="ChoiceChip">19 and over</div>
+    </div>
+    <div style="background:var(--sky);border-radius:16px;padding:12px 14px;display:flex;gap:10px;align-items:center;margin-bottom:20px;">
+      <span style="width:20px;height:20px;border:2px solid var(--ink);border-radius:4px;flex-shrink:0;"></span>
+      <p style="font:400 14px/1.35 var(--f-b);color:var(--ink);">We'll ask a parent to confirm your account.</p>
+    </div>
+    <p style="font:700 16px var(--f-d);margin-bottom:10px;">Have you coded before?</p>
+    <div style="display:flex;flex-wrap:wrap;gap:8px;margin-bottom:20px;">
+      <div class="ChoiceChip">Never</div>
+      <div class="ChoiceChip selected">A little</div>
+      <div class="ChoiceChip">I know the basics</div>
+    </div>
+    <p style="font:700 16px var(--f-d);margin-bottom:10px;">How do you like to learn?</p>
+    <div style="display:flex;flex-wrap:wrap;gap:8px;margin-bottom:20px;">
+      <div class="ChoiceChip selected">Pictures</div>
+      <div class="ChoiceChip">Step by step</div>
+      <div class="ChoiceChip selected">Trying things</div>
+      <div class="ChoiceChip">Examples</div>
+    </div>
+    <p style="font:700 16px var(--f-d);margin-bottom:4px;">Gender <span style="font:400 14px var(--f-b);color:var(--slate);">(optional)</span></p>
+    <div style="display:flex;flex-wrap:wrap;gap:8px;margin-bottom:24px;">
+      <div class="ChoiceChip">Female</div>
+      <div class="ChoiceChip">Male</div>
+      <div class="ChoiceChip">Prefer not to say</div>
+    </div>
+    <div class="PrimaryButton">Start learning</div>
+  </div>
+</div>
+
+<!-- ========== SCREEN 9: HOME ========== -->
+<div class="screen" data-name="09 Home">
+  <span class="screen-label">09 · Home / Dashboard</span>
+  <div class="status"><span class="time">9:41</span><span class="icons"><i style="width:16px;height:10px"></i><i style="width:14px;height:10px"></i><i style="width:22px;height:10px"></i></span></div>
+  <div class="content pad" style="overflow-y:auto;padding-bottom:8px;">
+    <div style="display:flex;align-items:center;gap:10px;margin-bottom:20px;">
+      <div class="alma-face-sm"><div class="h"></div><div class="a"></div><div class="f"></div><div class="e l"></div><div class="e r"></div></div>
+      <h1 style="font-size:24px;flex:1;">Hi, Layla</h1>
+      <div style="background:var(--lemon);border-radius:999px;padding:6px 12px;display:flex;align-items:center;gap:6px;font:700 13px var(--f-d);">
+        <span style="width:14px;height:16px;background:var(--ink);border-radius:7px 7px 3px 3px;display:inline-block;"></span>
+        12 days
+      </div>
+      <div style="background:var(--white);border:1.5px solid var(--border);border-radius:999px;padding:6px 12px;font:700 13px var(--f-d);">★ 240 XP</div>
+    </div>
+    <div style="background:var(--ink);border-radius:20px;padding:20px;margin-bottom:20px;color:#EEF3EF;">
+      <p style="font:500 13px var(--f-b);opacity:0.7;margin-bottom:4px;">Continue learning</p>
+      <p style="font:800 22px var(--f-d);margin-bottom:14px;">Loops, part 3</p>
+      <div style="height:8px;background:#1B3F45;border-radius:999px;margin-bottom:16px;overflow:hidden;">
+        <div style="width:60%;height:100%;background:var(--mango);border-radius:999px;"></div>
+      </div>
+      <div class="PrimaryButton" style="width:auto;padding:0 28px;align-self:flex-start;display:inline-flex;">Continue</div>
+    </div>
+    <p style="font:700 18px var(--f-d);margin-bottom:12px;">Your path</p>
+    <div style="display:flex;gap:12px;align-items:flex-end;margin-bottom:20px;padding:8px 0;">
+      <div class="ArchNode done">✓</div>
+      <div class="ArchNode done">✓</div>
+      <div class="ArchNode current">3</div>
+      <div class="ArchNode locked">🔒</div>
+      <div class="ArchNode locked">🔒</div>
+    </div>
+    <div style="display:flex;gap:12px;margin-bottom:16px;">
+      <div class="card" style="flex:1;">
+        <p style="font:700 16px var(--f-d);margin-bottom:12px;">Daily goal</p>
+        <div style="display:flex;align-items:center;gap:12px;">
+          <div style="width:56px;height:56px;border-radius:50%;background:conic-gradient(var(--lagoon) 0 75%, var(--border) 0);display:flex;align-items:center;justify-content:center;position:relative;">
+            <div style="width:40px;height:40px;border-radius:50%;background:var(--white);display:flex;align-items:center;justify-content:center;font:800 14px var(--f-d);">3/4</div>
+          </div>
+          <p class="body" style="font-size:14px;">3 of 4 lessons</p>
+        </div>
+      </div>
+      <div class="card" style="flex:1.2;">
+        <p style="font:700 16px var(--f-d);margin-bottom:8px;">Compete</p>
+        <div style="display:flex;gap:6px;align-items:center;margin-bottom:10px;">
+          <div style="width:28px;height:34px;background:var(--mango);border-radius:14px 14px 6px 6px;"></div>
+          <span style="color:var(--lemon);font-size:16px;">★</span>
+          <div style="width:28px;height:34px;background:var(--lagoon);border-radius:14px 14px 6px 6px;"></div>
+        </div>
+        <p class="body" style="font-size:13px;margin-bottom:10px;">Challenge a friend to a 1v1 duel</p>
+        <div style="height:36px;border-radius:999px;background:var(--coral);color:var(--ink);font:700 14px var(--f-d);display:flex;align-items:center;justify-content:center;">Play</div>
+      </div>
+    </div>
+  </div>
+  <div style="position:absolute;right:20px;bottom:100px;z-index:5;">
+    <div style="background:var(--mango);border-radius:999px;padding:10px 16px;display:flex;align-items:center;gap:8px;box-shadow:0 4px 16px rgba(16,41,46,0.15);">
+      <div class="alma-face-sm" style="transform:scale(0.7);width:28px;height:34px;"><div class="h"></div><div class="a"></div><div class="f"></div><div class="e l"></div><div class="e r"></div></div>
+      <span style="font:700 14px var(--f-d);">🎙 Ask ALMA</span>
+    </div>
+  </div>
+  <div class="BottomNav">
+    <div class="tab selected"><div class="arch-ind"></div><div class="ico">⌂</div>Home</div>
+    <div class="tab"><div class="ico">▶</div>Learn</div>
+    <div class="tab"><div class="ico">⚔</div>Compete</div>
+    <div class="tab"><div class="ico">☺</div>Profile</div>
+  </div>
+</div>
+
+<!-- ========== SCREEN 10: AI LESSON CREATION ========== -->
+<div class="screen" data-name="10 AI Lesson Creation">
+  <span class="screen-label">10 · AI Lesson Creation</span>
+  <div class="status"><span class="time">9:41</span><span class="icons"><i style="width:16px;height:10px"></i><i style="width:14px;height:10px"></i><i style="width:22px;height:10px"></i></span></div>
+  <div class="content pad" style="overflow-y:auto;padding-bottom:24px;">
+    <div style="display:flex;align-items:center;gap:10px;margin-bottom:20px;">
+      <div class="back">←</div>
+      <h1 style="font-size:24px;flex:1;">Create a lesson</h1>
+      <div class="alma-face-sm"><div class="h"></div><div class="a"></div><div class="f"></div><div class="e l"></div><div class="e r"></div></div>
+    </div>
+    <div style="background:var(--white);border:1.5px solid var(--border);border-radius:20px;padding:16px;min-height:100px;margin-bottom:12px;">
+      <p class="body">Describe the lesson, e.g. Teach loops to beginners</p>
+    </div>
+    <div style="display:flex;gap:8px;margin-bottom:16px;">
+      <div class="ChoiceChip" style="height:36px;font-size:13px;">Loops</div>
+      <div class="ChoiceChip" style="height:36px;font-size:13px;">Variables</div>
+      <div class="ChoiceChip" style="height:36px;font-size:13px;">If statements</div>
+    </div>
+    <div class="card" style="margin-bottom:10px;display:flex;justify-content:space-between;align-items:center;padding:14px 16px;">
+      <span style="font:500 15px var(--f-b);">Level</span>
+      <span style="font:700 15px var(--f-d);">Beginner ▾</span>
+    </div>
+    <div class="card" style="margin-bottom:16px;display:flex;justify-content:space-between;align-items:center;padding:14px 16px;">
+      <span style="font:500 15px var(--f-b);">Language</span>
+      <span style="font:700 15px var(--f-d);">English ▾</span>
+    </div>
+    <div class="PrimaryButton" style="margin-bottom:20px;">✨ Generate lesson</div>
+    <div class="card" style="margin-bottom:10px;">
+      <p style="font:500 12px var(--f-b);color:var(--lagoon-d);margin-bottom:4px;">Lesson</p>
+      <p style="font:700 17px var(--f-d);margin-bottom:4px;">Intro to loops</p>
+      <p class="body" style="font-size:14px;">Learn how for and while loops repeat code until a condition is met.</p>
+    </div>
+    <div class="card" style="margin-bottom:10px;">
+      <p style="font:500 12px var(--f-b);color:var(--lagoon-d);margin-bottom:8px;">Coding exercise</p>
+      <div style="background:var(--ink);border-radius:14px;padding:12px;font:500 12px/1.5 var(--f-m);color:#D9E8E5;">
+        for i in range(5):<br/>&nbsp;&nbsp;print("Hello, Omar!")
+      </div>
+    </div>
+    <div class="card" style="margin-bottom:16px;">
+      <p style="font:500 12px var(--f-b);color:var(--lagoon-d);margin-bottom:8px;">Questions</p>
+      <p style="font:500 14px var(--f-b);margin-bottom:6px;">1. What does a loop do?</p>
+      <p style="font:500 14px var(--f-b);margin-bottom:6px;">2. When should you use while?</p>
+      <p style="font:500 14px var(--f-b);">3. Fix the infinite loop</p>
+    </div>
+    <div style="display:flex;gap:12px;">
+      <div class="SecondaryButton" style="flex:1;">Edit</div>
+      <div class="PrimaryButton" style="flex:1.4;">Publish to class</div>
+    </div>
+  </div>
+</div>
+
+<!-- ========== SCREEN 11: PROFILE ========== -->
+<div class="screen" data-name="11 Profile">
+  <span class="screen-label">11 · Profile</span>
+  <div class="status"><span class="time">9:41</span><span class="icons"><i style="width:16px;height:10px"></i><i style="width:14px;height:10px"></i><i style="width:22px;height:10px"></i></span></div>
+  <div class="content pad" style="overflow-y:auto;padding-bottom:8px;align-items:center;">
+    <div style="width:88px;height:104px;background:var(--mango);border-radius:44px 44px 18px 18px;margin:8px 0 12px;position:relative;display:flex;align-items:center;justify-content:center;">
+      <div style="width:52px;height:44px;background:var(--ink);border-radius:20px;position:relative;">
+        <div style="position:absolute;width:8px;height:14px;background:var(--cream);border-radius:999px;top:10px;left:12px;"></div>
+        <div style="position:absolute;width:8px;height:14px;background:var(--cream);border-radius:999px;top:10px;right:12px;"></div>
+      </div>
+      <div style="position:absolute;top:-4px;left:38px;width:14px;height:14px;background:var(--lagoon);border-radius:4px;transform:rotate(12deg);"></div>
+    </div>
+    <h1 style="font-size:26px;margin-bottom:8px;">Layla Hassan</h1>
+    <div style="background:var(--lemon);border-radius:999px;padding:6px 14px;font:700 14px var(--f-d);margin-bottom:20px;">Level 7 · 1,840 XP</div>
+    <div style="display:flex;gap:10px;width:100%;margin-bottom:20px;">
+      <div class="StatTile"><div class="val">12</div><div class="lbl">Streak days</div></div>
+      <div class="StatTile"><div class="val">Silver</div><div class="lbl">Rank</div></div>
+      <div class="StatTile"><div class="val">27</div><div class="lbl">Lessons</div></div>
+    </div>
+    <p style="font:700 18px var(--f-d);align-self:flex-start;margin-bottom:10px;">Badges</p>
+    <div style="display:flex;gap:10px;align-self:flex-start;margin-bottom:20px;">
+      <div style="width:44px;height:52px;background:var(--lagoon);border-radius:22px 22px 10px 10px;"></div>
+      <div style="width:44px;height:52px;background:var(--coral);border-radius:22px 22px 10px 10px;"></div>
+      <div style="width:44px;height:52px;background:var(--grey);border-radius:22px 22px 10px 10px;"></div>
+      <div style="width:44px;height:52px;background:var(--grey);border-radius:22px 22px 10px 10px;"></div>
+    </div>
+    <div style="width:100%;background:var(--white);border:1.5px solid var(--border);border-radius:20px;overflow:hidden;">
+      <div style="padding:16px;border-bottom:1px solid var(--border);display:flex;justify-content:space-between;font:500 16px var(--f-b);">Account <span style="color:var(--slate);">›</span></div>
+      <div style="padding:16px;border-bottom:1px solid var(--border);display:flex;justify-content:space-between;font:500 16px var(--f-b);">Learning preferences <span style="color:var(--slate);">›</span></div>
+      <div style="padding:16px;border-bottom:1px solid var(--border);display:flex;justify-content:space-between;font:500 16px var(--f-b);">Language <span style="color:var(--slate);font:400 15px var(--f-b);">English ›</span></div>
+      <div style="padding:16px;border-bottom:1px solid var(--border);display:flex;justify-content:space-between;font:500 16px var(--f-b);">Notifications <span style="color:var(--slate);">›</span></div>
+      <div style="padding:16px;border-bottom:1px solid var(--border);display:flex;justify-content:space-between;font:500 16px var(--f-b);">Parent access <span style="color:var(--slate);">›</span></div>
+      <div style="padding:16px;border-bottom:1px solid var(--border);display:flex;justify-content:space-between;font:500 16px var(--f-b);">Help <span style="color:var(--slate);">›</span></div>
+      <div style="padding:16px;display:flex;justify-content:space-between;font:500 16px var(--f-b);color:var(--coral);">Log out</div>
+    </div>
+  </div>
+  <div class="BottomNav">
+    <div class="tab"><div class="ico">⌂</div>Home</div>
+    <div class="tab"><div class="ico">▶</div>Learn</div>
+    <div class="tab"><div class="ico">⚔</div>Compete</div>
+    <div class="tab selected"><div class="arch-ind"></div><div class="ico">☺</div>Profile</div>
+  </div>
+</div>
+
+<!-- ========== COMPONENTS STRIP ========== -->
+<div class="screen" data-name="Components · Flutter widgets" style="height:auto;min-height:844px;padding:24px;gap:16px;">
+  <span class="screen-label">Components (Flutter widget names)</span>
+  <h1 style="font-size:22px;margin-bottom:8px;">Reusable widgets</h1>
+  <p class="body" style="margin-bottom:16px;">Named for Flutter mapping</p>
+  <div class="PrimaryButton">PrimaryButton</div>
+  <div class="SecondaryButton">SecondaryButton</div>
+  <div class="OutlinedPill">OutlinedPill</div>
+  <div class="TextField"><label>TextField</label><div class="field focused">Focused state</div></div>
+  <div class="TextField"><label>TextField error</label><div class="field error">bad@email</div><div class="err">Error with icon</div></div>
+  <div style="display:flex;flex-wrap:wrap;gap:8px;">
+    <div class="ChoiceChip">ChoiceChip</div>
+    <div class="ChoiceChip selected">ChoiceChip selected</div>
+  </div>
+  <div style="display:flex;gap:8px;align-items:flex-end;">
+    <div class="ArchNode done">✓</div>
+    <div class="ArchNode current">2</div>
+    <div class="ArchNode locked">3</div>
+  </div>
+  <div style="display:flex;gap:8px;width:100%;">
+    <div class="StatTile"><div class="val">12</div><div class="lbl">StatTile</div></div>
+    <div class="StatTile"><div class="val">Silver</div><div class="lbl">StatTile</div></div>
+  </div>
+  <div class="BottomNav" style="position:relative;width:100%;border-radius:16px;border:1.5px solid var(--border);">
+    <div class="tab selected"><div class="arch-ind"></div><div class="ico">⌂</div>Home</div>
+    <div class="tab"><div class="ico">▶</div>Learn</div>
+    <div class="tab"><div class="ico">⚔</div>Compete</div>
+    <div class="tab"><div class="ico">☺</div>Profile</div>
+  </div>
+</div>
+
+</div>
+</body>
+</html>
