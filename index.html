@@ -1337,39 +1337,379 @@
 
     .footer-copy {
       color: #839A9A;
-      font-size: 0.8125rem;
-    }
-
     /* -------------------------------------------------------------
-       QR / QUICK VIEW TOGGLE STYLES
+       PRODUCT EXPERIENCE (Mobile Samples Section)
        ------------------------------------------------------------- */
-    body.qr-mode .full-only-section {
-      display: none !important;
+    .alma-px {
+      padding: clamp(40px, 6vw, 72px) 0;
+      background: var(--cream);
     }
-
-    .qr-banner-alert {
-      display: none;
-      background-color: var(--pine);
-      color: var(--cream);
-      padding: 8px 16px;
-      text-align: center;
-      font-size: 0.8125rem;
+    .alma-px .wrap {
+      max-width: 1280px;
+      margin: 0 auto;
+      padding: 0 14px;
+    }
+    @media (min-width: 480px) {
+      .alma-px .wrap {
+        padding: 0 20px;
+      }
+    }
+    .alma-px .kick {
+      font-family: var(--font-code);
+      letter-spacing: .2em;
+      font-size: 13px;
       font-weight: 500;
+      color: var(--lagoon-deep);
+      margin-bottom: 8px;
     }
-
-    body.qr-mode .qr-banner-alert {
-      display: block;
+    .alma-px h2 {
+      font-size: clamp(26px, 4.4vw, 42px);
+      line-height: 1.15;
+      margin-bottom: clamp(20px, 3.5vw, 36px);
     }
-
-    /* RTL Mirroring Support */
-    html[dir="rtl"] {
-      text-align: right;
+    .alma-px .rail {
+      display: grid;
+      grid-template-columns: repeat(5, 1fr);
+      gap: clamp(12px, 1.6vw, 22px);
+      align-items: start;
     }
-    html[dir="rtl"] .code-block,
-    html[dir="rtl"] .ltr-preserve {
+    .alma-px .ph {
+      margin: 0;
+      text-align: center;
+      min-width: 0;
+      container-type: inline-size;
+    }
+    .alma-px figcaption {
+      font-family: var(--font-code);
+      font-weight: 500;
+      font-size: clamp(11px, 1.15vw, 14px);
+      letter-spacing: .04em;
+      margin-top: 16px;
+      white-space: nowrap;
+    }
+    .alma-px .note {
+      margin-top: 28px;
+      text-align: center;
+      color: var(--slate);
+      font-size: 15px;
+      max-width: 760px;
+      margin-inline: auto;
+    }
+    @media (max-width: 980px) {
+      .alma-px .rail {
+        display: flex;
+        overflow-x: auto;
+        scroll-snap-type: x mandatory;
+        gap: 16px;
+        padding: 4px 14px 16px;
+        margin: 0 -14px;
+        -webkit-overflow-scrolling: touch;
+      }
+      .alma-px .ph {
+        flex: 0 0 min(68vw, 250px);
+        scroll-snap-align: center;
+      }
+      .alma-px figcaption {
+        font-size: 13px;
+      }
+    }
+    .alma-px .phone {
+      position: relative;
+      width: 100%;
+      aspect-ratio: 260/545;
+      background: var(--ink);
+      border-radius: 15.5cqw;
+      padding: 2.6cqw;
+      box-shadow: 0 14px 28px -12px rgba(16,41,46,.35), 0 0 0 1px #1B3F45;
+      font-size: 3.4cqw;
+      line-height: 1.3;
+      transition: transform .25s ease;
+    }
+    .alma-px .ph:hover .phone {
+      transform: translateY(-6px);
+    }
+    .alma-px .notch {
+      position: absolute;
+      z-index: 5;
+      top: 3.6cqw;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 31cqw;
+      height: 8cqw;
+      border-radius: 99px;
+      background: var(--ink);
+    }
+    .alma-px .screen {
+      text-align: start;
+      position: relative;
+      height: 100%;
+      background: var(--cream);
+      border-radius: 13.2cqw;
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+      padding: 0 4.6cqw;
       direction: ltr !important;
-      text-align: left !important;
     }
+    .alma-px .stat {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 3.4cqw 4cqw 0;
+      font-weight: 600;
+      font-size: 3.1cqw;
+      height: 9cqw;
+      margin: 0 -1cqw;
+    }
+    .alma-px .stat i {
+      width: 11cqw;
+      height: 2.6cqw;
+      border-radius: 3px;
+      background: linear-gradient(90deg, var(--ink) 0 18%, transparent 18% 30%, var(--ink) 30% 52%, transparent 52% 64%, var(--ink) 64%);
+    }
+    .alma-px .home {
+      position: absolute;
+      bottom: 2cqw;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 34cqw;
+      height: 1.1cqw;
+      border-radius: 9px;
+      background: var(--ink);
+      opacity: .8;
+    }
+    .alma-px .ic { width: 6.0cqw; height: 6.0cqw; flex: none; }
+    .alma-px b { font-family: var(--font-display-en); font-weight: 700; }
+    .alma-px small { font-size: 3.72cqw; color: var(--slate); }
+    .alma-px .al { width: 14.4cqw; height: 18.72cqw; flex: none; }
+    .alma-px .al.s { width: 8.16cqw; height: 10.56cqw; }
+    .alma-px .btn-mock {
+      background: var(--mango);
+      color: var(--ink);
+      font-family: var(--font-display-en);
+      font-weight: 700;
+      border-radius: 99px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 1.92cqw;
+      height: 12.6cqw;
+      font-size: 4.08cqw;
+    }
+    .alma-px .btn-mock.sm { height: 8.88cqw; padding: 0 5.28cqw; font-size: 3.6cqw; }
+    .alma-px .btn-mock.coral { background: var(--coral); color: var(--ink); }
+    .alma-px .pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 1.2cqw;
+      border-radius: 99px;
+      padding: 1.44cqw 2.88cqw;
+      font-weight: 600;
+      font-size: 3.36cqw;
+      white-space: nowrap;
+    }
+    .alma-px .pill.y { background: var(--lemon); }
+    .alma-px .pill.t { background: #D6EBE4; color: var(--lagoon-deep); }
+    .alma-px .pill .ic { width: 3.6cqw; height: 3.6cqw; }
+    .alma-px .card-mock {
+      background: #fff;
+      border: 1.2px solid var(--border);
+      border-radius: 4.8cqw;
+      padding: 3.6cqw;
+    }
+    .alma-px .sec {
+      display: flex;
+      justify-content: space-between;
+      align-items: baseline;
+      margin: 3.6cqw 0 1.92cqw;
+    }
+    .alma-px .sec b { font-size: 4.2cqw; }
+    .alma-px .sec span { font-size: 3.48cqw; color: var(--lagoon-deep); font-weight: 500; }
+    .alma-px .node {
+      width: 8.88cqw;
+      height: 10.08cqw;
+      border-radius: 99px 99px 1.92cqw 1.92cqw;
+      display: grid;
+      place-items: center;
+      flex: none;
+      position: relative;
+      z-index: 1;
+    }
+    .alma-px .node .ic { width: 4.32cqw; height: 4.32cqw; }
+    .alma-px .node.done { background: var(--lagoon); color: #fff; }
+    .alma-px .node.cur {
+      background: var(--mango);
+      font-family: var(--font-display-en);
+      font-weight: 800;
+      font-size: 4.32cqw;
+      height: 11.52cqw;
+    }
+    .alma-px .node.lock, .alma-px .node.off { background: #D9E2DC; color: #7C8E8E; }
+    .alma-px .skip { align-self: flex-end; color: var(--lagoon-deep); font-weight: 500; font-size: 4.08cqw; margin-top: 8.4cqw; }
+    .alma-px .ob { flex: 1; display: grid; place-items: center; }
+    .alma-px .path { display: flex; align-items: center; gap: 2.16cqw; }
+    .alma-px .obt { text-align: center; padding-bottom: 6.0cqw; }
+    .alma-px .obt h4 { font-family: var(--font-display-en); font-weight: 800; font-size: 6.48cqw; }
+    .alma-px .obt p { color: var(--slate); font-size: 3.96cqw; margin: 1.8cqw auto 0; max-width: 55.2cqw; }
+    .alma-px .dots { display: flex; gap: 1.68cqw; justify-content: center; margin: 6.0cqw 0; }
+    .alma-px .dots b { width: 8.4cqw; height: 2.28cqw; border-radius: 9px; background: var(--mango); }
+    .alma-px .dots i { width: 2.28cqw; height: 2.28cqw; border-radius: 50%; background: #D9E2DC; }
+    .alma-px .screen > .btn-mock { margin-bottom: 10.8cqw; }
+    .alma-px .hd { display: flex; align-items: center; gap: 2.16cqw; margin-top: 5.4cqw; }
+    .alma-px .hi { font-size: 5.04cqw; flex: 1; }
+    .alma-px .dark {
+      background: var(--ink);
+      color: var(--cream);
+      border-radius: 5.28cqw;
+      padding: 4.32cqw;
+      margin-top: 3.6cqw;
+    }
+    .alma-px .dark small { color: #E9E2D2; font-size: 3.36cqw; }
+    .alma-px .dark b { display: block; font-size: 6.0cqw; line-height: 1.2; margin: 0.72cqw 0 2.88cqw; }
+    .alma-px .bar { height: 1.92cqw; border-radius: 9px; background: #33505a; overflow: hidden; }
+    .alma-px .bar i { display: block; height: 100%; background: var(--mango); border-radius: 9px; }
+    .alma-px .dark .row { display: flex; justify-content: space-between; align-items: center; margin-top: 2.64cqw; }
+    .alma-px .pathrow { display: flex; justify-content: space-between; align-items: center; padding: 3.12cqw 3.84cqw; position: relative; }
+    .alma-px .pathrow .line { position: absolute; left: 9.6cqw; right: 9.6cqw; top: 50%; height: 0.96cqw; background: #D9E2DC; }
+    .alma-px .goal { display: flex; gap: 3.6cqw; align-items: center; margin-top: 2.88cqw; padding: 3.36cqw; }
+    .alma-px .goal b { display: block; font-size: 4.08cqw; }
+    .alma-px .ring {
+      width: 13.2cqw; height: 13.2cqw; border-radius: 50%;
+      background: conic-gradient(var(--mango) 0 75%, #D9E2DC 0);
+      display: grid; place-items: center; flex: none; position: relative;
+    }
+    .alma-px .ring::before { content: ""; position: absolute; inset: 1.8cqw; background: #fff; border-radius: 50%; }
+    .alma-px .ring span { position: relative; font-family: var(--font-display-en); font-weight: 800; font-size: 3.6cqw; }
+    .alma-px .chal { display: flex; align-items: center; gap: 3.12cqw; margin-top: 2.88cqw; padding: 3.36cqw; }
+    .alma-px .ct { flex: 1; }
+    .alma-px .ct b { display: block; font-size: 3.96cqw; line-height: 1.2; }
+    .alma-px .pl { display: flex; gap: 0.96cqw; align-items: flex-end; flex: none; }
+    .alma-px .pl i { display: block; width: 7.2cqw; height: 8.4cqw; border-radius: 99px 99px 1.2cqw 1.2cqw; }
+    .alma-px .a1 { background: var(--coral); }
+    .alma-px .a2 { background: var(--lagoon); height: 6.48cqw !important; }
+    .alma-px .ask {
+      position: absolute; right: 5.52cqw; bottom: 25.2cqw;
+      background: var(--mango); border-radius: 99px;
+      display: flex; align-items: center; gap: 1.92cqw;
+      padding: 3.12cqw 5.04cqw;
+      font-family: var(--font-display-en); font-weight: 700; font-size: 3.72cqw;
+      box-shadow: 0 4px 10px -3px rgba(16,41,46,.35);
+    }
+    .alma-px .ask .ic { width: 4.56cqw; height: 4.56cqw; }
+    .alma-px .nav {
+      position: absolute; left: 0; right: 0; bottom: 0;
+      background: #fff; border-top: 1.2px solid var(--border);
+      display: grid; grid-template-columns: repeat(4, 1fr);
+      padding: 2.4cqw 2cqw 6cqw;
+    }
+    .alma-px .nav div {
+      display: flex; flex-direction: column; align-items: center;
+      gap: 0.48cqw; color: var(--ink); font-size: 3.12cqw; position: relative;
+    }
+    .alma-px .nav .ic { width: 6.0cqw; height: 6.0cqw; }
+    .alma-px .nav span { font-size: 3.0cqw; font-weight: 500; }
+    .alma-px .nav .on { font-weight: 600; }
+    .alma-px .nav .on::before {
+      content: ""; position: absolute; top: -2.88cqw;
+      width: 7.2cqw; height: 1.08cqw; background: var(--mango); border-radius: 0 0 4px 4px;
+    }
+    .alma-px .nav div:not(.on) { color: #3B5256; }
+    .alma-px .hd2 { display: flex; align-items: center; gap: 2.88cqw; margin-top: 4.8cqw; }
+    .alma-px .hd2 b { flex: 1; font-size: 4.44cqw; font-weight: 600; font-family: var(--font-body); }
+    .alma-px .hd2 .ic { width: 6.0cqw; }
+    .alma-px .box {
+      background: #fff; border: 1.2px solid var(--border);
+      border-radius: 4.8cqw; padding: 3.6cqw; margin-top: 3.84cqw;
+    }
+    .alma-px .prompt {
+      background: #FFF1DA; border: 1.2px solid var(--border);
+      border-radius: 3.6cqw; padding: 3.6cqw; color: var(--slate);
+      font-size: 3.72cqw; height: 18.0cqw;
+    }
+    .alma-px .chips { display: flex; flex-wrap: wrap; gap: 2.16cqw; }
+    .alma-px .box .chips { margin: 2.88cqw 0; }
+    .alma-px .chip {
+      border: 1.2px solid var(--border); background: #fff;
+      border-radius: 99px; padding: 1.8cqw 3.36cqw;
+      font-size: 3.48cqw; white-space: nowrap;
+    }
+    .alma-px .chip.on { background: var(--mango); border: 1.5px solid var(--ink); font-weight: 500; }
+    .alma-px .sel {
+      display: flex; justify-content: space-between; align-items: center;
+      font-size: 3.6cqw; padding: 1.92cqw 0; border-top: 1.2px solid var(--border);
+    }
+    .alma-px .sel span { color: var(--slate); }
+    .alma-px .sel b {
+      font-family: var(--font-body); font-weight: 500;
+      display: flex; align-items: center; gap: 0.96cqw;
+    }
+    .alma-px .sel .ic { width: 3.84cqw; }
+    .alma-px .gen { margin-top: 2.4cqw; height: 11.52cqw; }
+    .alma-px .gen .ic { width: 4.32cqw; }
+    .alma-px .lbl { font-weight: 600; font-size: 3.6cqw; margin: 3.6cqw 0 1.92cqw; }
+    .alma-px .les {
+      border-left: 3px solid var(--mango);
+      padding: 3.12cqw 3.6cqw; margin-bottom: 2.4cqw; border-radius: 3.6cqw;
+    }
+    .alma-px .les .tag { display: flex; align-items: center; gap: 1.2cqw; font-size: 3.24cqw; }
+    .alma-px .les .tag .ic { width: 3.6cqw; height: 3.6cqw; }
+    .alma-px .les b { display: block; font-size: 4.44cqw; margin: 0.96cqw 0; }
+    .alma-px .les p { font-size: 3.36cqw; color: var(--slate); line-height: 1.35; }
+    .alma-px .ex pre {
+      background: var(--ink); color: #FFF8EC; border-radius: 2.88cqw;
+      padding: 3.12cqw; margin-top: 1.92cqw; font-family: var(--font-code);
+      font-size: 3.12cqw; line-height: 1.5; white-space: pre-wrap;
+    }
+    .alma-px .q .seg { display: flex; gap: 2.88cqw; flex: 1; justify-content: center; padding-right: 6.0cqw; }
+    .alma-px .seg i { width: 12.0cqw; height: 1.44cqw; border-radius: 9px; background: var(--mango); }
+    .alma-px .bub { display: flex; align-items: flex-end; gap: 2.4cqw; margin: 3.6cqw 0 2.4cqw; }
+    .alma-px .sp {
+      flex: 1; background: #fff; border: 1.2px solid var(--border);
+      border-radius: 4.32cqw 4.32cqw 4.32cqw 1.2cqw; padding: 3.36cqw; font-size: 3.6cqw;
+    }
+    .alma-px .qh { font-family: var(--font-display-en); font-weight: 700; font-size: 4.2cqw; margin: 3.84cqw 0 1.92cqw; }
+    .alma-px .qh small { font-family: var(--font-body); font-size: 3.12cqw; }
+    .alma-px .q .chip { padding: 2.04cqw 3.6cqw; font-size: 3.6cqw; }
+    .alma-px .btn-mock.bot { position: absolute; left: 5.52cqw; right: 5.52cqw; bottom: 10.8cqw; }
+    .alma-px .av {
+      align-self: center; width: 18.0cqw; height: 21.6cqw;
+      border-radius: 99px 99px 2.88cqw 2.88cqw; background: var(--mango);
+      display: grid; place-items: center; font-family: var(--font-display-en);
+      font-weight: 800; font-size: 6.0cqw; margin-top: 6.6cqw;
+    }
+    .alma-px .nm { align-self: center; font-size: 5.28cqw; margin-top: 2.16cqw; }
+    .alma-px .lv { align-self: center; margin-top: 0.48cqw; }
+    .alma-px .stats { display: grid; grid-template-columns: repeat(3, 1fr); gap: 2cqw; margin-top: 3.6cqw; }
+    .alma-px .stats div {
+      background: #fff; border: 1.2px solid var(--border);
+      border-radius: 3cqw; text-align: center; padding: 2cqw 1cqw;
+      display: flex; flex-direction: column; align-items: center;
+    }
+    .alma-px .stats b { font-size: 3.2cqw; line-height: 1.2; }
+    .alma-px .stats small { font-size: 2.5cqw; }
+    .alma-px .stats .ic { width: 4cqw; height: 4cqw; }
+    .alma-px .m { color: var(--mango); }
+    .alma-px .g { color: var(--lagoon); }
+    .alma-px .r { color: var(--coral); }
+    .alma-px .badges { display: flex; gap: 3.12cqw; padding: 2.88cqw 3.6cqw; }
+    .alma-px .badges i {
+      width: 8.88cqw; height: 10.08cqw; border-radius: 99px 99px 1.68cqw 1.68cqw;
+      display: grid; place-items: center;
+    }
+    .alma-px .badges .ic { width: 4.32cqw; height: 4.32cqw; }
+    .alma-px .b1 { background: var(--mango); }
+    .alma-px .b2 { background: var(--lagoon); color: #fff; }
+    .alma-px .b3 { background: #D9E2DC; color: #7C8E8E; }
+    .alma-px .list { padding: 0 3.6cqw; margin-top: 3.6cqw; }
+    .alma-px .li {
+      display: flex; align-items: center; gap: 2.88cqw;
+      padding: 3.0cqw 0; border-bottom: 1.2px solid var(--border); font-size: 3.6cqw;
+    }
+    .alma-px .li:last-child { border: 0; }
+    .alma-px .li span { flex: 1; }
+    .alma-px .li em { font-style: normal; color: var(--slate); font-size: 3.12cqw; }
+    .alma-px .li .ic { width: 4.56cqw; height: 4.56cqw; }
+    .alma-px .li .c { width: 3.6cqw; height: 3.6cqw; }
   </style>
 </head>
 <body>
@@ -1447,6 +1787,35 @@
           <rect x="46" y="12" width="14" height="28" rx="3" fill="#F25C78"/>
         </g>
       </g>
+
+      <!-- Symbols for Mobile Product Experience Rail -->
+      <symbol id="al" viewBox="0 0 40 52">
+        <rect x="14" y="0" width="9" height="9" rx="2" fill="#118A80" transform="rotate(12 18 4)"/>
+        <path d="M4 50V22a16 16 0 0 1 32 0v28z" fill="#FFA11F"/>
+        <rect x="9" y="19" width="22" height="16" rx="7" fill="#10292E"/>
+        <rect x="14" y="23" width="3.4" height="7" rx="1.7" fill="#FFF8EC"/>
+        <rect x="22.6" y="23" width="3.4" height="7" rx="1.7" fill="#FFF8EC"/>
+        <circle cx="11.5" cy="35" r="2" fill="#F25C78" opacity="0"/>
+      </symbol>
+      <symbol id="i-home" viewBox="0 0 24 24"><path d="M4 11l8-7 8 7v9H4zM10 20v-6h4v6" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round" stroke-linecap="round"/></symbol>
+      <symbol id="i-book" viewBox="0 0 24 24"><path d="M4 5h6a2 2 0 0 1 2 2v13a2 2 0 0 0-2-2H4zM20 5h-6a2 2 0 0 0-2 2v13a2 2 0 0 1 2-2h6z" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/></symbol>
+      <symbol id="i-cup" viewBox="0 0 24 24"><path d="M8 4h8v6a4 4 0 0 1-8 0zM8 6H4v1a4 4 0 0 0 4 4M16 6h4v1a4 4 0 0 1-4 4M12 14v4M8 20h8" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></symbol>
+      <symbol id="i-user" viewBox="0 0 24 24"><circle cx="12" cy="8" r="4" fill="none" stroke="currentColor" stroke-width="2"/><path d="M4 21a8 8 0 0 1 16 0" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></symbol>
+      <symbol id="i-check" viewBox="0 0 24 24"><path d="M5 12.5l4.5 4.5L19 7.5" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/></symbol>
+      <symbol id="i-lock" viewBox="0 0 24 24"><rect x="5" y="11" width="14" height="9" rx="2" fill="none" stroke="currentColor" stroke-width="2"/><path d="M8 11V8a4 4 0 0 1 8 0v3" fill="none" stroke="currentColor" stroke-width="2"/></symbol>
+      <symbol id="i-mic" viewBox="0 0 24 24"><rect x="9" y="3" width="6" height="11" rx="3" fill="currentColor"/><path d="M5 11a7 7 0 0 0 14 0M12 18v3" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></symbol>
+      <symbol id="i-chev" viewBox="0 0 24 24"><path d="M9 6l6 6-6 6" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/></symbol>
+      <symbol id="i-down" viewBox="0 0 24 24"><path d="M6 9l6 6 6-6" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/></symbol>
+      <symbol id="i-back" viewBox="0 0 24 24"><path d="M15 5l-7 7 7 7" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/></symbol>
+      <symbol id="i-spark" viewBox="0 0 24 24"><path d="M12 3l2 6 6 2-6 2-2 6-2-6-6-2 6-2z" fill="currentColor"/></symbol>
+      <symbol id="i-code" viewBox="0 0 24 24"><path d="M9 7l-5 5 5 5M15 7l5 5-5 5" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/></symbol>
+      <symbol id="i-star" viewBox="0 0 24 24"><path d="M12 3l2.7 5.6 6.1.8-4.5 4.2 1.1 6-5.4-3-5.4 3 1.1-6L3.2 9.4l6.1-.8z" fill="currentColor"/></symbol>
+      <symbol id="i-user2" viewBox="0 0 24 24"><circle cx="12" cy="8" r="3.6" fill="none" stroke="currentColor" stroke-width="2"/><path d="M5 20a7 7 0 0 1 14 0" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></symbol>
+      <symbol id="i-globe" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9" fill="none" stroke="currentColor" stroke-width="2"/><path d="M3 12h18M12 3c3 3 3 15 0 18M12 3c-3 3-3 15 0 18" fill="none" stroke="currentColor" stroke-width="2"/></symbol>
+      <symbol id="i-bell" viewBox="0 0 24 24"><path d="M6 17V11a6 6 0 0 1 12 0v6l2 2H4zM10 21h4" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round" stroke-linecap="round"/></symbol>
+      <symbol id="i-shield" viewBox="0 0 24 24"><path d="M12 3l8 3v6c0 5-3.5 8-8 9-4.5-1-8-4-8-9V6z" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/></symbol>
+      <symbol id="i-sliders" viewBox="0 0 24 24"><path d="M5 5v14M12 5v14M19 5v14" stroke="currentColor" stroke-width="2" stroke-linecap="round"/><path d="M3 9h4M10 14h4M17 8h4" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"/></symbol>
+      <symbol id="i-fire" viewBox="0 0 24 24"><path d="M6 21V10a6 6 0 0 1 12 0v11z" fill="currentColor"/></symbol>
     </defs>
   </svg>
 
@@ -1907,10 +2276,199 @@
               <div class="play-triangle"></div>
             </div>
 
-            <div class="video-time-tag">01:00</div>
-          </div>
-        </div>
+    <!-- PRODUCT EXPERIENCE: THE PRODUCT, LIVE ON DEVICE -->
+    <section class="alma-px full-only-section" id="product" aria-labelledby="px-heading">
+      <div class="wrap">
+        <p class="kick" data-i18n="px_kick">PRODUCT EXPERIENCE</p>
+        <h2 id="px-heading" class="section-title" style="text-align:start;" data-i18n="px_heading">The product, live on device</h2>
+        <div class="rail">
+          
+          <!-- 01 · Onboarding -->
+          <figure class="ph">
+            <div class="phone" role="img" aria-label="Onboarding screen">
+              <div class="notch"></div>
+              <div class="screen">
+                <div class="stat"><span>9:41</span><i></i></div>
+                <div class="skip">Skip</div>
+                <div class="ob">
+                  <div class="path">
+                    <svg class="al"><use href="#al"/></svg>
+                    <div class="node done"><svg class="ic"><use href="#i-check"/></svg></div>
+                    <div class="node done"><svg class="ic"><use href="#i-check"/></svg></div>
+                    <div class="node cur">3</div>
+                    <div class="node off"></div>
+                    <div class="node off"></div>
+                  </div>
+                </div>
+                <div class="obt">
+                  <h4>Learn at your pace</h4>
+                  <p>ALMA adapts each lesson to the way you learn best.</p>
+                  <div class="dots"><b></b><i></i><i></i></div>
+                </div>
+                <div class="btn-mock">Next</div>
+                <div class="home"></div>
+              </div>
+            </div>
+            <figcaption data-i18n="px_fig1">01 · Onboarding</figcaption>
+          </figure>
 
+          <!-- 02 · Home & progress -->
+          <figure class="ph">
+            <div class="phone" role="img" aria-label="Home screen">
+              <div class="notch"></div>
+              <div class="screen">
+                <div class="stat"><span>9:41</span><i></i></div>
+                <div class="hd">
+                  <svg class="al s"><use href="#al"/></svg>
+                  <b class="hi">Hi, Layla</b>
+                  <span class="pill y"><svg class="ic"><use href="#i-fire"/></svg>12d</span>
+                  <span class="pill t">1,840 XP</span>
+                </div>
+                <div class="dark">
+                  <small>Continue learning</small>
+                  <b>Loops, part 3</b>
+                  <div class="bar"><i style="width:60%"></i></div>
+                  <div class="row"><small>60% complete</small><span class="btn-mock sm">Continue</span></div>
+                </div>
+                <div class="sec"><b>Your path</b><span>See all</span></div>
+                <div class="card-mock pathrow">
+                  <div class="line"></div>
+                  <div class="node done"><svg class="ic"><use href="#i-check"/></svg></div>
+                  <div class="node done"><svg class="ic"><use href="#i-check"/></svg></div>
+                  <div class="node cur">3</div>
+                  <div class="node lock"><svg class="ic"><use href="#i-lock"/></svg></div>
+                  <div class="node lock"><svg class="ic"><use href="#i-lock"/></svg></div>
+                </div>
+                <div class="card-mock goal">
+                  <div class="ring"><span>3/4</span></div>
+                  <div><b>Daily goal</b><small>3 of 4 completed</small></div>
+                </div>
+                <div class="card-mock chal">
+                  <div class="pl"><i class="a1"></i><i class="a2"></i></div>
+                  <div class="ct"><b>Challenge a friend</b><small>to 1v1 duel</small></div>
+                  <span class="btn-mock coral sm">Play</span>
+                </div>
+                <div class="ask"><svg class="ic"><use href="#i-mic"/></svg>Ask ALMA</div>
+                <nav class="nav">
+                  <div class="on"><svg class="ic"><use href="#i-home"/></svg><span>Home</span></div>
+                  <div><svg class="ic"><use href="#i-book"/></svg><span>Learn</span></div>
+                  <div><svg class="ic"><use href="#i-cup"/></svg><span>Compete</span></div>
+                  <div><svg class="ic"><use href="#i-user"/></svg><span>Profile</span></div>
+                </nav>
+                <div class="home"></div>
+              </div>
+            </div>
+            <figcaption data-i18n="px_fig2">02 · Home &amp; progress</figcaption>
+          </figure>
+
+          <!-- 03 · Lesson generation -->
+          <figure class="ph">
+            <div class="phone" role="img" aria-label="Lesson creation screen">
+              <div class="notch"></div>
+              <div class="screen">
+                <div class="stat"><span>9:41</span><i></i></div>
+                <div class="hd2">
+                  <svg class="ic"><use href="#i-back"/></svg>
+                  <b>Create a lesson</b>
+                  <svg class="al s"><use href="#al"/></svg>
+                </div>
+                <div class="box">
+                  <div class="prompt">Describe lesson: Teach loops to beginners</div>
+                  <div class="chips"><span class="chip">Loops</span><span class="chip">Variables</span></div>
+                  <div class="sel"><span>Level</span><b>Beginner <svg class="ic"><use href="#i-down"/></svg></b></div>
+                  <div class="sel"><span>Language</span><b>English <svg class="ic"><use href="#i-down"/></svg></b></div>
+                  <div class="btn-mock gen"><svg class="ic"><use href="#i-spark"/></svg>Generate lesson</div>
+                </div>
+                <div class="lbl">Generated Preview</div>
+                <div class="card-mock les">
+                  <small class="tag"><svg class="ic"><use href="#i-book"/></svg>Lesson</small>
+                  <b>Understanding loops</b>
+                  <p>Learn how for and while loops repeat actions automatically.</p>
+                </div>
+                <div class="card-mock les ex">
+                  <small class="tag"><svg class="ic"><use href="#i-code"/></svg>Coding exercise</small>
+                  <pre>for i in range(5):
+    print("Level up!", i)</pre>
+                </div>
+                <nav class="nav">
+                  <div><svg class="ic"><use href="#i-home"/></svg><span>Home</span></div>
+                  <div class="on"><svg class="ic"><use href="#i-book"/></svg><span>Learn</span></div>
+                  <div><svg class="ic"><use href="#i-cup"/></svg><span>Compete</span></div>
+                  <div><svg class="ic"><use href="#i-user"/></svg><span>Profile</span></div>
+                </nav>
+                <div class="home"></div>
+              </div>
+            </div>
+            <figcaption data-i18n="px_fig3">03 · Lesson generation</figcaption>
+          </figure>
+
+          <!-- 04 · Adaptive questions -->
+          <figure class="ph">
+            <div class="phone" role="img" aria-label="Adaptive questions screen">
+              <div class="notch"></div>
+              <div class="screen">
+                <div class="stat"><span>9:41</span><i></i></div>
+                <div class="hd2 q">
+                  <svg class="ic"><use href="#i-back"/></svg>
+                  <div class="seg"><i></i><i></i><i></i></div>
+                </div>
+                <div class="bub">
+                  <div class="sp">A few questions so I can teach you your way.</div>
+                  <svg class="al s"><use href="#al"/></svg>
+                </div>
+                <div class="qh">How old are you?</div>
+                <div class="chips"><span class="chip">Under 10</span><span class="chip">10 to 12</span><span class="chip on">13 to 15</span><span class="chip">16+</span></div>
+                <div class="qh">Have you coded before?</div>
+                <div class="chips"><span class="chip">Never</span><span class="chip on">A little</span><span class="chip">Basics</span></div>
+                <div class="qh">How do you like to learn?</div>
+                <div class="chips"><span class="chip on">Pictures</span><span class="chip on">Step by step</span><span class="chip">Examples</span></div>
+                <div class="btn-mock bot">Start learning</div>
+                <div class="home"></div>
+              </div>
+            </div>
+            <figcaption data-i18n="px_fig4">04 · Adaptive questions</figcaption>
+          </figure>
+
+          <!-- 05 · Profile & badges -->
+          <figure class="ph">
+            <div class="phone" role="img" aria-label="Profile screen">
+              <div class="notch"></div>
+              <div class="screen">
+                <div class="stat"><span>9:41</span><i></i></div>
+                <div class="av">LH</div>
+                <b class="nm">Layla Hassan</b>
+                <span class="pill t lv">Level 7 · 1,840 XP</span>
+                <div class="stats">
+                  <div><svg class="ic m"><use href="#i-fire"/></svg><b>12d</b><small>Streak</small></div>
+                  <div><svg class="ic g"><use href="#i-shield"/></svg><b>Silver</b><small>Rank</small></div>
+                  <div><svg class="ic r"><use href="#i-lock"/></svg><b>27</b><small>Lessons</small></div>
+                </div>
+                <div class="sec"><b>Badges</b><span>See all</span></div>
+                <div class="card-mock badges">
+                  <i class="b1"><svg class="ic"><use href="#i-star"/></svg></i>
+                  <i class="b2"><svg class="ic"><use href="#i-code"/></svg></i>
+                  <i class="b3"><svg class="ic"><use href="#i-lock"/></svg></i>
+                  <i class="b3"><svg class="ic"><use href="#i-lock"/></svg></i>
+                </div>
+                <div class="card-mock list">
+                  <div class="li"><svg class="ic"><use href="#i-user2"/></svg><span>Account</span><svg class="ic c"><use href="#i-chev"/></svg></div>
+                  <div class="li"><svg class="ic"><use href="#i-sliders"/></svg><span>Learning preferences</span><svg class="ic c"><use href="#i-chev"/></svg></div>
+                  <div class="li"><svg class="ic"><use href="#i-globe"/></svg><span>Language</span><em style="margin-inline-end:4px;">EN</em><svg class="ic c"><use href="#i-chev"/></svg></div>
+                </div>
+                <nav class="nav">
+                  <div><svg class="ic"><use href="#i-home"/></svg><span>Home</span></div>
+                  <div><svg class="ic"><use href="#i-book"/></svg><span>Learn</span></div>
+                  <div><svg class="ic"><use href="#i-cup"/></svg><span>Compete</span></div>
+                  <div class="on"><svg class="ic"><use href="#i-user"/></svg><span>Profile</span></div>
+                </nav>
+                <div class="home"></div>
+              </div>
+            </div>
+            <figcaption data-i18n="px_fig5">05 · Profile &amp; badges</figcaption>
+          </figure>
+
+        </div>
+        <p class="note" data-i18n="px_note">Mobile app for learners — web platform extends the same identity to teacher dashboards and richer coding workflows.</p>
       </div>
     </section>
 
@@ -1994,11 +2552,11 @@
         <div class="university-box">
           <div>
             <strong data-i18n="uni_label">University:</strong>
-            <span data-i18n="uni_val">[UNIVERSITY NAME: October 6 University]</span>
+            <span data-i18n="uni_val">October 6 University</span>
           </div>
           <div>
             <strong data-i18n="supervisor_label">Academic Supervisor:</strong>
-            <span data-i18n="supervisor_val">[SUPERVISOR NAME]</span>
+            <span data-i18n="supervisor_val">Dr. Reham Hussain</span>
           </div>
         </div>
 
@@ -2175,6 +2733,16 @@
         // Video
         video_heading: "See ALMA in 60 seconds",
 
+        // Product Experience (Mobile Samples)
+        px_kick: "PRODUCT EXPERIENCE",
+        px_heading: "The product, live on device",
+        px_fig1: "01 · Onboarding",
+        px_fig2: "02 · Home & progress",
+        px_fig3: "03 · Lesson generation",
+        px_fig4: "04 · Adaptive questions",
+        px_fig5: "05 · Profile & badges",
+        px_note: "Mobile app for learners — web platform extends the same identity to teacher dashboards and richer coding workflows.",
+
         // Who it is for
         who_heading: "For learners, parents, schools and teachers",
         chip_learners: "Learners of any age",
@@ -2194,9 +2762,9 @@
         member_6: "Mohamad Farouk",
         member_7: "Mohamad Ibrahim",
         uni_label: "University:",
-        uni_val: "[UNIVERSITY NAME: October 6 University]",
+        uni_val: "October 6 University",
         supervisor_label: "Academic Supervisor:",
-        supervisor_val: "[SUPERVISOR NAME]",
+        supervisor_val: "Dr. Reham Hussain",
 
         // Final CTA & Feedback
         cta_heading: "Your coding journey starts here.",
@@ -2298,6 +2866,16 @@
         // Video
         video_heading: "شاهد ألما في 60 ثانية",
 
+        // Product Experience (Mobile Samples)
+        px_kick: "تجربة المنتج",
+        px_heading: "شاشات التطبيق على الهاتف مباشرة",
+        px_fig1: "01 · التهيئة والبداية",
+        px_fig2: "02 · الرئيسية والتقدم",
+        px_fig3: "03 · توليد الدروس",
+        px_fig4: "04 · الأسئلة التكيفية",
+        px_fig5: "05 · الملف الشخصي والأوسمة",
+        px_note: "تطبيق الهاتف للمتعلمين — وتتوسع منصة الويب بنفس الهوية للوحة تحكم المعلمين وتجارب البرمجة المتقدمة.",
+
         // Who it is for
         who_heading: "للمتعلمين وأولياء الأمور والمدارس والمعلمين",
         chip_learners: "متعلمون من كل الأعمار",
@@ -2317,9 +2895,9 @@
         member_6: "محمد فاروق",
         member_7: "محمد إبراهيم",
         uni_label: "الجامعة:",
-        uni_val: "[اسم الجامعة: جامعة 6 أكتوبر]",
+        uni_val: "جامعة 6 أكتوبر",
         supervisor_label: "المشرف الأكاديمي:",
-        supervisor_val: "[اسم المشرف الأكاديمي]",
+        supervisor_val: "د. ريهام حسين",
 
         // Final CTA & Feedback
         cta_heading: "رحلتك في البرمجة تبدأ من هنا.",
